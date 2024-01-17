@@ -1,28 +1,43 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <head>
+      <title>SET Game</title>
+    </head>
+    <body>
+      <div class="content">
+        <header></header>
+        <game-deck></game-deck>
+        <main-menu v-if="$store.state.gameStarted == false"></main-menu>
+        <div class="game" v-if="$store.state.gameStarted">
+          <single-player v-if="$store.state.singlePlayerMode != false"></single-player>
+          <two-player v-if="$store.state.singlePlayerMode == false"></two-player>
+        </div>
+        <footer></footer>
+      </div>
+    </body>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import GameDeck from "./components/GameDeck.vue";
+import MainMenu from './components/MainMenu.vue';
+import SinglePlayer from './components/SinglePlayer.vue';
+import TwoPlayer from './components/TwoPlayer.vue'
+
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    "game-deck": GameDeck,
+    "single-player": SinglePlayer,
+    "two-player": TwoPlayer,
+    "main-menu": MainMenu
+  },
+};
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+    font-family: 'Barlow', sans-serif;
 }
 </style>
