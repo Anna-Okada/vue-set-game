@@ -32,7 +32,7 @@ export default {
     "single-player": SinglePlayer,
     "two-player": TwoPlayer,
     "main-menu": MainMenu
-  },
+  }
 };
 </script>
 

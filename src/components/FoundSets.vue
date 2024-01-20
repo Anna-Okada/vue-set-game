@@ -25,19 +25,6 @@ export default {
 </script>
 
 <style scoped>
-/* .found-sets {
-    display: grid;
-    grid-gap: 20px;
-    justify-content: center;
-    margin: 20px;
-}
-.found-set {
-    display: grid;
-    grid-template-columns: repeat(3, 30px);
-    justify-content: center;
-    width: auto;
-    gap: 20px;
-} */
 h2 {
   background: rgba(254, 178, 0, 0.215);
   color: rgb(254, 178, 0);
@@ -51,34 +38,20 @@ h2 {
 }
 #found-sets {
   overflow-x: scroll;
-  min-width: max-content;
   border: solid rgb(255, 223, 150) 2px;
   border-radius: 10px;
 }
 .found-sets {
-  position: relative;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 180px 20px;
   justify-content: center;
 }
 .found-set {
-  justify-items: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 10px;
+  gap: 10px;
 }
 .card {
-  position: absolute;
-  height: 160px;
-  left: auto;
-}
-.card:nth-child(1) {
-  z-index: 1;
-}
-.card:nth-child(2) {
-  z-index: 2;
-  rotate: 4deg;
-}
-.card:nth-child(3) {
-  z-index: 3;
-  rotate: 8deg;
+  width: 5rem;
 }
 </style>

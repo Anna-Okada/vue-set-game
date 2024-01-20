@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import ProgressBar from 'vuejs-progress-bar'
 
+Vue.use(ProgressBar)
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -14,11 +16,10 @@ export default new Vuex.Store({
     p2FoundSets: [],
     isSet: false, // hand is a SET
     hasSet: false, // table has one or more SETs
-    unassistedSetCount: 0, // SETs found without hint
-    player1UnassistedSetCount: 0,
-    player2UnassistedSetCount: 0,
-    player1IncorrectGuesses: 0,
-    player2IncorrectGuesses: 0,
+    p1UnassistedSetCount: 0, // SETs found without hint
+    p2UnassistedSetCount: 0,
+    p1IncorrectGuesses: 0,
+    p2IncorrectGuesses: 0,
     assistedSetCount: 0, // SETs found using hint
     usedHint: false,
     deckEmpty: false,
@@ -29,16 +30,17 @@ export default new Vuex.Store({
     singlePlayerMode: null,
     player1Name: '',
     player2Name: '',
-    player1Turn: true,
+    player1Turn: null,
     gameOver: false,
     playAgain: false,
     gameStarted: false,
+    lastHandWasSet: null,
   },
   getters: {
   },
   mutations: {
-    INITIALIZE_DECK(state, card) {
-      state.deck.push(card);
+    INITIALIZE_DECK(state, deck) {
+      state.deck = deck;
     },
     DEAL_CARD(state) {
       // if there is a matched card on the table, assign its position to the incoming card
@@ -90,7 +92,7 @@ export default new Vuex.Store({
       }
     },
     SHUFFLE_DECK(state) {
-      state.deck.sort(() => (Math.random() > 0.5 ? 1 : -1));
+      state.deck = state.deck.sort(() => (Math.random() > 0.5 ? 1 : -1));
     },
     SHUFFLE_TABLE(state) {
       for (let i = 0; i < 12; i++) {
@@ -144,12 +146,26 @@ export default new Vuex.Store({
     AFTER_CHECK_IF_SET(state) {
       // if hand makes SET
       if (state.isSet == true) {
-        // push the cards from the hand to p1FoundSets array
-        state.p1FoundSets.push(state.hand)
-        // if hint and reveal a set buttons were clicked
+        // set lastHandWasSet to false so that GameStats can display message (div class="isSet")
+        state.lastHandWasSet = true;
+        // if player1's turn, push the cards from the hand to p1FoundSets array
+        if (state.player1Turn == true) {
+          state.p1FoundSets.unshift(state.hand)
+        }
+        // otherwise, push the cards from the hand to p2FoundSets array
+        else if (state.player1Turn == false) {
+          state.p2FoundSets.unshift(state.hand)
+        }
+        // if hint and reveal a set buttons weren't clicked
         if (state.usedHint == false) {
-          // increment unassistedSetCount 
-          state.unassistedSetCount++;
+          // if player 1's turn, increment p1UnassistedSetCount
+          if (state.player1Turn == true) {
+            state.p1UnassistedSetCount++;
+          }
+          // if player 2's turn, increment p2UnassistedSetCount
+          else if (state.player1Turn == false) {
+            state.p2UnassistedSetCount++;
+          }
         }
         // if hint or reveal a set button was clicked
         else if (state.usedHint == true) {
@@ -160,15 +176,30 @@ export default new Vuex.Store({
         for (let i = 0; i < state.hand.length; i++) {
           state.hand[i].matched = true;
         }
+        // trigger END_TURN mutation so turn ends even if it hasn't been 10 seconds
+        this.commit("END_TURN")
       }
       // if hand doesn't make a SET
       else {
-        // display message to user and increment player1IncorrectGuesses
-        alert("not a SET")
-        state.player1IncorrectGuesses++;
+        // set lastHandWasSet to false so that GameStats can display message (div class="isNotSet")
+        state.lastHandWasSet = false;
+        // if player 1's turn, increment p1IncorrectGuesses
+        if (state.player1Turn == true) {
+          state.p1IncorrectGuesses++;
+        }
+        // if player 2's turn, increment p2IncorrectGuesses
+        else {
+          state.p2IncorrectGuesses++;
+        }
+        // trigger END_TURN mutation so turn ends even if it hasn't been 10 seconds
+        this.commit("END_TURN")
+      }
+      // if two player, reset player1Turn to null
+      if (state.singlePlayerMode == false) {
+        state.player1Turn = null;
       }
 
-      // could everything below this point in this method be moved to refresh table?
+      // ***COULD EVERYTHING BELOW THIS POINT BE MOVED TO REFRESH_TABLE?***
 
       // reset the value of selected to false for all cards on table
       for (let i = 0; i < state.table.length; i++) {
@@ -176,7 +207,6 @@ export default new Vuex.Store({
       }
       // reset value of isSet to false
       state.isSet = false;
-
     },
     REFRESH_TABLE(state) {
       // all possible scenarios:
@@ -409,6 +439,7 @@ export default new Vuex.Store({
     },
     SELECT_SINGLE_PLAYER(state) {
       state.singlePlayerMode = true;
+      state.player1Turn = true;
     },
     SELECT_TWO_PLAYER(state) {
       state.singlePlayerMode = false;
@@ -419,6 +450,24 @@ export default new Vuex.Store({
     },
     START_GAME(state) {
       state.gameStarted = true;
+    },
+    START_TURN(state, event) {
+      // if user hit 'a' and it isn't currently someone's turn, start player 1's turn
+      if (event.key == 'a' && state.player1Turn == null) {
+        state.player1Turn = true;
+      }
+      // if user hit 'l' and it isn't currently someone's turn, start player 2's turn
+      else if (event.key == 'l' && state.player1Turn == null) {
+        state.player1Turn = false;
+      }
+      // start 10 second countdown, after which END_TURN mutation is triggered 
+      setTimeout(() => {
+        if (state.player1Turn != null)
+        this.commit("END_TURN");
+      }, 10000);
+    },
+    END_TURN(state) {
+      state.player1Turn = null;
     }
   },
   actions: {

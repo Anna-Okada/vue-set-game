@@ -29,7 +29,7 @@ export default {
 .singlePlayerGame {
     display: grid;
     grid-template-columns: 1fr, 1fr, 1fr, 1fr;
-    grid-template-rows: 12vh 88vh;
+    grid-template-rows: 10vh 83vh;
     grid-template-areas:
         'stats stats stats stats'
         'hand table table found-sets';

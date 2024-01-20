@@ -1,40 +1,56 @@
 <template>
-  <div id="myModal" class="modal" v-show="modalVisible == true">
-    <div class="modal-content">
-      <!-- v-on:submit.prevent="allInfoEntered == true" -->
-      <form id="playerInfoForm" v-on:submit.prevent="allInfoEntered == true" v-show="hideMenu == false">
-        <span class="playerMode">
-          <button @click="selectSinglePlayer">Single Player</button>
-          <button @click="selectTwoPlayer">Two Player</button>
-        </span>
-        <span class="playerNames" v-if="$store.state.singlePlayerMode == false">
-          <input
-            type="text"
-            required="true"
-            placeholder="Player 1 name"
-            v-model="p1"
-          />
-          <input
-            type="text"
-            required="true"
-            placeholder="Player 2 name"
-            v-model="p2"
-          />
-        </span>
-        <button @click="submit" v-if="p1 != '' && p2 != ''">Submit</button>
-      </form>
+  <div class="container">
+    <div class="backgroundCards">
+      <img
+        class="backgroundCard"
+        v-for="card in $store.state.deck.slice(0, 60)"
+        :key="card.url"
+        :src="require(`../assets/set-cards/${card.url}`)"
+      />
+    </div>
+    <div id="myModal" class="modal" v-show="modalVisible == true">
+      <div class="modal-content">
+        <form
+          id="playerInfoForm"
+          v-on:submit.prevent="allInfoEntered == true"
+          v-show="hideMenu == false"
+        >
+          <span class="playerMode">
+            <button @click="selectSinglePlayer">Single Player</button>
+            <button @click="selectTwoPlayer">Two Player</button>
+          </span>
+          <span
+            class="playerNames"
+            v-if="$store.state.singlePlayerMode == false"
+          >
+            <input
+              type="text"
+              required="true"
+              placeholder="Player 1 name"
+              v-model="p1"
+            />
+            <input
+              type="text"
+              required="true"
+              placeholder="Player 2 name"
+              v-model="p2"
+            />
+          </span>
+          <button @click="submit" v-if="p1 != '' && p2 != ''">Submit</button>
+        </form>
 
-      <h2 class="displayNames" v-if="showNames == true">
-        {{ $store.state.player1Name }} and {{ $store.state.player2Name }}, let's
-        play SET!
-      </h2>
-      <button
-        v-if="allInfoEntered == true || $store.state.singlePlayerMode == true"
-        class="start"
-        @click="start"
-      >
-        Start Game
-      </button>
+        <h2 class="displayNames" v-if="showNames == true">
+          {{ $store.state.player1Name }} and {{ $store.state.player2Name }},
+          let's play SET!
+        </h2>
+        <button
+          v-if="allInfoEntered == true || $store.state.singlePlayerMode == true"
+          class="start"
+          @click="start"
+        >
+          Start Game
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -50,6 +66,7 @@ export default {
       allInfoEntered: false,
       hideMenu: false,
       clicked: false,
+      backgroundCards: [],
     };
   },
   methods: {
@@ -78,6 +95,13 @@ export default {
 </script>
 
 <style scoped>
+.backgroundCards {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+}
+.backgroundCard {
+  width: 97%;
+}
 .playerMode,
 .playerNames,
 .displayNames {
@@ -88,9 +112,9 @@ export default {
 }
 h2 {
   color: rgb(254, 178, 0);
-    font-size: 24px;
-    text-transform: uppercase;
-    text-align: center;
+  font-size: 24px;
+  text-transform: uppercase;
+  text-align: center;
 }
 button {
   font-size: 18px;
@@ -108,32 +132,21 @@ button:focus {
 }
 .modal {
   position: fixed;
-  /* Stay in place */
   z-index: 1;
-  /* Sit on top */
-  padding-top: 100px;
-  /* Location of the box */
+  padding-top: 250px;
   left: 0;
   top: 0;
   width: 100%;
-  /* Full width */
   height: 100%;
-  /* Full height */
-  overflow: auto;
-  /* Enable scroll if needed */
-  background-color: rgb(0, 0, 0);
-  /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4);
-  /* Black w/ opacity */
 }
-
-/* Modal Content */
 .modal-content {
   background-color: #fefefe;
   margin: auto;
   padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
+  border: 1px solid rgb(254, 178, 0);
+  border-radius: 5px;
+  width: 50%;
   text-align: center;
 }
 </style>

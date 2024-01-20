@@ -1,9 +1,9 @@
 <template>
   <div id="twoPlayerGame" class="twoPlayer">
-      <game-stats></game-stats>
-      <game-table></game-table>
-      <found-sets></found-sets>
-      <p2-found-sets></p2-found-sets>
+    <game-stats></game-stats>
+    <game-table></game-table>
+    <found-sets></found-sets>
+    <p2-found-sets></p2-found-sets>
   </div>
 </template>
 
@@ -20,30 +20,35 @@ export default {
     "found-sets": FoundSets,
     "p2-found-sets": P2FoundSets,
   },
+  data() {
+    return {};
+  },
+  
 };
 </script>
 
 <style scoped>
 .twoPlayer {
-    display: grid;
-    grid-template-columns: 1fr, 1fr, 1fr, 1fr;
-    grid-template-rows: 12vh 88vh;
-    grid-template-areas:
-        'stats stats stats stats'
-        'p1-found-sets table table p2-found-sets';
-    gap: 10px;
-    padding: 10px;
+  display: grid;
+  grid-template-rows: 10vh 83vh;
+  grid-template-areas:
+    "stats stats stats stats"
+    "p1-found-sets table table p2-found-sets";
+  gap: 10px;
+  padding: 10px;
 }
 #stats {
-    grid-area: stats;
+  grid-area: stats;
 }
 #table {
-    grid-area: table;
+  grid-area: table;
 }
 #found-sets {
-    grid-area: p1-found-sets;
+  grid-area: p1-found-sets;
+  grid-column: 1 / 2;
 }
 #p2FoundSets {
-    grid-area: p2-found-sets;
+  grid-area: p2-found-sets;
+  grid-column: 4 / 5;
 }
 </style>

@@ -63,7 +63,7 @@ export default {
               shading: this.deck.shading,
               position: -1,
               selected: false,
-              matched: false, 
+              matched: false,
               revealed: false,
             });
           }
@@ -71,13 +71,9 @@ export default {
       }
     }
     // fills the empty cards array in state with a full deck of cards
-    for (let i = 0; i < 81; i++) {
-      this.$store.commit("INITIALIZE_DECK", this.deck[i]);
-    }
+    this.$store.commit("INITIALIZE_DECK", this.deck);
     // shuffles deck
-    for (let i = 0; i < 81; i++) {
-      this.$store.commit("SHUFFLE_DECK", this.deck);
-    }
+    this.$store.commit("SHUFFLE_DECK", this.deck);
   },
 };
 </script>

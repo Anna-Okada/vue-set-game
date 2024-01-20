@@ -4,8 +4,8 @@
       <button @click="shuffleCards">Shuffle</button>
       <button @click="addThreeCardsToTable">Add 3 cards</button>
       <button @click="checkIfSet">Check if SET</button>
-      <button @click="findSets">Hint</button>
-      <button @click="revealSet">Reveal a SET</button>
+      <button @click="findSets" v-if="$store.state.singlePlayerMode != false">Hint</button>
+      <button @click="revealSet" v-if="$store.state.singlePlayerMode != false">Reveal a SET</button>
     </div>
     <div class="table-cards">
       <span
@@ -28,7 +28,9 @@ export default {
   },
   methods: {
     selectCard(card) {
-      this.$store.commit("SELECT_CARD", card);
+      if (this.$store.state.player1Turn != null) {
+        this.$store.commit("SELECT_CARD", card);
+      }
     },
     shuffleCards() {
       this.$store.commit("SHUFFLE_TABLE");
@@ -64,7 +66,7 @@ export default {
   display: grid;
   grid-template-columns: repeat(5, auto);
   gap: 10px;
-  margin: 20px;
+  margin-top: 15px;
   justify-content: center;
 }
 /*
@@ -87,18 +89,23 @@ button:hover {
   color: rgb(0, 97, 254);
 }
 .table-cards {
-  display: grid;
+  /* display: grid;
   grid-template-columns: repeat(4, 130px);
   grid-template-rows: repeat(3, auto);
   grid-gap: 20px;
   justify-content: center;
   margin-top: 0px;
-  margin-bottom: 20px;
+  margin-bottom: 20px; */
+  width: auto;
+  height: 600px;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-evenly;
+  align-content: space-around;
 }
 .cardSelected {
   border: solid rgba(254, 178, 0) 5px;
 }
-
 .cardRevealed {
   border: dashed rgb(0, 97, 254) 5px;
 }

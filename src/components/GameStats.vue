@@ -4,16 +4,27 @@
       class="singlePlayerStats"
       v-show="$store.state.singlePlayerMode != false"
     >
-      <h2>SETs found without hint: {{ unassistedSets }}</h2>
-      <h2>Incorrect guesses: {{ incorrectGuesses }}</h2>
+      <h2>SETs found without hint: {{ $store.state.p1UnassistedSetCount }}</h2>
+      <h2>Incorrect guesses: {{ $store.state.p1IncorrectGuesses }}</h2>
       <h2>Total SETs found: {{ totalSets }}</h2>
     </div>
     <div class="twoPlayerStats" v-show="$store.state.singlePlayerMode == false">
-      <h2 :class="{ activeTurn: $store.state.player1Turn == true }">
-        {{ $store.state.player1Name }}: {{ player1Score }}
+      <h2
+        :class="{ activeTurn: $store.state.player1Turn == true }"
+        id="p1score"
+      >
+        {{ $store.state.player1Name }}: {{ $store.state.p1UnassistedSetCount }}
       </h2>
-      <h2 :class="{ activeTurn: $store.state.player1Turn == false }">
-        {{ $store.state.player2Name }}: {{ player2Score }}
+      <div class="timer">
+        <div class="timerBar" v-if="$store.state.player1Turn != null">
+          <div class="timeRemaining"></div>
+        </div>
+      </div>
+      <h2
+        :class="{ activeTurn: $store.state.player1Turn == false }"
+        id="p2score"
+      >
+        {{ $store.state.player2Name }}: {{ $store.state.p2UnassistedSetCount }}
       </h2>
     </div>
   </div>
@@ -22,34 +33,59 @@
 <script>
 export default {
   computed: {
-    unassistedSets() {
-      return this.$store.state.unassistedSetCount;
-    },
-    incorrectGuesses() {
-      return this.$store.state.player1IncorrectGuesses;
-    },
     totalSets() {
       return this.$store.state.p1FoundSets.length;
     },
-    player1Score() {
-      return (
-        this.$store.state.player1UnassistedSetCount -
-        this.$store.state.player1IncorrectGuesses
-      );
+  },
+  data() {
+    return {};
+  },
+  methods: {
+    keyUpToStartTurn(event) {
+      this.$store.commit("START_TURN", event);
     },
-    player2Score() {
-      return (
-        this.$store.state.player2UnassistedSetCount -
-        this.$store.state.player2IncorrectGuesses
-      );
-    },
+  },
+  mounted() {
+    // *** WHY DOES THIS WORK? ***
+    let self = this;
+    window.addEventListener("keyup", function (event) {
+      self.keyUpToStartTurn(event);
+    });
   },
 };
 </script>
 
 <style scoped>
+.timer {
+  grid-area: timer;
+}
+.timerBar {
+  width: 100%;
+  height: 30px;
+  position: relative;
+  background-color: white;
+}
+.timeRemaining {
+  background-color: rgb(254, 178, 0);
+  width: 100%;
+  height: 30px;
+  position: absolute;
+  animation-name: timer;
+  animation-duration: 10s;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+@keyframes timer {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
 .activeTurn {
-  border: solid orange 2px;
+  border: solid rgb(254, 178, 0) 2px;
+  border-radius: 5px;
 }
 .singlePlayerStats {
   display: grid;
@@ -57,16 +93,21 @@ export default {
 }
 .twoPlayerStats {
   display: grid;
-  grid-template-columns: repeat(2, auto);
+  grid-template-areas: "p1 timer p2";
+  align-items: center;
+  gap: 20px;
 }
-.singlePlayerStats > h2,
-.twoPlayerStats > h2 {
+#p1Score {
+  grid-area: p1;
+}
+#p2Score {
+  grid-area: p2;
+}
+h2 {
   color: rgb(254, 178, 0);
-  padding: 10px;
   font-size: 24px;
   text-transform: uppercase;
   text-align: center;
-  border-radius: 10px;
 }
 #stats {
   background: rgba(254, 178, 0, 0.215);
