@@ -35,6 +35,7 @@ export default new Vuex.Store({
     playAgain: false,
     gameStarted: false,
     lastHandWasSet: null,
+    tutorialComplete: false,
   },
   getters: {
   },
@@ -176,8 +177,10 @@ export default new Vuex.Store({
         for (let i = 0; i < state.hand.length; i++) {
           state.hand[i].matched = true;
         }
-        // trigger END_TURN mutation so turn ends even if it hasn't been 10 seconds
-        this.commit("END_TURN")
+        // if two player, trigger END_TURN mutation so turn ends even if it hasn't been 10 seconds
+        if (state.singlePlayerMode == false) {
+          this.commit("END_TURN")
+        }
       }
       // if hand doesn't make a SET
       else {
@@ -191,8 +194,10 @@ export default new Vuex.Store({
         else {
           state.p2IncorrectGuesses++;
         }
-        // trigger END_TURN mutation so turn ends even if it hasn't been 10 seconds
-        this.commit("END_TURN")
+        // if 2 player, trigger END_TURN mutation so turn ends even if it hasn't been 10 seconds
+        if (state.singlePlayerMode == false) {
+          this.commit("END_TURN")
+        }
       }
       // if two player, reset player1Turn to null
       if (state.singlePlayerMode == false) {
@@ -463,11 +468,14 @@ export default new Vuex.Store({
       // start 10 second countdown, after which END_TURN mutation is triggered 
       setTimeout(() => {
         if (state.player1Turn != null)
-        this.commit("END_TURN");
+          this.commit("END_TURN");
       }, 10000);
     },
     END_TURN(state) {
       state.player1Turn = null;
+    },
+    SKIP_TUTORIAL(state) {
+      state.tutorialComplete = true;
     }
   },
   actions: {

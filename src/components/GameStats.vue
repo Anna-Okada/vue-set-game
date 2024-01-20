@@ -39,19 +39,7 @@ export default {
   },
   data() {
     return {};
-  },
-  methods: {
-    keyUpToStartTurn(event) {
-      this.$store.commit("START_TURN", event);
-    },
-  },
-  mounted() {
-    // *** WHY DOES THIS WORK? ***
-    let self = this;
-    window.addEventListener("keyup", function (event) {
-      self.keyUpToStartTurn(event);
-    });
-  },
+  }
 };
 </script>
 

@@ -4,8 +4,12 @@
       <button @click="shuffleCards">Shuffle</button>
       <button @click="addThreeCardsToTable">Add 3 cards</button>
       <button @click="checkIfSet">Check if SET</button>
-      <button @click="findSets" v-if="$store.state.singlePlayerMode != false">Hint</button>
-      <button @click="revealSet" v-if="$store.state.singlePlayerMode != false">Reveal a SET</button>
+      <button @click="findSets" v-if="$store.state.singlePlayerMode != false">
+        Hint
+      </button>
+      <button @click="revealSet" v-if="$store.state.singlePlayerMode != false">
+        Reveal a SET
+      </button>
     </div>
     <div class="table-cards">
       <span
@@ -38,6 +42,18 @@ export default {
     addThreeCardsToTable() {
       this.$store.commit("ADD_THREE_CARDS_TO_TABLE");
     },
+    // *** how can we merge the following two methods? ***
+    spacebarToCheckIfSet(event) {
+      if (event.key == " ") {
+        if (this.$store.state.hand.length == 3) {
+          this.$store.commit("CHECK_IF_SET");
+          this.$store.commit("AFTER_CHECK_IF_SET");
+          this.$store.commit("REFRESH_TABLE");
+        } else {
+          alert("You must first select 3 cards!");
+        }
+      }
+    },
     checkIfSet() {
       if (this.$store.state.hand.length == 3) {
         this.$store.commit("CHECK_IF_SET");
@@ -53,6 +69,12 @@ export default {
     revealSet() {
       this.$store.commit("REVEAL_A_SET");
     },
+  },
+  mounted() {
+    let self = this;
+    window.addEventListener("keyup", function (event) {
+      self.spacebarToCheckIfSet(event);
+    });
   },
 };
 </script>

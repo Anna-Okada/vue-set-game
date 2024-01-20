@@ -8,8 +8,8 @@
         :src="require(`../assets/set-cards/${card.url}`)"
       />
     </div>
-    <div id="myModal" class="modal" v-show="modalVisible == true">
-      <div class="modal-content">
+    <div class="modal" v-show="modalVisible == true">
+      <div class="gameOptions">
         <form
           id="playerInfoForm"
           v-on:submit.prevent="allInfoEntered == true"
@@ -66,7 +66,7 @@ export default {
       allInfoEntered: false,
       hideMenu: false,
       clicked: false,
-      backgroundCards: [],
+      tutorialComplete: false,
     };
   },
   methods: {
@@ -140,7 +140,7 @@ button:focus {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.4);
 }
-.modal-content {
+.gameOptions {
   background-color: #fefefe;
   margin: auto;
   padding: 20px;
