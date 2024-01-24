@@ -9,8 +9,13 @@
         <game-deck></game-deck>
         <main-menu v-if="$store.state.gameStarted == false"></main-menu>
         <div class="game" v-if="$store.state.gameStarted">
-          <single-player v-if="$store.state.singlePlayerMode != false"></single-player>
-          <two-player v-if="$store.state.singlePlayerMode == false"></two-player>
+          <single-player
+            v-if="$store.state.playerMode == 'singlePlayer'"
+          ></single-player>
+          <two-player
+            v-if="$store.state.playerMode == 'twoPlayer'"
+          ></two-player>
+          <human-versus-bot v-if="$store.state.playerMode == 'bot'"></human-versus-bot>
         </div>
         <footer></footer>
       </div>
@@ -20,10 +25,10 @@
 
 <script>
 import GameDeck from "./components/GameDeck.vue";
-import MainMenu from './components/MainMenu.vue';
-import SinglePlayer from './components/SinglePlayer.vue';
-import TwoPlayer from './components/TwoPlayer.vue'
-
+import HumanVersusBot from "./components/HumanVersusBot.vue";
+import MainMenu from "./components/MainMenu.vue";
+import SinglePlayer from "./components/SinglePlayer.vue";
+import TwoPlayer from "./components/TwoPlayer.vue";
 
 export default {
   name: "App",
@@ -31,13 +36,14 @@ export default {
     "game-deck": GameDeck,
     "single-player": SinglePlayer,
     "two-player": TwoPlayer,
-    "main-menu": MainMenu
-  }
+    "main-menu": MainMenu,
+    "human-versus-bot": HumanVersusBot,
+  },
 };
 </script>
 
 <style>
 #app {
-    font-family: 'Barlow', sans-serif;
+  font-family: "Barlow", sans-serif;
 }
 </style>

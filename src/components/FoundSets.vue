@@ -1,7 +1,7 @@
 <template>
   <section id="found-sets">
-    <h2 v-if="$store.state.singlePlayerMode != false">Found SETs:</h2>
-    <h2 v-if="$store.state.singlePlayerMode == false">
+    <h2 v-if="$store.state.playerMode == 'singlePlayer'">Found SETs:</h2>
+    <h2 v-if="$store.state.playerMode == 'twoPlayer' || $store.state.playerMode == 'bot'">
       {{ $store.state.player1Name }}'s SETs:
     </h2>
     <div class="found-sets">

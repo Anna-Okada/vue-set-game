@@ -27,7 +27,7 @@ export default new Vuex.Store({
     setsInTable: 0,
     revealedSets: [],
     timesClickedRevealSets: 0,
-    singlePlayerMode: null,
+    playerMode: '',
     player1Name: '',
     player2Name: '',
     player1Turn: null,
@@ -147,7 +147,7 @@ export default new Vuex.Store({
     AFTER_CHECK_IF_SET(state) {
       // if hand makes SET
       if (state.isSet == true) {
-        // set lastHandWasSet to false so that GameStats can display message (div class="isSet")
+        // set lastHandWasSet to true so that GameStats can display message (div class="isSet")
         state.lastHandWasSet = true;
         // if player1's turn, push the cards from the hand to p1FoundSets array
         if (state.player1Turn == true) {
@@ -177,13 +177,15 @@ export default new Vuex.Store({
         for (let i = 0; i < state.hand.length; i++) {
           state.hand[i].matched = true;
         }
-        // if two player, trigger END_TURN mutation so turn ends even if it hasn't been 10 seconds
-        if (state.singlePlayerMode == false) {
+        // if not single player, trigger END_TURN mutation so turn ends even if it hasn't been 10 seconds
+        if (state.playerMode != "singlePlayer") {
           this.commit("END_TURN")
         }
       }
       // if hand doesn't make a SET
       else {
+        // temporary alert:
+        alert("Not a SET! Try again :)")
         // set lastHandWasSet to false so that GameStats can display message (div class="isNotSet")
         state.lastHandWasSet = false;
         // if player 1's turn, increment p1IncorrectGuesses
@@ -194,14 +196,18 @@ export default new Vuex.Store({
         else {
           state.p2IncorrectGuesses++;
         }
-        // if 2 player, trigger END_TURN mutation so turn ends even if it hasn't been 10 seconds
-        if (state.singlePlayerMode == false) {
+        // if not single player, trigger END_TURN mutation so turn ends even if it hasn't been 10 seconds
+        if (state.playerMode != "singlePlayer") {
           this.commit("END_TURN")
         }
       }
-      // if two player, reset player1Turn to null
-      if (state.singlePlayerMode == false) {
+      // if not single player, reset player1Turn to null
+      if (state.playerMode != "singlePlayer") {
         state.player1Turn = null;
+      }
+      // if in botMode, trigger START_BOT_TIMER
+      if (state.playerMode == 'bot') {
+        this.commit("START_BOT_TIMER");
       }
 
       // ***COULD EVERYTHING BELOW THIS POINT BE MOVED TO REFRESH_TABLE?***
@@ -339,6 +345,10 @@ export default new Vuex.Store({
         // refresh table
         this.commit("REFRESH_TABLE", state)
       }
+      // if in botMode, trigger START_BOT_TIMER
+      if (state.playerMode == 'bot') {
+        this.commit("START_BOT_TIMER");
+      }
     },
     CHECK_FOR_SETS(state) {
       this.commit("GENERATE_ALL_COMBOS_OF_POSITIONS", state)
@@ -443,15 +453,23 @@ export default new Vuex.Store({
       }
     },
     SELECT_SINGLE_PLAYER(state) {
-      state.singlePlayerMode = true;
+      state.playerMode = "singlePlayer";
       state.player1Turn = true;
     },
     SELECT_TWO_PLAYER(state) {
-      state.singlePlayerMode = false;
+      state.playerMode = "twoPlayer";
+    },
+    SELECT_BOT_MODE(state) {
+      state.playerMode = "bot";
     },
     ENTER_NAMES(state, names) {
       state.player1Name = names.p1;
-      state.player2Name = names.p2;
+      if (state.playerMode == "twoPlayer") {
+        state.player2Name = names.p2;
+      }
+      else if (state.playerMode == 'bot') {
+        state.player2Name = "Computer";
+      }
     },
     START_GAME(state) {
       state.gameStarted = true;
@@ -461,11 +479,11 @@ export default new Vuex.Store({
       if (event.key == 'a' && state.player1Turn == null) {
         state.player1Turn = true;
       }
-      // if user hit 'l' and it isn't currently someone's turn, start player 2's turn
-      else if (event.key == 'l' && state.player1Turn == null) {
+      // if user hit 'l', it isn't currently someone's turn, and it's not botMode, start player 2's turn
+      else if (event.key == 'l' && state.player1Turn == null && state.playerMode != 'bot') {
         state.player1Turn = false;
       }
-      // start 10 second countdown, after which END_TURN mutation is triggered 
+      // start 10 second countdown, after which END_TURN mutation is automatically triggered 
       setTimeout(() => {
         if (state.player1Turn != null)
           this.commit("END_TURN");
@@ -473,6 +491,89 @@ export default new Vuex.Store({
     },
     END_TURN(state) {
       state.player1Turn = null;
+      if (state.playerMode == 'bot') {
+        this.commit("START_BOT_TIMER");
+      }
+    },
+    START_BOT_TIMER(state) {
+      if (state.player1Turn == null) {
+        setTimeout(() => {
+          this.commit("BOT_FINDS_SET")
+        }, 1000)
+      }
+    },
+    BOT_FINDS_SET(state) {
+      if (state.player1Turn == null) {
+        state.player1Turn = false;
+        state.setsInTable = 0;
+        state.revealedSets = [];
+        state.timesClickedRevealSets++
+        // set revealed, selected, and matched to initial value of false for all cards
+        for (let i = 0; i < state.table.length; i++) {
+          state.table[i].revealed = false;
+          state.table[i].selected = false;
+          state.table[i].matched = false; // ***DO I EVEN NEED THIS?***
+        }
+        // generate all possible combos of positions and populate positionsArray with those combos
+        this.commit("GENERATE_ALL_COMBOS_OF_POSITIONS", state)
+        // iterate through positionsArray
+        for (let i = 0; i < state.positionsArray.length; i++) {
+          // fill hand with cards that match the positions in any given element of positionsArray
+          for (let j = 0; j < 3; j++) {
+            state.hand.push(state.table[state.positionsArray[i][j] - 1])
+          }
+          // check if that hand makes a SET
+          this.commit("CHECK_IF_SET")
+          // if it does, increment setsInTable and push that hand to revealedSets
+          if (state.isSet == true) {
+            state.setsInTable++;
+            state.revealedSets.push([state.hand[0], state.hand[1], state.hand[2]])
+          }
+          // if the hand doesn't make a set, set isSet and hasSet to false and clear the hand
+          state.isSet = false;
+          state.hand = [];
+        }
+        // if there are any SETs in revealedSets, select one SET
+        if (state.revealedSets.length > 0) {
+          state.hasSet = true;
+          for (let j = 0; j < 3; j++) {
+            state.table[state.revealedSets[0][j].position - 1].selected = true;
+          }
+        }
+        else if (state.revealedSets.length == 0) {
+          state.hasSet = false;
+        }
+        // push selected cards to hand
+        for (let i = 0; i < state.table.length; i++) {
+          if (state.table[i].selected == true) {
+            state.table[i].matched = true;
+            state.hand.push(state.table[i]);
+          }
+        }
+        // clear positionsArray because its contents depend on the length of the table, which varies
+        state.positionsArray = [];
+        // if there's a SET in the hand, start the timer to trigger BOT_TAKES_SET
+        if (state.hand.length == 3) {
+          setTimeout(() => {
+            this.commit("BOT_TAKES_SET");
+          }, 1000);
+        }
+        else {
+          // reset player1Turn to null
+          state.player1Turn = null;
+        }
+      }
+    },
+    BOT_TAKES_SET(state) {
+      // push the selected cards to p2Found SETs (aka computer's found SETs)
+      state.p2FoundSets.unshift(state.hand);
+      // increment p2FoundSets
+      state.p2UnassistedSetCount++;
+      // reset player1Turn to null
+      state.player1Turn = null;
+      this.commit("REFRESH_TABLE");
+      // start timer again
+      this.commit("START_BOT_TIMER")
     },
     SKIP_TUTORIAL(state) {
       state.tutorialComplete = true;

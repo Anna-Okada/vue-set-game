@@ -4,10 +4,10 @@
       <button @click="shuffleCards">Shuffle</button>
       <button @click="addThreeCardsToTable">Add 3 cards</button>
       <button @click="checkIfSet">Check if SET</button>
-      <button @click="findSets" v-if="$store.state.singlePlayerMode != false">
+      <button @click="findSets" v-if="$store.state.playerMode != 'twoPlayer'">
         Hint
       </button>
-      <button @click="revealSet" v-if="$store.state.singlePlayerMode != false">
+      <button @click="revealSet" v-if="$store.state.playerMode != 'twoPlayer'">
         Reveal a SET
       </button>
     </div>

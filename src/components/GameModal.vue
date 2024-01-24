@@ -1,13 +1,5 @@
 <template>
   <div class="container">
-    <div class="backgroundCards">
-      <img
-        class="backgroundCard"
-        v-for="card in $store.state.deck.slice(0, 60)"
-        :key="card.url"
-        :src="require(`../assets/set-cards/${card.url}`)"
-      />
-    </div>
     <div class="modal" v-show="modalVisible == true">
       <div class="gameOptions">
         <form
@@ -18,10 +10,11 @@
           <span class="playerMode">
             <button @click="selectSinglePlayer">Single Player</button>
             <button @click="selectTwoPlayer">Two Player</button>
+            <button @click="selectBotMode">Play Against the Computer</button>
           </span>
           <span
             class="playerNames"
-            v-if="$store.state.singlePlayerMode == false"
+            v-if="$store.state.playerMode == 'twoPlayer'"
           >
             <input
               type="text"
@@ -36,7 +29,25 @@
               v-model="p2"
             />
           </span>
-          <button @click="submit" v-if="p1 != '' && p2 != ''">Submit</button>
+          <span class="playerName" v-if="$store.state.playerMode == 'bot'">
+            <input
+              type="text"
+              required="true"
+              placeholder="Player 1 name"
+              v-model="p1"
+            />
+          </span>
+          <button
+            @click="submit"
+            v-if="
+              ($store.state.playerMode == 'twoPlayer' &&
+                p1 != '' &&
+                p2 != '') ||
+              ($store.state.playerMode == 'bot' && p1 != '')
+            "
+          >
+            Submit
+          </button>
         </form>
 
         <h2 class="displayNames" v-if="showNames == true">
@@ -44,7 +55,7 @@
           let's play SET!
         </h2>
         <button
-          v-if="allInfoEntered == true || $store.state.singlePlayerMode == true"
+          v-if="allInfoEntered == true || $store.state.playerMode == 'singlePlayer'"
           class="start"
           @click="start"
         >
@@ -80,6 +91,9 @@ export default {
     selectTwoPlayer() {
       this.$store.commit("SELECT_TWO_PLAYER");
     },
+    selectBotMode() {
+      this.$store.commit("SELECT_BOT_MODE");
+    },
     submit() {
       this.showNames = true;
       this.allInfoEntered = true;
@@ -95,13 +109,6 @@ export default {
 </script>
 
 <style scoped>
-.backgroundCards {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-}
-.backgroundCard {
-  width: 97%;
-}
 .playerMode,
 .playerNames,
 .displayNames {

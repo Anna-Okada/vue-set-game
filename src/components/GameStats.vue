@@ -2,13 +2,19 @@
   <div id="stats" class="stats">
     <div
       class="singlePlayerStats"
-      v-show="$store.state.singlePlayerMode != false"
+      v-show="$store.state.playerMode == 'singlePlayer'"
     >
       <h2>SETs found without hint: {{ $store.state.p1UnassistedSetCount }}</h2>
       <h2>Incorrect guesses: {{ $store.state.p1IncorrectGuesses }}</h2>
       <h2>Total SETs found: {{ totalSets }}</h2>
     </div>
-    <div class="twoPlayerStats" v-show="$store.state.singlePlayerMode == false">
+    <div
+      class="twoPlayerStats"
+      v-show="
+        $store.state.playerMode == 'twoPlayer' ||
+        $store.state.playerMode == 'bot'
+      "
+    >
       <h2
         :class="{ activeTurn: $store.state.player1Turn == true }"
         id="p1score"
@@ -16,7 +22,15 @@
         {{ $store.state.player1Name }}: {{ $store.state.p1UnassistedSetCount }}
       </h2>
       <div class="timer">
-        <div class="timerBar" v-if="$store.state.player1Turn != null">
+        <div
+          class="timerBar"
+          v-if="
+            ($store.state.playerMode == 'twoPlayer' &&
+              $store.state.player1Turn != null) ||
+            ($store.state.playerMode == 'bot' &&
+              $store.state.player1Turn == true)
+          "
+        >
           <div class="timeRemaining"></div>
         </div>
       </div>
@@ -39,7 +53,7 @@ export default {
   },
   data() {
     return {};
-  }
+  },
 };
 </script>
 

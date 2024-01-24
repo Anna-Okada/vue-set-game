@@ -1,6 +1,16 @@
 <template>
   <div id="mainMenu">
-    <game-tutorial v-if="$store.state.tutorialComplete == false"></game-tutorial>
+    <div class="backgroundCards">
+      <img
+        class="backgroundCard"
+        v-for="card in $store.state.deck.slice(0, 60)"
+        :key="card.url"
+        :src="require(`../assets/set-cards/${card.url}`)"
+      />
+    </div>
+    <game-tutorial
+      v-if="$store.state.tutorialComplete == false"
+    ></game-tutorial>
     <game-modal v-else></game-modal>
   </div>
 </template>
@@ -18,4 +28,11 @@ export default {
 </script>
 
 <style scoped>
+.backgroundCards {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+}
+.backgroundCard {
+  width: 97%;
+}
 </style>
