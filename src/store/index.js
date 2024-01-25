@@ -35,7 +35,10 @@ export default new Vuex.Store({
     lastHandWasSet: null,
     tutorialComplete: false,
     difficulty: '',
-    botTime: 0,
+    botInterval: 0,
+    turnLength: 10000,
+    turnTimer: null,
+    botTimer: null,
   },
   getters: {
   },
@@ -235,10 +238,6 @@ export default new Vuex.Store({
         for (let i = 0; i < state.hand.length; i++) {
           state.hand[i].matched = true;
         }
-        // if not single player, trigger END_TURN mutation so turn ends even if it hasn't been 10 seconds
-        if (state.playerMode != "singlePlayer") {
-          this.commit("END_TURN")
-        }
       }
       // if hand doesn't make a SET
       else {
@@ -254,10 +253,10 @@ export default new Vuex.Store({
         else {
           state.p2IncorrectGuesses++;
         }
-        // if not single player, trigger END_TURN mutation so turn ends even if it hasn't been 10 seconds
-        if (state.playerMode != "singlePlayer") {
-          this.commit("END_TURN")
-        }
+      }
+      // if not single player, trigger END_TURN mutation so turn ends even if it hasn't been 10 seconds
+      if (state.playerMode != "singlePlayer") {
+        this.commit("END_TURN")
       }
       // if not single player, reset player1Turn to null
       if (state.playerMode != "singlePlayer") {
@@ -268,7 +267,7 @@ export default new Vuex.Store({
         this.commit("START_BOT_TIMER");
       }
 
-      // ***COULD EVERYTHING BELOW THIS POINT BE MOVED TO REFRESH_TABLE?***
+      // *** COULD EVERYTHING BELOW THIS POINT BE MOVED TO REFRESH_TABLE? ***
 
       // reset the value of selected to false for all cards on table
       for (let i = 0; i < state.table.length; i++) {
@@ -543,23 +542,32 @@ export default new Vuex.Store({
       else if (event.key == 'l' && state.player1Turn == null && state.playerMode != 'bot') {
         state.player1Turn = false;
       }
-      // start 10 second countdown, after which END_TURN mutation is automatically triggered 
-      setTimeout(() => {
-        if (state.player1Turn != null)
-          this.commit("END_TURN");
-      }, 10000);
+      // start 10 second countdown, after which END_TURN mutation is automatically triggered
+      // unless CHECK_IF_SET is run, in which case the turnTimer will be cleared
+      state.turnTimer = setTimeout(() => {
+        this.commit("END_TURN");
+      }, state.turnLength);
+      if (state.player1Turn != null) {
+        state.turnTimer;
+      }
+      // clear botTimer
+      clearTimeout(state.botTimer);
     },
     END_TURN(state) {
+      clearTimeout(state.turnTimer)
       state.player1Turn = null;
+      this.commit("REFRESH_TABLE")
       if (state.playerMode == 'bot') {
         this.commit("START_BOT_TIMER");
       }
     },
     START_BOT_TIMER(state) {
+      state.botTimer = setTimeout(() => {
+        this.commit("BOT_FINDS_SET")
+      }, state.botInterval)
+
       if (state.player1Turn == null) {
-        setTimeout(() => {
-          this.commit("BOT_FINDS_SET")
-        }, state.botTime)
+        state.botTimer;
       }
     },
     BOT_FINDS_SET(state) {
@@ -672,16 +680,16 @@ export default new Vuex.Store({
     SELECT_DIFFICULTY(state, difficulty) {
       state.difficulty = difficulty;
       if (state.difficulty == "easy") {
-        state.botTime = 30000;
+        state.botInterval = 30000;
       }
       if (state.difficulty == "moderate") {
-        state.botTime = 20000;
+        state.botInterval = 20000;
       }
       if (state.difficulty == "hard") {
-        state.botTime = 10000;
+        state.botInterval = 10000;
       }
       if (state.difficulty == "insane") {
-        state.botTime = 5000;
+        state.botInterval = 5000;
       }
     }
   },

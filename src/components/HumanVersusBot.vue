@@ -13,7 +13,7 @@ import GameTable from "./GameTable.vue";
 import GameStats from "./GameStats.vue";
 import FoundSets from "./FoundSets.vue";
 import P2FoundSets from "./P2FoundSets.vue";
-import GameOver from './GameOver.vue';
+import GameOver from "./GameOver.vue";
 
 export default {
   components: {
@@ -23,18 +23,13 @@ export default {
     "p2-found-sets": P2FoundSets,
     "game-over": GameOver,
   },
-  data() {
-    return {};
-  },
-  created() {
-    this.$store.commit("START_BOT_TIMER");
-  },
   methods: {
     keyUpToStartTurn(event) {
       this.$store.commit("START_TURN", event);
     },
   },
   mounted() {
+    this.$store.commit("START_BOT_TIMER");
     // *** WHY DOES THIS WORK? ***
     let self = this;
     window.addEventListener("keyup", function (event) {
