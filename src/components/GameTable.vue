@@ -3,7 +3,6 @@
     <div class="table-buttons">
       <button @click="shuffleCards">Shuffle</button>
       <button @click="addThreeCardsToTable">Add 3 cards</button>
-      <button @click="checkIfSet">Check if SET</button>
       <button @click="findSets" v-if="$store.state.playerMode != 'twoPlayer'">
         Hint
       </button>
@@ -52,15 +51,6 @@ export default {
         } else {
           alert("You must first select 3 cards!");
         }
-      }
-    },
-    checkIfSet() {
-      if (this.$store.state.hand.length == 3) {
-        this.$store.commit("CHECK_IF_SET");
-        this.$store.commit("AFTER_CHECK_IF_SET");
-        this.$store.commit("REFRESH_TABLE");
-      } else {
-        alert("You must first select 3 cards!");
       }
     },
     findSets() {

@@ -8,7 +8,6 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   strict: true,
   state: {
-    nextCard: {}, // always set to state.deck[state.deck.length - 1] unless state.deck.length < 1?
     deck: [],
     table: [],
     hand: [],
@@ -32,16 +31,75 @@ export default new Vuex.Store({
     player2Name: '',
     player1Turn: null,
     gameOver: false,
-    playAgain: false,
     gameStarted: false,
     lastHandWasSet: null,
     tutorialComplete: false,
+    difficulty: '',
+    botTime: 0,
   },
   getters: {
   },
   mutations: {
-    INITIALIZE_DECK(state, deck) {
-      state.deck = deck;
+    CREATE_DECK(state) {
+      var card = {};
+      for (let i = 1; i < 4; i++) {
+        for (let j = 1; j < 4; j++) {
+          for (let k = 1; k < 4; k++) {
+            for (let l = 1; l < 4; l++) {
+              card.number = i;
+              card.color = j;
+              card.shape = k;
+              card.shading = l;
+              if (card.color == 1) {
+                card.color = "blue";
+              }
+              if (card.color == 2) {
+                card.color = "green";
+              }
+              if (card.color == 3) {
+                card.color = "red";
+              }
+              if (card.shape == 1) {
+                card.shape = "diamond";
+              }
+              if (card.shape == 2) {
+                card.shape = "oval";
+              }
+              if (card.shape == 3) {
+                card.shape = "squiggle";
+              }
+              if (card.shading == 1) {
+                card.shading = "clear";
+              }
+              if (card.shading == 2) {
+                card.shading = "shaded";
+              }
+              if (card.shading == 3) {
+                card.shading = "solid";
+              }
+              state.deck.push({
+                url:
+                  card.number +
+                  "-" +
+                  card.color +
+                  "-" +
+                  card.shape +
+                  "-" +
+                  card.shading +
+                  ".jpeg",
+                number: card.number,
+                color: card.color,
+                shape: card.shape,
+                shading: card.shading,
+                position: -1,
+                selected: false,
+                matched: false,
+                revealed: false,
+              });
+            }
+          }
+        }
+      }
     },
     DEAL_CARD(state) {
       // if there is a matched card on the table, assign its position to the incoming card
@@ -84,12 +142,12 @@ export default new Vuex.Store({
         state.hand = state.hand.filter(card => card.selected == true);
       }
       // if the hand now has 3 cards, trigger following methods
-      // this part isn't working because somehow everything in the following if-statement gets run before updating
-      // the value of selected on the third card and before the card is pushed to the hand
       if (state.hand.length == 3) {
-        // this.commit("CHECK_IF_SET", state);
-        // this.commit("AFTER_CHECK_IF_SET", state)
-        // this.commit("REFRESH_TABLE", state)
+        setTimeout(() => {
+          this.commit("CHECK_IF_SET", state);
+          this.commit("AFTER_CHECK_IF_SET", state)
+          this.commit("REFRESH_TABLE", state)
+        }, 1000)
       }
     },
     SHUFFLE_DECK(state) {
@@ -250,10 +308,6 @@ export default new Vuex.Store({
       if (state.deck.length == 0) {
         state.deckEmpty = true;
       }
-      // if deck is empty and there are no SETs in the table, the game is over ***THIS ISN'T WORKING YET***
-      if (state.deckEmpty == true && state.hasSet == false) {
-        alert("Game over!")
-      }
       // clear the hand
       state.hand = [];
       // reset setsInTable to 0
@@ -270,6 +324,10 @@ export default new Vuex.Store({
       state.hasSet = false;
       // check the table for sets to update the value of hasSet
       this.commit("CHECK_FOR_SETS", state)
+      // if deck is empty and there are no SETs in the table, the game is over
+      if (state.deckEmpty == true && state.hasSet == false) {
+        state.gameOver = true;
+      }
     },
     REVEAL_A_SET(state) {
       state.usedHint = true;
@@ -319,6 +377,10 @@ export default new Vuex.Store({
     },
     ADD_THREE_CARDS_TO_TABLE(state) {
       state.setsInTable = 0;
+      // *** IS IT NECESSARY TO SET MATCHED TO FALSE HERE? ***
+      for (let i = 0; i < state.table.length; i++) {
+        state.table[i].matched = false;
+      }
       this.commit("CHECK_FOR_SETS", state);
       if (state.hasSet == true) {
         if (state.setsInTable == 1) {
@@ -331,9 +393,7 @@ export default new Vuex.Store({
       // if there are no SETs in the table and the deck is not empty
       if (state.hasSet == false && state.deckEmpty == false) {
         for (let i = 0; i < 3; i++) {
-          // assign the incoming 3 cards from the deck the next 3 positions on the table
-          state.deck[state.deck.length - (i + 1)].position = state.table.length + i;
-          // add those cards to the table
+          // add three cards to the table
           state.table.push(state.deck[state.deck.length - (i + 1)])
           // remove them from the deck
           state.deck.pop();
@@ -499,7 +559,7 @@ export default new Vuex.Store({
       if (state.player1Turn == null) {
         setTimeout(() => {
           this.commit("BOT_FINDS_SET")
-        }, 1000)
+        }, state.botTime)
       }
     },
     BOT_FINDS_SET(state) {
@@ -556,7 +616,7 @@ export default new Vuex.Store({
         if (state.hand.length == 3) {
           setTimeout(() => {
             this.commit("BOT_TAKES_SET");
-          }, 1000);
+          }, 100);
         }
         else {
           // reset player1Turn to null
@@ -577,6 +637,52 @@ export default new Vuex.Store({
     },
     SKIP_TUTORIAL(state) {
       state.tutorialComplete = true;
+    },
+    PLAY_AGAIN(state) {
+      state.deck = []
+      state.table = []
+      state.hand = []
+      state.p1FoundSets = []
+      state.p2FoundSets = []
+      state.isSet = false
+      state.hasSet = false
+      state.p1UnassistedSetCount = 0
+      state.p2UnassistedSetCount = 0
+      state.p1IncorrectGuesses = 0
+      state.p2IncorrectGuesses = 0
+      state.assistedSetCount = 0
+      state.usedHint = false
+      state.deckEmpty = false
+      state.positionsArray = []
+      state.setsInTable = 0
+      state.revealedSets = []
+      state.timesClickedRevealSets = 0
+      state.playerMode = ''
+      state.player1Name = ''
+      state.player2Name = ''
+      state.player1Turn = null
+      state.gameOver = false
+      state.gameStarted = false
+      state.lastHandWasSet = null
+      state.tutorialComplete = true
+      this.commit("CREATE_DECK")
+      this.commit("SHUFFLE_DECK")
+      // this.commit("DEAL_TO_TABLE")
+    },
+    SELECT_DIFFICULTY(state, difficulty) {
+      state.difficulty = difficulty;
+      if (state.difficulty == "easy") {
+        state.botTime = 30000;
+      }
+      if (state.difficulty == "moderate") {
+        state.botTime = 20000;
+      }
+      if (state.difficulty == "hard") {
+        state.botTime = 10000;
+      }
+      if (state.difficulty == "insane") {
+        state.botTime = 5000;
+      }
     }
   },
   actions: {

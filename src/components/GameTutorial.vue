@@ -3,7 +3,7 @@
     <div id="tutorial">
       <div id="mainContent">
         <div id="objective" class="tabcontent">
-          <h2>Tutorial 1/4: Objective</h2>
+          <h2>Tutorial 1/5: Objective</h2>
           <p>
             SET is a card-matching game. There are 81 unique cards in a deck. An
             initial 12 cards are drawn from the deck and dealt to the table at
@@ -15,7 +15,7 @@
           </p>
         </div>
         <div id="examplesOfSets" class="tabcontent">
-          <h2 id="heading">Tutorial 2/4: Examples of SETs</h2>
+          <h2 id="heading">Tutorial 2/5: Examples of SETs</h2>
           <p id="description1">
             For example, this is a SET because number is different, color is
             same, shape is same, and shading is same.
@@ -153,21 +153,20 @@
           </table>
         </div>
         <div id="singlePlayerRules" class="tabcontent">
-          <h2>Tutorial 3/4: Single Player</h2>
+          <h2>Tutorial 3/5: Single Player</h2>
           <p>
             In Single Player Mode, you may find SETs at your leisure. Click HINT
             to find how many SETs exist in the table, if any. If you are truly
             stumped, use REVEAL A SET to show the SET or SETs in the table.
-            Click the cards to select and either hit the space bar or click
-            CHECK IF SET to determine if your cards make a SET. If they do,
-            those cards will be added to your Found SETs display. Occasionally,
-            there may be no SET in the table, in which case you may ADD 3 CARDS.
-            The game is over when there are no remaining cards in the deck and
-            no remaining SETs in the table.
+            Click the cards to select them. If they make a SET they will be
+            added to your Found SETs display. Occasionally, there may be no SET
+            in the table, in which case you may ADD 3 CARDS. The game is over
+            when there are no remaining cards in the deck and no remaining SETs
+            in the table.
           </p>
         </div>
         <div id="twoPlayerRules" class="tabcontent">
-          <h2>Tutorial 4/4: Two Player</h2>
+          <h2>Tutorial 4/5: Two Player</h2>
           <p>
             In Two Player Mode, you will compete against your opponent to
             identify SETs. The HINT and REVEAL A SET functions are not
@@ -175,6 +174,12 @@
             key. Player 2 initiates their turn by pressing the 'l' key. Once a
             turn has begun, the player has 10 seconds to identify a SET. The
             player with the highest SET count wins!
+          </p>
+        </div>
+        <div id="botRules" class="tabcontent">
+          <h2>Tutorial 5/5: Playing Against the Computer</h2>
+          <p>
+            stuff
           </p>
         </div>
       </div>
@@ -219,9 +224,7 @@ export default {
     nextPrev(n) {
       let tabs = document.getElementsByClassName("tabcontent");
       tabs[this.currentTab].style.display = "none";
-
       this.currentTab += n;
-
       this.showTab(this.currentTab);
     },
     skipTutorial() {
@@ -232,6 +235,9 @@ export default {
 </script>
 
 <style scoped>
+p {
+  color: rgb(254, 178, 0);
+}
 .criteria {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;

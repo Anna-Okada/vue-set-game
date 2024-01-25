@@ -12,6 +12,12 @@
             <button @click="selectTwoPlayer">Two Player</button>
             <button @click="selectBotMode">Play Against the Computer</button>
           </span>
+          <span class="difficulty" v-if="$store.state.playerMode == 'bot' && this.difficulty == ''">
+            <button class="easy" @click="selectEasy">Easy</button>
+            <button class="moderate" @click="selectModerate">Moderate</button>
+            <button class="hard" @click="selectHard">Hard</button>
+            <button class="insane" @click="selectInsane">Insane</button>
+          </span>
           <span
             class="playerNames"
             v-if="$store.state.playerMode == 'twoPlayer'"
@@ -29,7 +35,7 @@
               v-model="p2"
             />
           </span>
-          <span class="playerName" v-if="$store.state.playerMode == 'bot'">
+          <span class="playerName" v-if="$store.state.playerMode == 'bot' && this.difficulty != ''">
             <input
               type="text"
               required="true"
@@ -55,7 +61,9 @@
           let's play SET!
         </h2>
         <button
-          v-if="allInfoEntered == true || $store.state.playerMode == 'singlePlayer'"
+          v-if="
+            allInfoEntered == true || $store.state.playerMode == 'singlePlayer'
+          "
           class="start"
           @click="start"
         >
@@ -78,9 +86,26 @@ export default {
       hideMenu: false,
       clicked: false,
       tutorialComplete: false,
+      difficulty: '',
     };
   },
   methods: {
+    selectEasy() {
+      this.difficulty = "easy"
+      this.$store.commit("SELECT_DIFFICULTY", this.difficulty);
+    },
+    selectModerate() {
+      this.difficulty = "moderate";
+      this.$store.commit("SELECT_DIFFICULTY", this.difficulty);
+    },
+    selectHard() {
+      this.difficulty = "hard";
+      this.$store.commit("SELECT_DIFFICULTY", this.difficulty);
+    },
+    selectInsane() {
+      this.difficulty = "insane";
+      this.$store.commit("SELECT_DIFFICULTY", this.difficulty);
+    },
     start() {
       this.modalVisible = !this.modalVisible;
       this.$store.commit("START_GAME");

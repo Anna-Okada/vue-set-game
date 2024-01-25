@@ -4,6 +4,7 @@
     <game-table></game-table>
     <found-sets></found-sets>
     <p2-found-sets></p2-found-sets>
+    <game-over v-if="$store.state.gameOver"></game-over>
   </div>
 </template>
 
@@ -12,6 +13,7 @@ import GameTable from "./GameTable.vue";
 import GameStats from "./GameStats.vue";
 import FoundSets from "./FoundSets.vue";
 import P2FoundSets from "./P2FoundSets.vue";
+import GameOver from './GameOver.vue';
 
 export default {
   components: {
@@ -19,6 +21,7 @@ export default {
     "game-stats": GameStats,
     "found-sets": FoundSets,
     "p2-found-sets": P2FoundSets,
+    "game-over": GameOver,
   },
   data() {
     return {};

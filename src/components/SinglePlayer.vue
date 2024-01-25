@@ -5,6 +5,7 @@
       <game-table></game-table>
       <game-hand></game-hand>
       <found-sets></found-sets>
+      <game-over v-if="$store.state.gameOver"></game-over>
     </section>
   </div>
 </template>
@@ -14,6 +15,7 @@ import GameTable from "./GameTable.vue";
 import GameHand from "./GameHand.vue";
 import GameStats from "./GameStats.vue";
 import FoundSets from "./FoundSets.vue";
+import GameOVer from "./GameOver.vue"
 
 export default {
   components: {
@@ -21,6 +23,7 @@ export default {
     "game-hand": GameHand,
     "game-stats": GameStats,
     "found-sets": FoundSets,
+    "game-over": GameOVer,
   },
 };
 </script>
