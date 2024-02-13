@@ -24,14 +24,14 @@
       <div class="timer">
         <div
           class="timerBar"
-          v-if="
+          v-show="
             ($store.state.playerMode == 'twoPlayer' &&
               $store.state.player1Turn != null) ||
             ($store.state.playerMode == 'bot' &&
               $store.state.player1Turn == true)
           "
         >
-          <div class="timeRemaining"></div>
+          <div id="timeRemaining" :class="{ paused : $store.state.gamePaused }"></div>
         </div>
       </div>
       <h2
@@ -52,7 +52,14 @@ export default {
     },
   },
   data() {
-    return {};
+    return {
+      animationInSeconds: "",
+    };
+  },
+  mounted() {
+    this.animationInSeconds = (this.$store.state.turnLength / 1000) - 1 + "s";
+    document.getElementById("timeRemaining").style.animationDuration =
+      this.animationInSeconds;
   },
 };
 </script>
@@ -67,7 +74,7 @@ export default {
   position: relative;
   background-color: white;
 }
-.timeRemaining {
+#timeRemaining {
   background-color: rgb(254, 178, 0);
   width: 100%;
   height: 30px;
@@ -76,6 +83,10 @@ export default {
   animation-duration: 10s;
   animation-timing-function: linear;
   animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+#timeRemaining.paused {
+  animation-play-state: paused;
 }
 @keyframes timer {
   from {

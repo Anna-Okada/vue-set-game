@@ -1,10 +1,14 @@
 <template>
   <div id="twoPlayerGame" class="twoPlayer">
+    <nav-bar></nav-bar>
     <game-stats></game-stats>
     <game-table></game-table>
     <found-sets></found-sets>
     <p2-found-sets></p2-found-sets>
     <game-over v-if="$store.state.gameOver"></game-over>
+    <game-tutorial v-if="$store.state.tutorialVisible"></game-tutorial>
+    <game-paused v-if="$store.state.gamePaused && !$store.state.tutorialVisible && !$store.state.aboutVisible"></game-paused>
+    <about-set v-if="$store.state.aboutVisible"></about-set>
   </div>
 </template>
 
@@ -13,7 +17,11 @@ import GameTable from "./GameTable.vue";
 import GameStats from "./GameStats.vue";
 import FoundSets from "./FoundSets.vue";
 import P2FoundSets from "./P2FoundSets.vue";
-import GameOver from "./GameOver.vue"
+import GameOver from "./GameOver.vue";
+import NavBar from "./NavBar.vue";
+import GameTutorial from "./GameTutorial.vue";
+import GamePaused from "./GamePaused.vue";
+import AboutSet from "./AboutSet.vue";
 
 export default {
   components: {
@@ -22,6 +30,10 @@ export default {
     "found-sets": FoundSets,
     "p2-found-sets": P2FoundSets,
     "game-over": GameOver,
+    "nav-bar": NavBar,
+    "game-tutorial": GameTutorial,
+    "game-paused": GamePaused,
+    "about-set": AboutSet,
   },
   data() {
     return {};
@@ -44,12 +56,16 @@ export default {
 <style scoped>
 .twoPlayer {
   display: grid;
-  grid-template-rows: 10vh 83vh;
+  grid-template-rows: min-content min-content 75vh;
   grid-template-areas:
+    "nav nav nav nav"
     "stats stats stats stats"
     "p1-found-sets table table p2-found-sets";
   gap: 10px;
   padding: 10px;
+}
+#nav {
+  grid-area: nav;
 }
 #stats {
   grid-area: stats;

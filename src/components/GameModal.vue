@@ -8,9 +8,9 @@
           v-show="hideMenu == false"
         >
           <span class="playerMode">
-            <button @click="selectSinglePlayer">Single Player</button>
+            <button @click="selectSinglePlayer">Solo</button>
             <button @click="selectTwoPlayer">Two Player</button>
-            <button @click="selectBotMode">Play Against the Computer</button>
+            <button @click="selectBotMode">Vs. Bot</button>
           </span>
           <span class="difficulty" v-if="$store.state.playerMode == 'bot' && this.difficulty == ''">
             <button class="easy" @click="selectEasy">Easy</button>
