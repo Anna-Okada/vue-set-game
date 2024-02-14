@@ -5,7 +5,12 @@
       v-show="$store.state.playerMode == 'singlePlayer'"
     >
       <h2>SETs found without hint: {{ $store.state.p1UnassistedSetCount }}</h2>
-      <h2>Incorrect guesses: {{ $store.state.p1IncorrectGuesses }}</h2>
+      <div class="correctIncorrect">
+        <h2 v-if="$store.state.lastHandWasSet == true">{{ correctMessage }}</h2>
+        <h2 v-if="$store.state.lastHandWasSet == false">
+          {{ incorrectMessage }}
+        </h2>
+      </div>
       <h2>Total SETs found: {{ totalSets }}</h2>
     </div>
     <div
@@ -21,9 +26,9 @@
       >
         {{ $store.state.player1Name }}: {{ $store.state.p1UnassistedSetCount }}
       </h2>
-      <div class="timer">
+      <div class="middleDisplay">
         <div
-          class="timerBar"
+          class="timer"
           v-show="
             ($store.state.playerMode == 'twoPlayer' &&
               $store.state.player1TurnVisible != null) ||
@@ -31,10 +36,23 @@
               $store.state.player1TurnVisible == true)
           "
         >
-          <div
-            id="timeRemaining"
-            :class="{ paused: $store.state.gamePaused }"
-          ></div>
+          <div class="timerBar">
+            <div
+              id="timeRemaining"
+              :class="{ paused: $store.state.gamePaused }"
+            ></div>
+          </div>
+        </div>
+        <div
+          class="correctIncorrect"
+          v-if="$store.state.lastHandWasSet != null"
+        >
+          <h2 v-if="$store.state.lastHandWasSet == true">
+            {{ correctMessage }}
+          </h2>
+          <h2 v-if="$store.state.lastHandWasSet == false">
+            {{ incorrectMessage }}
+          </h2>
         </div>
       </div>
       <h2
@@ -53,10 +71,31 @@ export default {
     totalSets() {
       return this.$store.state.p1FoundSets.length;
     },
+    correctMessage() {
+      let i = Math.floor(Math.random() * this.correctMessages.length);
+      return this.correctMessages[i];
+    },
+    incorrectMessage() {
+      let i = Math.floor(Math.random() * this.incorrectMessages.length);
+      return this.incorrectMessages[i];
+    },
   },
   data() {
     return {
       animationInSeconds: "",
+      correctMessages: [
+        "You found a Set!",
+        "Nice Set!",
+        "Awesome!",
+        "Great Set!",
+        "Woohoo!",
+      ],
+      incorrectMessages: [
+        "Not a Set. Try again!",
+        "Not quite!",
+        "Almost. Try again!",
+        "So close!",
+      ],
     };
   },
   mounted() {
@@ -105,7 +144,7 @@ export default {
 }
 .singlePlayerStats {
   display: grid;
-  grid-template-columns: repeat(3, auto);
+  grid-template-columns: repeat(3, 1fr);
 }
 .twoPlayerStats {
   display: grid;

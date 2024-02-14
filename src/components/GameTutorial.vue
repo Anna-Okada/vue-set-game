@@ -184,9 +184,7 @@
           </div>
         </div>
         <div id="examplesOfNotSets" class="tabcontent">
-          <h2 id="heading">
-            Tutorial 3/6: All or nothing
-          </h2>
+          <h2 id="heading">Tutorial 3/6: All or nothing</h2>
           <div class="example">
             <p class="description">
               This is not a Set because two of the cards are blue and only one
@@ -298,11 +296,10 @@
           <h2>Tutorial 5/6: Two Player</h2>
           <p>
             In Two Player Mode, you will compete against your opponent to
-            identify Sets. The REVEAL A SET function is not accessible here.
-            Player 1 initiates their turn by pressing the 'a' key. Player 2
-            initiates their turn by pressing the 'l' key. Once a turn has begun,
-            the player has 10 seconds to identify a Set. The player with the
-            highest Set count wins!
+            identify Sets. Player 1 initiates their turn by pressing the 'a'
+            key. Player 2 initiates their turn by pressing the 'l' key. Once a
+            turn has begun, the player has 10 seconds to identify a Set. The
+            player with the highest Set count wins!
           </p>
         </div>
         <div id="botRules" class="tabcontent">

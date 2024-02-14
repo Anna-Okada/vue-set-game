@@ -5,6 +5,7 @@
       <li><div @click="viewTutorial">Tutorial</div></li>
       <li><div @click="quit">Quit</div></li>
       <li><div @click="pause">Pause</div></li>
+      <li><div @click="muteUnmute">Sound on/off</div></li>
     </ul>
   </div>
 </template>
@@ -23,6 +24,9 @@ export default {
     },
     pause() {
       this.$store.commit("PAUSE_GAME");
+    },
+    mute() {
+      this.$store.commit("MUTE_UNMUTE");
     },
   },
 };

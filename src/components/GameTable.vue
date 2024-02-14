@@ -3,9 +3,7 @@
     <div class="table-buttons">
       <button @click="shuffleCards">Shuffle</button>
       <button @click="addThreeCardsToTable">Add 3 cards</button>
-      <button @click="revealSet" v-if="$store.state.playerMode != 'twoPlayer'">
-        Reveal a SET
-      </button>
+      <button @click="revealSet">Reveal a SET</button>
     </div>
     <div class="table">
       <div
@@ -89,6 +87,11 @@ export default {
 #table {
   border: solid rgb(255, 223, 150) 2px;
   border-radius: 10px;
+  display: grid;
+  grid-template-areas: 
+  "buttons"
+  "cards";
+  align-items: center;
 }
 h1 {
   color: white;
@@ -97,6 +100,7 @@ h1 {
   text-align: center;
 }
 .table-buttons {
+  grid-area: buttons;
   display: grid;
   grid-template-columns: repeat(5, auto);
   gap: 10px;
@@ -117,6 +121,7 @@ button:hover {
   color: rgb(0, 97, 254);
 }
 .table {
+  grid-area: cards;
   width: auto;
   height: 525px;
   display: flex;
