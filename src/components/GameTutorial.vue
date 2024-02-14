@@ -12,7 +12,7 @@
             number, color, shape, and shading.
           </p>
           <div class="attributes">
-            <div class="example">
+            <div class="attributeExample">
               <p>Number can be 1, 2, or 3.</p>
               <div class="cards">
                 <img
@@ -29,7 +29,7 @@
                 />
               </div>
             </div>
-            <div class="example">
+            <div class="attributeExample">
               <p>Color can be blue, green, or pink.</p>
               <div class="cards">
                 <img
@@ -46,7 +46,7 @@
                 />
               </div>
             </div>
-            <div class="example">
+            <div class="attributeExample">
               <p>Shape can be diamond, oval, or squiggle.</p>
               <div class="cards">
                 <img
@@ -63,7 +63,7 @@
                 />
               </div>
             </div>
-            <div class="example">
+            <div class="attributeExample">
               <p>Shading can be clear, shaded, or solid.</p>
               <div class="cards">
                 <img
@@ -185,7 +185,7 @@
         </div>
         <div id="examplesOfNotSets" class="tabcontent">
           <h2 id="heading">
-            Tutorial 3/6: Examples of cards that are not Sets
+            Tutorial 3/6: All or nothing
           </h2>
           <div class="example">
             <p class="description">

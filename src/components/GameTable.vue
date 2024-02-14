@@ -37,10 +37,14 @@ export default {
   created() {
     this.$store.commit("DEAL_TO_TABLE");
   },
+  data() {
+    return {
+      remainingTurnTime: 0,
+    };
+  },
   methods: {
     selectCard(card) {
-      // for testing purposes:
-      this.$store.state.remainingTurnTime =
+      this.remainingTurnTime =
         this.$store.state.turnLength -
         (Date.now() - this.$store.state.turnStart);
       if (
@@ -48,7 +52,7 @@ export default {
           this.$store.state.playerMode != "bot") ||
         (this.$store.state.playerMode == "bot" &&
           this.$store.state.player1Turn == true &&
-          this.$store.state.remainingTurnTime > 1000) // for testing purposes
+          this.remainingTurnTime > 1000)
       ) {
         this.$store.commit("SELECT_CARD", card);
       }

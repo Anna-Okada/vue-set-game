@@ -12,7 +12,14 @@
             <button @click="selectTwoPlayer">Two Player</button>
             <button @click="selectBotMode">Vs. Bot</button>
           </span>
-          <span class="difficulty" v-if="$store.state.playerMode == 'bot' && this.difficulty == ''">
+          <span
+            class="difficulty"
+            v-if="
+              ($store.state.playerMode == 'bot' ||
+                $store.state.playerMode == 'twoPlayer') &&
+              this.difficulty == ''
+            "
+          >
             <button class="easy" @click="selectEasy">Easy</button>
             <button class="moderate" @click="selectModerate">Moderate</button>
             <button class="hard" @click="selectHard">Hard</button>
@@ -20,7 +27,9 @@
           </span>
           <span
             class="playerNames"
-            v-if="$store.state.playerMode == 'twoPlayer'"
+            v-if="
+              $store.state.playerMode == 'twoPlayer' && this.difficulty != ''
+            "
           >
             <input
               type="text"
@@ -35,7 +44,10 @@
               v-model="p2"
             />
           </span>
-          <span class="playerName" v-if="$store.state.playerMode == 'bot' && this.difficulty != ''">
+          <span
+            class="playerName"
+            v-if="$store.state.playerMode == 'bot' && this.difficulty != ''"
+          >
             <input
               type="text"
               required="true"
@@ -86,12 +98,12 @@ export default {
       hideMenu: false,
       clicked: false,
       tutorialComplete: false,
-      difficulty: '',
+      difficulty: "",
     };
   },
   methods: {
     selectEasy() {
-      this.difficulty = "easy"
+      this.difficulty = "easy";
       this.$store.commit("SELECT_DIFFICULTY", this.difficulty);
     },
     selectModerate() {
@@ -112,12 +124,18 @@ export default {
     },
     selectSinglePlayer() {
       this.$store.commit("SELECT_SINGLE_PLAYER");
+      this.difficulty = "";
+      this.p1 = "";
     },
     selectTwoPlayer() {
       this.$store.commit("SELECT_TWO_PLAYER");
+      this.difficulty = "";
+      this.p1 = "";
     },
     selectBotMode() {
       this.$store.commit("SELECT_BOT_MODE");
+      this.difficulty = "";
+      this.p1 = "";
     },
     submit() {
       this.showNames = true;

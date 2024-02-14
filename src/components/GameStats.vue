@@ -16,7 +16,7 @@
       "
     >
       <h2
-        :class="{ activeTurn: $store.state.player1Turn == true }"
+        :class="{ activeTurn: $store.state.player1TurnVisible == true }"
         id="p1score"
       >
         {{ $store.state.player1Name }}: {{ $store.state.p1UnassistedSetCount }}
@@ -26,16 +26,19 @@
           class="timerBar"
           v-show="
             ($store.state.playerMode == 'twoPlayer' &&
-              $store.state.player1Turn != null) ||
+              $store.state.player1TurnVisible != null) ||
             ($store.state.playerMode == 'bot' &&
-              $store.state.player1Turn == true)
+              $store.state.player1TurnVisible == true)
           "
         >
-          <div id="timeRemaining" :class="{ paused : $store.state.gamePaused }"></div>
+          <div
+            id="timeRemaining"
+            :class="{ paused: $store.state.gamePaused }"
+          ></div>
         </div>
       </div>
       <h2
-        :class="{ activeTurn: $store.state.player1Turn == false }"
+        :class="{ activeTurn: $store.state.player1TurnVisible == false }"
         id="p2score"
       >
         {{ $store.state.player2Name }}: {{ $store.state.p2UnassistedSetCount }}
@@ -57,7 +60,7 @@ export default {
     };
   },
   mounted() {
-    this.animationInSeconds = (this.$store.state.turnLength / 1000) - 1 + "s";
+    this.animationInSeconds = this.$store.state.turnLength / 1000 - 1 + "s";
     document.getElementById("timeRemaining").style.animationDuration =
       this.animationInSeconds;
   },
