@@ -9,7 +9,7 @@
         108 unique Sets can be formed from the 81 cards in a deck.
       </p>
       <p>
-        Given two cards, one - and only one - other card can complete the Set.
+        Given two cards, one -- and only one -- other card can complete the Set.
       </p>
       <p>
         This website was designed by Anna Okada and is open source on
@@ -70,7 +70,10 @@ a:active {
 .modal {
   background-color: #fefefe;
   margin: auto;
-  padding: 20px;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  padding-left: 30px;
+  padding-right: 30px;
   border: 1px solid rgb(254, 178, 0);
   border-radius: 10px;
   width: 60%;

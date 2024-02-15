@@ -78,8 +78,6 @@ export default new Vuex.Store({
     correctMessage: '',
     incorrectMessage: '',
   },
-  getters: {
-  },
   mutations: {
     CREATE_DECK(state) {
       var card = {};
@@ -165,6 +163,9 @@ export default new Vuex.Store({
       if (card.selected == false && state.hand.length < 3) {
         card.selected = true;
         state.hand.push(card);
+        state.selectSound = new Audio(require("@/assets/audio/select.wav"));
+        state.selectSound.volume = state.volume;
+        state.selectSound.play();
       }
       // is the card being clicked currently selected?
       // are there fewer than 3 cards currently selected?
@@ -172,9 +173,6 @@ export default new Vuex.Store({
       else if (card.selected == true && state.hand.length < 3) {
         card.selected = false;
         state.hand = state.hand.filter(card => card.selected == true);
-      }
-      // if able to select or deselect a card, play audio for that sound
-      if ((card.selected == false && state.hand.length < 3) || (card.selected == true && state.hand.length <= 3)) {
         state.selectSound = new Audio(require("@/assets/audio/select.wav"));
         state.selectSound.volume = state.volume;
         state.selectSound.play();
@@ -438,7 +436,7 @@ export default new Vuex.Store({
       state.positionsArray = [];
     },
     HIDE_ADD_CARDS_ALERT(state) {
-      setTimeout(() => { state.showAddCardsAlert = false }, 2500)
+      state.showAddCardsAlert = false;
     },
     ADD_THREE_CARDS_TO_TABLE(state) {
       // *** NOT SURE IF I NEED THIS ***
@@ -455,7 +453,7 @@ export default new Vuex.Store({
         state.cannotAddCardsSound.volume = state.volume;
         state.cannotAddCardsSound.play();
         state.showAddCardsAlert = true;
-        this.commit("HIDE_ADD_CARDS_ALERT")
+        setTimeout(() => this.commit("HIDE_ADD_CARDS_ALERT"), 2500);
       }
       // if there are no Sets in the table and the deck is not empty
       if (state.hasSet == false && state.deckEmpty == false) {
@@ -798,7 +796,7 @@ export default new Vuex.Store({
       state.remainingBotTime = state.botInterval - (Date.now() - state.botStart);
       state.remainingTurnTime = state.turnLength - (Date.now() - state.turnStart);
       // if mid-turn, pause the ticking sound
-      if (state.player1Turn != null) {
+      if (state.playerMode != 'singlePlayer' && state.player1Turn != null) {
         state.tickingSound.pause();
       }
       clearTimeout(state.botTimer) // *** IS THIS DOING ANYTHING? ***

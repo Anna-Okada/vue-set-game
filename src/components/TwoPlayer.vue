@@ -7,7 +7,13 @@
     <p2-found-sets></p2-found-sets>
     <game-over v-if="$store.state.gameOver"></game-over>
     <game-tutorial v-if="$store.state.tutorialVisible"></game-tutorial>
-    <game-paused v-if="$store.state.gamePaused && !$store.state.tutorialVisible && !$store.state.aboutVisible"></game-paused>
+    <game-paused
+      v-if="
+        $store.state.gamePaused &&
+        !$store.state.tutorialVisible &&
+        !$store.state.aboutVisible
+      "
+    ></game-paused>
     <about-set v-if="$store.state.aboutVisible"></about-set>
   </div>
 </template>
@@ -39,8 +45,11 @@ export default {
     return {};
   },
   methods: {
+    // only allow player to activate turn via keystroke if not currently someone's turn
     keyUpToStartTurn(event) {
-      this.$store.commit("START_TURN", event);
+      if (this.$store.state.player1Turn == null) {
+        this.$store.commit("START_TURN", event);
+      }
     },
   },
   mounted() {

@@ -3,7 +3,7 @@
     <div id="tutorial">
       <div id="mainContent">
         <div id="objective" class="tabcontent">
-          <h2>Tutorial 1/6: Objective</h2>
+          <h2>Objective</h2>
           <p>
             Set is a card-matching game. There are 81 unique cards in a deck. An
             initial 12 cards are drawn from the deck and dealt to the table at
@@ -82,12 +82,15 @@
             </div>
           </div>
           <p>
-            A Set consists of 3 cards where for each attribute all cards have
-            the same value or all cards have different values.
+            A Set consists of 3 cards where for each attribute
+            <b
+              >all cards have the same value or all cards have different
+              values.</b
+            >
           </p>
         </div>
         <div id="examplesOfSets" class="tabcontent">
-          <h2 id="heading">Tutorial 2/6: Examples of SETs</h2>
+          <h2 id="heading">Examples of SETs</h2>
           <div class="example">
             <p class="description">
               This is a Set because number is different, color is the same,
@@ -184,7 +187,7 @@
           </div>
         </div>
         <div id="examplesOfNotSets" class="tabcontent">
-          <h2 id="heading">Tutorial 3/6: All or nothing</h2>
+          <h2 id="heading">All or nothing</h2>
           <div class="example">
             <p class="description">
               This is not a Set because two of the cards are blue and only one
@@ -281,7 +284,7 @@
           </div>
         </div>
         <div id="singlePlayerRules" class="tabcontent">
-          <h2>Tutorial 4/6: Single Player</h2>
+          <h2>Single Player</h2>
           <p>
             In Single Player Mode, you may find Sets at your leisure. If you are
             stumped, click REVEAL A SET to show the Set or Sets in the table.
@@ -294,7 +297,7 @@
           </p>
         </div>
         <div id="twoPlayerRules" class="tabcontent">
-          <h2>Tutorial 5/6: Two Player</h2>
+          <h2>Two Player</h2>
           <p>
             In Two Player Mode, you will compete against your opponent to
             identify Sets. Player 1 initiates their turn by pressing the 'a'
@@ -304,7 +307,7 @@
           </p>
         </div>
         <div id="botRules" class="tabcontent">
-          <h2>Tutorial 6/6: Playing Against the Computer</h2>
+          <h2>Playing Against the Computer</h2>
           <p>
             When playing against the computer, you may choose your level of
             difficulty from EASY to INSANE! As in Two Player Mode, you will
@@ -321,6 +324,14 @@
         <div id="prevBtn" class="changePage" @click="nextPrev(-1)">&#8249;</div>
         <button id="skip" @click="skipTutorial">Skip Tutorial</button>
         <div id="nextBtn" class="changePage" @click="nextPrev(1)">&#8250;</div>
+      </div>
+      <div class="steps">
+        <span class="step active"></span>
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
       </div>
     </div>
   </div>
@@ -358,6 +369,11 @@ export default {
         document.getElementById("nextBtn").style.display = "inline";
         document.getElementById("skip").innerHTML = "Skip Tutorial";
       }
+      let steps = document.getElementsByClassName("step");
+      for (let i = 0; i < steps.length; i++) {
+        steps[i].className = steps[i].className.replace(" active", "");
+      }
+      steps[n].className += " active";
     },
     nextPrev(n) {
       let tabs = document.getElementsByClassName("tabcontent");
@@ -373,6 +389,19 @@ export default {
 </script>
 
 <style scoped>
+.step {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbbbbb;
+  border: none;
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.5;
+}
+.step.active {
+  background-color: rgb(0, 97, 254);
+}
 p {
   color: rgb(254, 178, 0);
 }
@@ -496,10 +525,13 @@ h2 {
 #tutorial {
   background-color: #fefefe;
   margin: auto;
-  padding: 20px;
+  padding-top: 30px;
+  padding-bottom: 20px;
+  padding-right: 30px;
+  padding-left: 30px;
   border: 1px solid rgb(254, 178, 0);
   border-radius: 10px;
-  width: 60%;
+  width: 575px;
   text-align: center;
   display: grid;
   grid-template-columns: 1fr;

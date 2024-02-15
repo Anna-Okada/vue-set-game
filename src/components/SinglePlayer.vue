@@ -43,8 +43,8 @@ export default {
 <style scoped>
 .singlePlayerGame {
   display: grid;
-  grid-template-columns: 1fr, 1fr, 1fr, 200px;
-  grid-template-rows: min-content min-content 75vh;
+  grid-template-columns: 0.8r, 1fr, 1fr, 0,8fr;
+  grid-template-rows: min-content min-content 76vh;
   grid-template-areas:
     "nav nav nav nav"
     "stats stats stats stats"

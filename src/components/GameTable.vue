@@ -58,10 +58,12 @@ export default {
         (Date.now() - this.$store.state.turnStart);
       if (
         (this.$store.state.player1Turn != null &&
-          this.$store.state.playerMode != "bot") ||
+          this.$store.state.playerMode != "bot" &&
+          this.$store.state.hand.length < 3) ||
         (this.$store.state.playerMode == "bot" &&
           this.$store.state.player1Turn == true &&
-          this.remainingTurnTime > 1000)
+          this.remainingTurnTime > 1000 &&
+          this.$store.state.hand.length < 3)
       ) {
         this.$store.commit("SELECT_CARD", card);
       }
@@ -121,6 +123,7 @@ export default {
   grid-template-areas:
     "buttons"
     "cards";
+  /* grid-template-rows: 40px 350px; */
   align-items: center;
 }
 h1 {
@@ -138,13 +141,13 @@ h2 {
 .table-buttons {
   grid-area: buttons;
   display: grid;
-  grid-template-columns: repeat(5, auto);
+  grid-template-columns: repeat(3, auto);
   gap: 10px;
   margin-top: 15px;
   justify-content: center;
 }
 button {
-  font-size: 18px;
+  font-size: 1.5em;
   text-transform: uppercase;
   text-align: center;
   color: rgb(254, 178, 0);
@@ -159,7 +162,7 @@ button:hover {
 .table {
   grid-area: cards;
   width: auto;
-  height: 525px;
+  height: 37em;
   display: flex;
   flex-flow: column wrap;
   justify-content: space-evenly;
@@ -171,14 +174,12 @@ button:hover {
 .cardRevealed {
   border: dashed rgb(0, 97, 254) 5px;
 }
-
 .flip-card {
   background-color: transparent;
-  width: 100px;
-  height: 120px;
+  width: 8em;
+  height: 10.5em;
   perspective: 1000px;
 }
-
 .flip-card-inner {
   position: relative;
   width: 100%;
@@ -188,11 +189,9 @@ button:hover {
   transform-style: preserve-3d;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
-
 .flipped .flip-card-inner {
   transform: rotateY(180deg);
 }
-
 .flip-card-front,
 .flip-card-back {
   position: absolute;
@@ -201,12 +200,10 @@ button:hover {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
-
 .flip-card-front {
   background-color: #bbb;
   color: black;
 }
-
 .flip-card-back {
   background-color: rgba(254, 178, 0);
   color: white;
@@ -217,7 +214,7 @@ button:hover {
   justify-content: center;
   box-shadow: rgba(3, 8, 20, 0.1) 0px 0.15rem 0.5rem,
     rgba(2, 8, 20, 0.1) 0px 0.075rem 0.175rem;
-  width: 100px;
+  width: 8em;
   border-radius: 4px;
   overflow: hidden;
 }
