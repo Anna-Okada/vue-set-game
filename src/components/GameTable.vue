@@ -1,5 +1,16 @@
 <template>
   <section id="table">
+    <div id="addCards" v-if="$store.state.showAddCardsAlert == true">
+      <div class="alert">
+        <h2 v-if="$store.state.setsInTable == 1">
+          There actually is a Set here! Can you find it?
+        </h2>
+        <h2 v-if="$store.state.setsInTable > 1">
+          There actually are {{ $store.state.setsInTable }} Sets here! Can you
+          find one?
+        </h2>
+      </div>
+    </div>
     <div class="table-buttons">
       <button @click="shuffleCards">Shuffle</button>
       <button @click="addThreeCardsToTable">Add 3 cards</button>
@@ -84,18 +95,43 @@ export default {
 </script>
 
 <style scoped>
+#addCards {
+  position: fixed;
+  z-index: 1;
+  padding-top: 250px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.alert {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid rgb(254, 178, 0);
+  border-radius: 5px;
+  width: 50%;
+  text-align: center;
+}
 #table {
   border: solid rgb(255, 223, 150) 2px;
   border-radius: 10px;
   display: grid;
-  grid-template-areas: 
-  "buttons"
-  "cards";
+  grid-template-areas:
+    "buttons"
+    "cards";
   align-items: center;
 }
 h1 {
   color: white;
   font-size: 36px;
+  text-transform: uppercase;
+  text-align: center;
+}
+h2 {
+  color: rgb(254, 178, 0);
+  font-size: 24px;
   text-transform: uppercase;
   text-align: center;
 }

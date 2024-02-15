@@ -6,12 +6,12 @@
     >
       <h2>SETs found without hint: {{ $store.state.p1UnassistedSetCount }}</h2>
       <div class="correctIncorrect">
-        <h2 v-if="$store.state.lastHandWasSet == true">{{ correctMessage }}</h2>
+        <h2 v-if="$store.state.lastHandWasSet == true">{{ $store.state.correctMessage }}</h2>
         <h2 v-if="$store.state.lastHandWasSet == false">
-          {{ incorrectMessage }}
+          {{ $store.state.incorrectMessage }}
         </h2>
       </div>
-      <h2>Total SETs found: {{ totalSets }}</h2>
+      <h2>Incorrect Guesses: {{ $store.state.p1IncorrectGuesses }}</h2>
     </div>
     <div
       class="twoPlayerStats"
@@ -48,10 +48,10 @@
           v-if="$store.state.lastHandWasSet != null"
         >
           <h2 v-if="$store.state.lastHandWasSet == true">
-            {{ correctMessage }}
+            {{ $store.state.correctMessage }}
           </h2>
           <h2 v-if="$store.state.lastHandWasSet == false">
-            {{ incorrectMessage }}
+            {{ $store.state.incorrectMessage }}
           </h2>
         </div>
       </div>
@@ -71,35 +71,14 @@ export default {
     totalSets() {
       return this.$store.state.p1FoundSets.length;
     },
-    correctMessage() {
-      let i = Math.floor(Math.random() * this.correctMessages.length);
-      return this.correctMessages[i];
-    },
-    incorrectMessage() {
-      let i = Math.floor(Math.random() * this.incorrectMessages.length);
-      return this.incorrectMessages[i];
-    },
   },
   data() {
     return {
       animationInSeconds: "",
-      correctMessages: [
-        "You found a Set!",
-        "Nice Set!",
-        "Awesome!",
-        "Great Set!",
-        "Woohoo!",
-      ],
-      incorrectMessages: [
-        "Not a Set. Try again!",
-        "Not quite!",
-        "Almost. Try again!",
-        "So close!",
-      ],
     };
   },
   mounted() {
-    this.animationInSeconds = this.$store.state.turnLength / 1000 - 1 + "s";
+    this.animationInSeconds = this.$store.state.turnLength / 1000 + "s";
     document.getElementById("timeRemaining").style.animationDuration =
       this.animationInSeconds;
   },

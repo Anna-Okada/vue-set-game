@@ -58,7 +58,25 @@ export default new Vuex.Store({
     revealSound: null,
     selectSound: null,
     shuffleSound: null,
-    timeUpSound: null
+    timeUpSound: null,
+    volume: 1,
+    showAddCardsAlert: false,
+    correctMessages: [
+      "You found a Set!",
+      "Nice Set!",
+      "Awesome!",
+      "Great Set!",
+      "Woohoo!",
+    ],
+    incorrectMessages: [
+      "Not a Set. Try again!",
+      "Not quite!",
+      "Almost. Try again!",
+      "So close!",
+      "Keep trying!",
+    ],
+    correctMessage: '',
+    incorrectMessage: '',
   },
   getters: {
   },
@@ -136,9 +154,6 @@ export default new Vuex.Store({
       this.commit("CHECK_FOR_SETS", state);
     },
     SELECT_CARD(state, card) {
-      // play audio for selecting card
-      state.selectSound = new Audio(require("@/assets/audio/select.wav"));
-      state.selectSound.play();
       // is the card being clicked currently revealed? 
       // if so, change revealed to false
       if (card.revealed == true) {
@@ -152,16 +167,23 @@ export default new Vuex.Store({
         state.hand.push(card);
       }
       // is the card being clicked currently selected?
-      // if so, you can change the selected to false and remove it from the hand
-      else if (card.selected == true) {
+      // are there fewer than 3 cards currently selected?
+      // if so, you can change selected to false and remove it from the hand
+      else if (card.selected == true && state.hand.length < 3) {
         card.selected = false;
         state.hand = state.hand.filter(card => card.selected == true);
+      }
+      // if able to select or deselect a card, play audio for that sound
+      if ((card.selected == false && state.hand.length < 3) || (card.selected == true && state.hand.length <= 3)) {
+        state.selectSound = new Audio(require("@/assets/audio/select.wav"));
+        state.selectSound.volume = state.volume;
+        state.selectSound.play();
       }
       // if the hand now has 3 cards, trigger following methods
       if (state.hand.length == 3) {
         // run following methods after 1 second
+        this.commit("CHECK_IF_SET", state);
         setTimeout(() => {
-          this.commit("CHECK_IF_SET", state);
           this.commit("AFTER_CHECK_IF_SET", state)
           this.commit("REFRESH_TABLE", state)
         }, 1000)
@@ -173,6 +195,7 @@ export default new Vuex.Store({
     SHUFFLE_TABLE(state) {
       // play audio for shuffling
       state.shuffleSound = new Audio(require("@/assets/audio/shuffle.wav"));
+      state.shuffleSound.volume = state.volume;
       state.shuffleSound.play();
       // shuffle the cards
       for (let i = 0; i < 12; i++) {
@@ -232,7 +255,8 @@ export default new Vuex.Store({
       // if hand makes Set
       if (state.isSet == true) {
         // play audio for finding a Set
-        state.correctSound = new Audio(require("@/assets/audio/correct.wav"));
+        state.correctSound = new Audio(require("@/assets/audio/airhorn.wav"));
+        state.correctSound.volume = state.volume;
         state.correctSound.play();
         // set lastHandWasSet to true so that GameStats can display message
         state.lastHandWasSet = true;
@@ -254,6 +278,9 @@ export default new Vuex.Store({
           else if (state.player1Turn == false) {
             state.p2UnassistedSetCount++;
           }
+          // select a random message of success from correctMessages
+          let i = Math.floor(Math.random() * state.correctMessages.length);
+          state.correctMessage = state.correctMessages[i];
         }
         // if hint or reveal a set button was clicked
         else if (state.usedHint == true) {
@@ -273,9 +300,13 @@ export default new Vuex.Store({
       else {
         // play audio for misidentifying a Set
         state.incorrectSound = new Audio(require("@/assets/audio/incorrect.wav"));
+        state.incorrectSound.volume = state.volume;
         state.incorrectSound.play();
         // set lastHandWasSet to false so that GameStats can display message (div class="isNotSet")
         state.lastHandWasSet = false;
+        // select random message to indicate incorrect Set from incorrectMessages
+        let i = Math.floor(Math.random() * state.incorrectMessages.length);
+        state.incorrectMessage = state.incorrectMessages[i];
         // if player 1's turn, increment p1IncorrectGuesses
         if (state.player1Turn == true) {
           state.p1IncorrectGuesses++;
@@ -359,6 +390,7 @@ export default new Vuex.Store({
     REVEAL_A_SET(state) {
       // play audio for revealing a Set
       state.revealSound = new Audio(require("@/assets/audio/reveal.wav"));
+      state.revealSound.volume = state.volume;
       state.revealSound.play();
       state.usedHint = true;
       state.setsInTable = 0;
@@ -405,6 +437,9 @@ export default new Vuex.Store({
       // clear positionsArray because its contents depend on the length of the table, which varies
       state.positionsArray = [];
     },
+    HIDE_ADD_CARDS_ALERT(state) {
+      setTimeout(() => { state.showAddCardsAlert = false }, 2500)
+    },
     ADD_THREE_CARDS_TO_TABLE(state) {
       // *** NOT SURE IF I NEED THIS ***
       state.setsInTable = 0;
@@ -416,19 +451,17 @@ export default new Vuex.Store({
       this.commit("CHECK_FOR_SETS", state);
       if (state.hasSet == true) {
         // play audio for when unable to add cards
-        state.cannotAddCardsSound = new Audio(require("@/assets/audio/cannotAddCards.wav"));
+        state.cannotAddCardsSound = new Audio(require("@/assets/audio/ding.wav"));
+        state.cannotAddCardsSound.volume = state.volume;
         state.cannotAddCardsSound.play();
-        if (state.setsInTable == 1) {
-          alert("There actually is a Set here! Can you find it?")
-        }
-        else if (state.setsInTable > 1) {
-          alert("There actually are " + state.setsInTable + " Sets here! Can you find one?")
-        }
+        state.showAddCardsAlert = true;
+        this.commit("HIDE_ADD_CARDS_ALERT")
       }
       // if there are no Sets in the table and the deck is not empty
       if (state.hasSet == false && state.deckEmpty == false) {
         // play audio for adding cards
-        state.addCardsSound = new Audio(require("@/assets/audio/addCards.wav"));
+        state.addCardsSound = new Audio(require("@/assets/audio/ding.wav"));
+        state.addCardsSound.volume = state.volume;
         state.addCardsSound.play();
         for (let i = 0; i < 3; i++) {
           // add three cards to the table
@@ -542,6 +575,7 @@ export default new Vuex.Store({
     },
     START_GAME(state) {
       state.startGameSound = new Audio(require('@/assets/audio/startGame.wav'));
+      state.startGameSound.volume = state.volume;
       state.startGameSound.play();
       state.gameStarted = true;
       state.gameStartTime = Date.now()
@@ -551,24 +585,23 @@ export default new Vuex.Store({
       if (event.key == 'a' && state.player1Turn == null) {
         state.player1Turn = true;
         state.player1TurnVisible = true;
+        state.tickingSound = new Audio(require("@/assets/audio/ticking.wav"));
+        state.tickingSound.volume = state.volume;
+        state.tickingSound.play();
       }
       // if user hit 'l', it isn't currently someone's turn, and it's not botMode, start player 2's turn
       else if (event.key == 'l' && state.player1Turn == null && state.playerMode != 'bot') {
         state.player1Turn = false;
         state.player1TurnVisible = false;
+        state.tickingSound = new Audio(require("@/assets/audio/ticking.wav"));
+        state.tickingSound.volume = state.volume;
+        state.tickingSound.play();
       }
-      // play audio for ticking timer
-      state.ticking = new Audio(require("@/assets/audio/ticking.wav"));
-      state.ticking.play();
       // start countdown, after which END_TURN mutation is automatically triggered
       // unless CHECK_IF_SET is run, in which case the turnTimer will be cleared
       state.turnTimer = setTimeout(() => {
         this.commit("END_TURN");
       }, state.turnLength);
-      // start countdown that is 1 second shorter than the turn
-      state.turnTimer = setTimeout(() => {
-        this.commit("HIDE_TURN");
-      }, state.turnLength - 1000);
       if (state.player1Turn != null) {
         state.turnTimer;
         state.turnStart = Date.now();
@@ -576,15 +609,11 @@ export default new Vuex.Store({
       // clear botTimer
       clearTimeout(state.botTimer);
     },
-    HIDE_TURN(state) {
-      state.ticking.pause();
-      state.player1TurnVisible = null;
-      // play audio for when time's up
-      state.timeUpSound = new Audio(require("@/assets/audio/timeUp.wav"));
-      state.timeUpSound.play();
-    },
     END_TURN(state) {
-      state.ticking.pause();
+      // if mid-turn, pause ticking sound
+      if (state.player1Turn != null) {
+        state.tickingSound.pause();
+      }
       clearTimeout(state.turnTimer)
       state.player1Turn = null;
       state.player1TurnVisible = null;
@@ -594,13 +623,17 @@ export default new Vuex.Store({
       }
     },
     START_BOT_TIMER(state) {
-      state.botTimer = setTimeout(() => {
-        this.commit("BOT_FINDS_SET")
-      }, state.botInterval)
+      if (!state.gamePaused) {
+        state.botTimer = setTimeout(() => {
+          if (!state.gamePaused) {
+            this.commit("BOT_FINDS_SET")
+          }
+        }, state.botInterval)
 
-      if (state.player1Turn == null) {
-        state.botTimer;
-        state.botStart = Date.now();
+        if (state.player1Turn == null) {
+          state.botTimer;
+          state.botStart = Date.now();
+        }
       }
     },
     BOT_FINDS_SET(state) {
@@ -646,8 +679,12 @@ export default new Vuex.Store({
         }
         // clear positionsArray because its contents depend on the length of the table, which varies
         state.positionsArray = [];
-        // if there's a SET in the hand, start the timer to trigger BOT_TAKES_SET
+        // if there's a Set in the hand, start the timer to trigger BOT_TAKES_SET
         if (state.hand.length == 3) {
+          // play audio for bot finding a Set
+          state.botSound = new Audio(require('@/assets/audio/ding.wav'));
+          state.botSound.volume = state.volume;
+          state.botSound.play();
           setTimeout(() => {
             this.commit("BOT_TAKES_SET");
           }, 800);
@@ -673,108 +710,110 @@ export default new Vuex.Store({
       state.tutorialVisible = false;
       this.commit("RESUME_GAME")
     },
-    PLAY_AGAIN(state) {
-      state.deck = []
-      state.table = []
-      state.hand = []
-      state.p1FoundSets = []
-      state.p2FoundSets = []
-      state.isSet = false
-      state.hasSet = false
-      state.p1UnassistedSetCount = 0
-      state.p2UnassistedSetCount = 0
-      state.p1IncorrectGuesses = 0
-      state.p2IncorrectGuesses = 0
-      state.assistedSetCount = 0
-      state.usedHint = false
-      state.deckEmpty = false
-      state.positionsArray = []
-      state.setsInTable = 0
-      state.revealedSets = []
-      state.timesClickedRevealSets = 0
-      state.playerMode = ''
-      state.player1Name = ''
-      state.player2Name = ''
-      state.player1Turn = null
-      state.gameOver = false
-      state.gameStarted = false
-      state.gameStartTime = null
-      state.gameEndTime = null
-      state.lastHandWasSet = null
-      state.tutorialVisible = false
-      state.difficulty = ''
-      state.botInterval = 0
-      state.remainingBotTime = 0
-      state.turnLength = 10000
-      state.remainingTurnTime = 0
-      state.turnTimer = null
-      state.turnStart = null
-      state.botTimer = null
-      state.botStart = null
-      state.gamePaused = false
-      state.aboutVisible = false
-      this.commit("CREATE_DECK")
-      this.commit("SHUFFLE_DECK")
+    PLAY_AGAIN() {
+      location.reload();
     },
     SELECT_DIFFICULTY(state, difficulty) {
       state.difficulty = difficulty;
       switch (state.difficulty) {
-        case "easy": state.botInterval = 31000;
-          state.turnLength = 11000;
+        case "easy": state.botInterval = 30000;
+          state.turnLength = 10000;
           break;
-        case "moderate": state.botInterval = 21000;
-          state.turnLength = 9000;
+        case "moderate": state.botInterval = 20000;
+          state.turnLength = 8000;
           break;
-        case "hard": state.botInterval = 11000;
-          state.turnLength = 7000;
+        case "hard": state.botInterval = 10000;
+          state.turnLength = 6000;
           break;
-        case "insane": state.botInterval = 6000;
-          state.turnLength = 5000;
+        case "insane": state.botInterval = 5000;
+          state.turnLength = 4000;
           break;
       }
     },
     VIEW_ABOUT(state) {
-      state.ticking.pause();
       state.gamePaused = true;
       state.aboutVisible = true;
       state.remainingBotTime = state.botInterval - (Date.now() - state.botStart);
       state.remainingTurnTime = state.turnLength - (Date.now() - state.turnStart);
+      console.log(state.remainingTurnTime / 1000);
+      // if mid-turn, pause the ticking sound
+      if (state.remainingTurnTime > 0) {
+        state.tickingSound.pause();
+      }
       clearTimeout(state.botTimer)
       clearTimeout(state.turnTimer)
     },
     VIEW_TUTORIAL(state) {
-      state.ticking.pause();
       state.gamePaused = true;
       state.tutorialVisible = true;
       state.remainingBotTime = state.botInterval - (Date.now() - state.botStart);
       state.remainingTurnTime = state.turnLength - (Date.now() - state.turnStart);
+      // if mid-turn, pause the ticking sound
+      if (state.remainingTurnTime > 0) {
+        state.tickingSound.pause();
+      }
       clearTimeout(state.botTimer)
       clearTimeout(state.turnTimer)
     },
     QUIT_GAME(state) {
-      state.gameOverSound = new Audio(require('@/assets/audio/gameOver.wav'));
-      state.gameOverSound.play();
       state.gameOver = true;
+      if (state.playerMode != "singlePlayer" && state.player1Turn == true) {
+        state.tickingSound.pause()
+      }
+      // if human won against bot
+      // or if not a tie in two player mode
+      // or if in single player mode and score is > 0
+      // then play success audio
+      if ((state.playerMode == 'bot' && state.p1UnassistedSetCount > state.p2UnassistedSetCount) ||
+        (state.playerMode == 'twoPlayer' && state.p1UnassistedSetCount != state.p2UnassistedSetCount) ||
+        (state.playerMode == 'singlePlayer' && state.p1UnassistedSetCount > 0)) {
+        state.gameOverSound = new Audio(require('@/assets/audio/success.wav'));
+        state.gameOverSound.volume = state.volume;
+        state.gameOverSound.play();
+      }
+      // if it's a tie
+      // or if single player mode and score is 0
+      // then play ding
+      if (state.p1UnassistedSetCount == state.p2UnassistedSetCount ||
+        (state.playerMode == 'singlePlayer' && state.p1UnassistedSetCount == 0)) {
+        state.gameOverSound = new Audio(require('@/assets/audio/ding.wav'));
+        state.gameOverSound.volume = state.volume;
+        state.gameOverSound.play();
+      }
+      // if computer won
+      // play sad sound?
+      if (state.playerMode == 'bot' && state.p1UnassistedSetCount < state.p2UnassistedSetCount) {
+        state.gameOverSound = new Audio(require('@/assets/audio/cannotAddCards.wav'));
+        state.gameOverSound.volume = state.volume;
+        state.gameOverSound.play();
+      }
+      state.player1TurnVisible = null;
       state.player1Turn = null;
       clearTimeout(state.botTimer)
       clearTimeout(state.turnTimer)
       state.gameEndTime = Date.now()
     },
     PAUSE_GAME(state) {
-      state.ticking.pause();
       state.gamePaused = true;
       state.remainingBotTime = state.botInterval - (Date.now() - state.botStart);
       state.remainingTurnTime = state.turnLength - (Date.now() - state.turnStart);
-      clearTimeout(state.botTimer) // this isn't doing what I thought it would do
+      // if mid-turn, pause the ticking sound
+      if (state.player1Turn != null) {
+        state.tickingSound.pause();
+      }
+      clearTimeout(state.botTimer) // *** IS THIS DOING ANYTHING? ***
       clearTimeout(state.turnTimer)
     },
     RESUME_GAME(state) {
-      state.ticking.play();
       state.gamePaused = false;
+      // if mid-turn, resume the ticking sound
+      if (state.remainingTurnTime > 0) {
+        state.tickingSound.play();
+      }
       state.aboutVisible = false;
+      // if in bot mode, resume bot timer
       if (state.playerMode == 'bot') {
-        // resume bot timer
-        // if the timer was running, reset for remaining time
+        // if the bot timer was running, reset for remaining time
         if (state.remainingBotTime > 0) {
           state.botTimer = setTimeout(() => {
             this.commit("BOT_FINDS_SET")
@@ -787,29 +826,27 @@ export default new Vuex.Store({
           }, state.botInterval)
         }
         state.botTimer;
-        // only resume turn timer if mid-turn
-        if (state.remainingTurnTime > 0) {
-          state.turnTimer = setTimeout(() => {
-            this.commit("END_TURN");
-          }, state.remainingTurnTime);
-          state.turnTimer;
-        }
-        // reset remainingTurnTime to 0
-        state.remainingTurnTime = 0;
       }
+      // if mid-turn in 2 player mode, reset turn timer for remaining time
+      if (state.remainingTurnTime > 0) {
+        state.turnTimer = setTimeout(() => {
+          this.commit("END_TURN");
+        }, state.remainingTurnTime);
+        // state.hideShowTurnTimer = setTimeout(() => {
+        //   this.commit("HIDE_TURN");
+        // }, state.remainingTurnTime - 1000);
+        // state.turnTimer;
+      }
+      // reset remainingTurnTime to 0
+      state.remainingTurnTime = 0;
     },
     MUTE_UNMUTE(state) {
-      state.tickingSound.volume = 0;
-      state.addCardsSound.volume = 0;
-      state.cannotAddCardsSound = 0;
-      state.correctSound = 0;
-      state.startGameSound = 0;
-      state.gameOverSound = 0;
-      state.incorrectSound = 0;
-      state.revealSound = 0;
-      state.selectSound = 0;
-      state.shuffleSound = 0;
-      state.timeUpSound = 0;
+      if (state.volume == 1) {
+        state.volume = 0;
+      }
+      else if (state.volume == 0) {
+        state.volume = 1;
+      }
     }
   },
   actions: {

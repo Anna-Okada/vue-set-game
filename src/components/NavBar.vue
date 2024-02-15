@@ -1,11 +1,13 @@
 <template>
   <div id="nav">
     <ul>
+      <li>
+        <div id="sound" @click="muteUnmute">&#128266;</div>
+      </li>
       <li><div @click="viewAbout">About</div></li>
       <li><div @click="viewTutorial">Tutorial</div></li>
       <li><div @click="quit">Quit</div></li>
       <li><div @click="pause">Pause</div></li>
-      <li><div @click="muteUnmute">Sound on/off</div></li>
     </ul>
   </div>
 </template>
@@ -25,8 +27,13 @@ export default {
     pause() {
       this.$store.commit("PAUSE_GAME");
     },
-    mute() {
+    muteUnmute() {
       this.$store.commit("MUTE_UNMUTE");
+      if (this.$store.state.volume == 1) {
+        document.getElementById("sound").innerHTML = "&#128266;";
+      } else if (this.$store.state.volume == 0) {
+        document.getElementById("sound").innerHTML = "&#128263;";
+      }
     },
   },
 };
@@ -42,11 +49,9 @@ ul {
   border-radius: 10px;
   background-color: rgba(254, 178, 0, 0.215);
 }
-
 li {
   float: right;
 }
-
 li div {
   display: block;
   color: rgb(254, 178, 0);
@@ -54,9 +59,10 @@ li div {
   padding: 14px 16px;
   text-decoration: none;
 }
-
+li:first-child:hover {
+  transform: scale(1.2);
+}
 li div:hover {
-  background: rgba(0, 97, 254, 0.215);
   color: rgb(0, 97, 254);
 }
 </style>

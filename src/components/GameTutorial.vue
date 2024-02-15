@@ -286,10 +286,11 @@
             In Single Player Mode, you may find Sets at your leisure. If you are
             stumped, click REVEAL A SET to show the Set or Sets in the table.
             Click on the cards to select them. If they make a Set they will be
-            added to your Found Sets display. Occasionally, there may be no Set
+            added to your Found Sets display. Occasionally, there will be no Set
             in the table, in which case you may ADD 3 CARDS. Hit the space bar
-            or click PAUSE to pause the game. The game is over when there are no
-            remaining cards in the deck and no remaining Sets in the table.
+            or click PAUSE to pause the game. The game is complete when there
+            are no remaining cards in the deck and no remaining Sets in the
+            table.
           </p>
         </div>
         <div id="twoPlayerRules" class="tabcontent">
