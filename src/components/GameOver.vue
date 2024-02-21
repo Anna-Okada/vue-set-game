@@ -1,6 +1,6 @@
 <template>
-  <div id="gameOver">
-    <div id="menu">
+  <div class="game-over-container">
+    <div class="game-over">
       <h2>Game Over</h2>
       <h2 v-if="$store.state.playerMode == 'singlePlayer'">
         {{ p1Message }}
@@ -43,7 +43,15 @@ export default {
       let seconds = Math.floor((duration / 1000) % 60);
       let minutes = Math.floor((duration / (1000 * 60)) % 60);
       let hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
-      return (hours > 0 ? hours + " hours, " : "") + (minutes == 1 ? minutes + " minute and " : minutes > 1 ? minutes + " minutes and " : "") + (seconds > 0 ? seconds + "." + milliseconds + " seconds" : "");
+      return (
+        (hours > 0 ? hours + " hours, " : "") +
+        (minutes == 1
+          ? minutes + " minute and "
+          : minutes > 1
+          ? minutes + " minutes and "
+          : "") +
+        (seconds > 0 ? seconds + "." + milliseconds + " seconds" : "")
+      );
     },
   },
   methods: {
@@ -55,7 +63,7 @@ export default {
 </script>
 
 <style scoped>
-#gameOver {
+.game-over-container {
   position: fixed;
   z-index: 1;
   padding-top: 250px;
@@ -65,7 +73,7 @@ export default {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.4);
 }
-#menu {
+.game-over {
   background-color: #fefefe;
   margin: auto;
   padding: 20px;

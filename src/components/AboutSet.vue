@@ -1,17 +1,16 @@
 <template>
-  <div id="about">
-    <div class="modal">
+  <div class="about-container">
+    <div class="about">
       <h2>Set Facts!</h2>
       <p>
-        Set was invented in 1974 by Marsha Jean Falco, who was studying genetic patterns of epilepsy in German Shepherds.
+        Set was invented in 1974 by Marsha Jean Falco, who was studying genetic
+        patterns of epilepsy in German Shepherds.
       </p>
-      <p>
-        108 unique Sets can be formed from the 81 cards in a deck.
-      </p>
+      <p>108 unique Sets can be formed from the 81 cards in a deck.</p>
       <p>
         Given two cards, one -- and only one -- other card can complete the Set.
       </p>
-      <p>
+      <p class="githubLink">
         This website was designed by Anna Okada and is open source on
         <a href="https://github.com/Anna-Okada/vue-set-game" target="_blank"
           >Github</a
@@ -44,6 +43,9 @@ p {
   font-size: 18px;
   text-align: center;
 }
+.githubLink {
+  font-size: 12px;
+}
 a:link {
   color: rgb(254, 178, 0);
   text-decoration: none;
@@ -57,7 +59,7 @@ a:hover {
 a:active {
   color: rgb(0, 97, 254);
 }
-#about {
+.about-container {
   position: fixed;
   z-index: 1;
   padding-top: 150px;
@@ -67,7 +69,7 @@ a:active {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.4);
 }
-.modal {
+.about {
   background-color: #fefefe;
   margin: auto;
   padding-top: 10px;
@@ -76,7 +78,7 @@ a:active {
   padding-right: 30px;
   border: 1px solid rgb(254, 178, 0);
   border-radius: 10px;
-  width: 60%;
+  width: 575px;
   text-align: center;
   gap: 10px;
 }
@@ -88,6 +90,7 @@ button {
   background: rgba(254, 178, 0, 0.215);
   border: none;
   border-radius: 5px;
+  margin: 10px;
 }
 button:hover {
   background: rgba(0, 97, 254, 0.215);

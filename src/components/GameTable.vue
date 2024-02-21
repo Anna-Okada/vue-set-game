@@ -1,11 +1,11 @@
 <template>
-  <section id="table">
-    <div id="addCards" v-if="$store.state.showAddCardsAlert == true">
+  <section class="table-container">
+    <div class="add-cards" v-if="$store.state.showAddCardsAlert == true">
       <div class="alert">
         <h2 v-if="$store.state.setsInTable == 1">
           There actually is a Set here! Can you find it?
         </h2>
-        <h2 v-if="$store.state.setsInTable > 1">
+        <h2 v-if="$store.state.setsInTable &gt; 1">
           There actually are {{ $store.state.setsInTable }} Sets here! Can you
           find one?
         </h2>
@@ -16,23 +16,23 @@
       <button @click="addThreeCardsToTable">Add 3 cards</button>
       <button @click="revealSet">Reveal a SET</button>
     </div>
-    <div class="table">
+    <div class="table-cards">
       <div
         class="card flip-card"
         v-for="card in $store.state.table"
         :key="card.url"
         :class="{
-          cardSelected: card.selected,
-          cardRevealed: card.revealed,
+          selected: card.selected,
+          revealed: card.revealed,
           flipped: $store.state.gamePaused,
         }"
         @click="selectCard(card)"
       >
         <div class="flip-card-inner">
-          <div class="flip-card-front">
+          <div class="card-front">
             <img :src="require(`../assets/set-cards/${card.url}`)" />
           </div>
-          <div class="flip-card-back">
+          <div class="card-back">
             <h1>S E T</h1>
           </div>
         </div>
@@ -97,7 +97,7 @@ export default {
 </script>
 
 <style scoped>
-#addCards {
+.add-cards {
   position: fixed;
   z-index: 1;
   padding-top: 250px;
@@ -116,14 +116,13 @@ export default {
   width: 50%;
   text-align: center;
 }
-#table {
+.table-container {
   border: solid rgb(255, 223, 150) 2px;
   border-radius: 10px;
   display: grid;
   grid-template-areas:
     "buttons"
     "cards";
-  /* grid-template-rows: 40px 350px; */
   align-items: center;
 }
 h1 {
@@ -159,7 +158,7 @@ button:hover {
   background: rgba(0, 97, 254, 0.215);
   color: rgb(0, 97, 254);
 }
-.table {
+.table-cards {
   grid-area: cards;
   width: auto;
   height: 37em;
@@ -168,10 +167,10 @@ button:hover {
   justify-content: space-evenly;
   align-content: space-around;
 }
-.cardSelected {
+.selected {
   border: solid rgba(254, 178, 0) 5px;
 }
-.cardRevealed {
+.revealed {
   border: dashed rgb(0, 97, 254) 5px;
 }
 .flip-card {
@@ -184,27 +183,23 @@ button:hover {
   position: relative;
   width: 100%;
   height: 100%;
-  text-align: center;
+  /* text-align: center; */
   transition: transform 0.6s;
   transform-style: preserve-3d;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); */
 }
 .flipped .flip-card-inner {
   transform: rotateY(180deg);
 }
-.flip-card-front,
-.flip-card-back {
+.card-front,
+.card-back {
   position: absolute;
   width: 100%;
   height: 100%;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
-.flip-card-front {
-  background-color: #bbb;
-  color: black;
-}
-.flip-card-back {
+.card-back {
   background-color: rgba(254, 178, 0);
   color: white;
   transform: rotateY(180deg);

@@ -1,13 +1,16 @@
 <template>
-  <div id="nav">
+  <div id="nav" class="nav-container">
     <ul>
-      <li>
-        <div id="sound" @click="muteUnmute">&#128266;</div>
-      </li>
-      <li><div @click="viewAbout">About</div></li>
-      <li><div @click="viewTutorial">Tutorial</div></li>
+      <li><div id="pauseResume" @click="pauseResume">Pause</div></li>
       <li><div @click="quit">Quit</div></li>
-      <li><div @click="pause">Pause</div></li>
+      <li><div @click="viewTutorial">Tutorial</div></li>
+      <li><div @click="viewAbout">About</div></li>
+      <li>
+        <div class="sound" @click="muteUnmute">
+          <i class="fas fa-volume-up" v-if="$store.state.volume == 1"></i>
+          <i class="fas fa-volume-off" v-if="$store.state.volume == 0"></i>
+        </div>
+      </li>
     </ul>
   </div>
 </template>
@@ -24,16 +27,17 @@ export default {
     quit() {
       this.$store.commit("QUIT_GAME");
     },
-    pause() {
-      this.$store.commit("PAUSE_GAME");
+    pauseResume() {
+      if (this.$store.state.gamePaused == false) {
+        this.$store.commit("PAUSE_GAME");
+        document.getElementById("pauseResume").innerHTML = "Resume";
+      } else {
+        this.$store.commit("RESUME_GAME");
+        document.getElementById("pauseResume").innerHTML = "Pause";
+      }
     },
     muteUnmute() {
       this.$store.commit("MUTE_UNMUTE");
-      if (this.$store.state.volume == 1) {
-        document.getElementById("sound").innerHTML = "&#128266;";
-      } else if (this.$store.state.volume == 0) {
-        document.getElementById("sound").innerHTML = "&#128263;";
-      }
     },
   },
 };
@@ -41,6 +45,10 @@ export default {
 
 <style scoped>
 ul {
+  display: grid;
+  justify-content: end;
+  align-items: center;
+  grid-template-columns: repeat(5, auto);
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -49,8 +57,8 @@ ul {
   border-radius: 10px;
   background-color: rgba(254, 178, 0, 0.215);
 }
-li {
-  float: right;
+.sound {
+  width: 18px;
 }
 li div {
   display: block;
@@ -59,10 +67,8 @@ li div {
   padding: 14px 16px;
   text-decoration: none;
 }
-li:first-child:hover {
-  transform: scale(1.2);
-}
 li div:hover {
   color: rgb(0, 97, 254);
+  transform: scale(1.2);
 }
 </style>

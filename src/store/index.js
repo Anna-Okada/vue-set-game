@@ -253,7 +253,7 @@ export default new Vuex.Store({
       // if hand makes Set
       if (state.isSet == true) {
         // play audio for finding a Set
-        state.correctSound = new Audio(require("@/assets/audio/airhorn.wav"));
+        state.correctSound = new Audio(require("@/assets/audio/correct.wav"));
         state.correctSound.volume = state.volume;
         state.correctSound.play();
         // set lastHandWasSet to true so that GameStats can display message
@@ -458,7 +458,7 @@ export default new Vuex.Store({
       // if there are no Sets in the table and the deck is not empty
       if (state.hasSet == false && state.deckEmpty == false) {
         // play audio for adding cards
-        state.addCardsSound = new Audio(require("@/assets/audio/ding.wav"));
+        state.addCardsSound = new Audio(require("@/assets/audio/shuffle.wav"));
         state.addCardsSound.volume = state.volume;
         state.addCardsSound.play();
         for (let i = 0; i < 3; i++) {
@@ -779,7 +779,7 @@ export default new Vuex.Store({
         state.gameOverSound.play();
       }
       // if computer won
-      // play sad sound?
+      // play sad sound
       if (state.playerMode == 'bot' && state.p1UnassistedSetCount < state.p2UnassistedSetCount) {
         state.gameOverSound = new Audio(require('@/assets/audio/cannotAddCards.wav'));
         state.gameOverSound.volume = state.volume;

@@ -1,8 +1,8 @@
 <template>
-  <div class="container">
-    <div id="tutorial">
-      <div id="mainContent">
-        <div id="objective" class="tabcontent">
+  <div class="tutorial-container">
+    <div class="tutorial" id="tutorial-window">
+      <div class="mainContent">
+        <div class="objective tab-content">
           <h2>Objective</h2>
           <p>
             Set is a card-matching game. There are 81 unique cards in a deck. An
@@ -12,7 +12,7 @@
             number, color, shape, and shading.
           </p>
           <div class="attributes">
-            <div class="attributeExample">
+            <div class="attribute-example">
               <p>Number can be 1, 2, or 3.</p>
               <div class="cards">
                 <img
@@ -29,7 +29,7 @@
                 />
               </div>
             </div>
-            <div class="attributeExample">
+            <div class="attribute-example">
               <p>Color can be blue, green, or pink.</p>
               <div class="cards">
                 <img
@@ -46,7 +46,7 @@
                 />
               </div>
             </div>
-            <div class="attributeExample">
+            <div class="attribute-example">
               <p>Shape can be diamond, oval, or squiggle.</p>
               <div class="cards">
                 <img
@@ -63,7 +63,7 @@
                 />
               </div>
             </div>
-            <div class="attributeExample">
+            <div class="attribute-example">
               <p>Shading can be clear, shaded, or solid.</p>
               <div class="cards">
                 <img
@@ -82,15 +82,12 @@
             </div>
           </div>
           <p>
-            A Set consists of 3 cards where for each attribute
-            <b
-              >all cards have the same value or all cards have different
-              values.</b
-            >
+            A Set consists of 3 cards where for each attribute all cards have
+            the same value or all cards have different values.
           </p>
         </div>
-        <div id="examplesOfSets" class="tabcontent">
-          <h2 id="heading">Examples of SETs</h2>
+        <div class="examples-of-sets tab-content">
+          <h2 class="heading">Examples of SETs</h2>
           <div class="example">
             <p class="description">
               This is a Set because number is different, color is the same,
@@ -186,8 +183,8 @@
             </table>
           </div>
         </div>
-        <div id="examplesOfNotSets" class="tabcontent">
-          <h2 id="heading">All or nothing</h2>
+        <div class="examples-of-not-sets tab-content">
+          <h2 class="heading">All or nothing</h2>
           <div class="example">
             <p class="description">
               This is not a Set because two of the cards are blue and only one
@@ -283,8 +280,8 @@
             </table>
           </div>
         </div>
-        <div id="singlePlayerRules" class="tabcontent">
-          <h2>Single Player</h2>
+        <div class="player-modes tab-content">
+          <h2>Solo</h2>
           <p>
             In Single Player Mode, you may find Sets at your leisure. If you are
             stumped, click REVEAL A SET to show the Set or Sets in the table.
@@ -295,19 +292,17 @@
             are no remaining cards in the deck and no remaining Sets in the
             table.
           </p>
-        </div>
-        <div id="twoPlayerRules" class="tabcontent">
           <h2>Two Player</h2>
           <p>
             In Two Player Mode, you will compete against your opponent to
             identify Sets. Player 1 initiates their turn by pressing the 'a'
-            key. Player 2 initiates their turn by pressing the 'l' key. Once a
-            turn has begun, the player has 10 seconds to identify a Set. The
-            player with the highest Set count wins!
+            key. Player 2 initiates their turn by pressing the 'l' key. In EASY
+            mode, each player will have 10 seconds to identify a Set. That
+            window narrows to 8 seconds in MODERATE mode, 6 seconds in HARD
+            mode, and only 4 seconds in INSANE mode. The player with the highest
+            Set count wins!
           </p>
-        </div>
-        <div id="botRules" class="tabcontent">
-          <h2>Playing Against the Computer</h2>
+          <h2>VS. Bot</h2>
           <p>
             When playing against the computer, you may choose your level of
             difficulty from EASY to INSANE! As in Two Player Mode, you will
@@ -321,14 +316,12 @@
         </div>
       </div>
       <div class="buttons">
-        <div id="prevBtn" class="changePage" @click="nextPrev(-1)">&#8249;</div>
+        <div id="back-button" class="change-page" @click="nextPrev(-1)">&#8249;</div>
         <button id="skip" @click="skipTutorial">Skip Tutorial</button>
-        <div id="nextBtn" class="changePage" @click="nextPrev(1)">&#8250;</div>
+        <div id="next-button" class="change-page" @click="nextPrev(1)">&#8250;</div>
       </div>
       <div class="steps">
         <span class="step active"></span>
-        <span class="step"></span>
-        <span class="step"></span>
         <span class="step"></span>
         <span class="step"></span>
         <span class="step"></span>
@@ -345,28 +338,45 @@ export default {
     };
   },
   mounted() {
-    let tabs = document.getElementsByClassName("tabcontent");
+    let tabs = document.getElementsByClassName("tab-content");
     tabs[0].style.display = "block";
-    document.getElementById("prevBtn").style.display = "none";
+    document.getElementById("back-button").style.display = "none";
+    let self = this;
+    document.addEventListener("click", function (event) {
+      self.exitTutorial(event);
+    });
   },
   methods: {
+    exitTutorial(event) {
+      if (
+        event.target.closest("#tutorial-window") == document.getElementById("tutorial-window")
+      ) {
+        console.log("do nothing");
+      }
+      // if you click the Tutorial button in the nav bar to open the tutorial, it shouldn't hide it
+      else {
+        console.log(this.$store.state.tutorialVisible);
+        console.log("hide menu");
+        // this.skipTutorial()
+      }
+    },
     showTab(n) {
-      let tabs = document.getElementsByClassName("tabcontent");
+      let tabs = document.getElementsByClassName("tab-content");
       tabs[n].style.display = "block";
       if (n == 0) {
-        document.getElementById("prevBtn").style.display = "none";
+        document.getElementById("back-button").style.display = "none";
       } else {
-        document.getElementById("prevBtn").style.display = "inline";
+        document.getElementById("back-button").style.display = "inline";
       }
       if (n == tabs.length - 1) {
-        document.getElementById("nextBtn").style.display = "none";
+        document.getElementById("next-button").style.display = "none";
         if (this.$store.state.gameStarted) {
           document.getElementById("skip").innerHTML = "Resume Game";
         } else {
           document.getElementById("skip").innerHTML = "Start Game";
         }
       } else {
-        document.getElementById("nextBtn").style.display = "inline";
+        document.getElementById("next-button").style.display = "inline";
         document.getElementById("skip").innerHTML = "Skip Tutorial";
       }
       let steps = document.getElementsByClassName("step");
@@ -376,7 +386,7 @@ export default {
       steps[n].className += " active";
     },
     nextPrev(n) {
-      let tabs = document.getElementsByClassName("tabcontent");
+      let tabs = document.getElementsByClassName("tab-content");
       tabs[this.currentTab].style.display = "none";
       this.currentTab += n;
       this.showTab(this.currentTab);
@@ -459,20 +469,20 @@ button:focus {
   background: rgba(0, 97, 254, 0.215);
   color: rgb(0, 97, 254);
 }
-.changePage {
+.change-page {
   background-color: rgba(254, 178, 0, 0.215);
   color: rgb(254, 178, 0);
   width: 25px;
   border-radius: 50%;
 }
-.changePage:hover {
+.change-page:hover {
   background: rgba(0, 97, 254, 0.215);
   color: rgb(0, 97, 254);
 }
-#prevBtn {
+#back-button {
   grid-area: prev;
 }
-#nextBtn {
+#next-button {
   grid-area: next;
   justify-self: end;
 }
@@ -485,11 +495,11 @@ h2 {
   text-transform: uppercase;
   text-align: center;
 }
-.tabcontent {
+.tab-content {
   display: none;
   grid-area: content;
 }
-.container {
+.tutorial-container {
   position: fixed;
   z-index: 1;
   padding-top: 5rem;
@@ -522,7 +532,7 @@ h2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
-#tutorial {
+.tutorial {
   background-color: #fefefe;
   margin: auto;
   padding-top: 30px;

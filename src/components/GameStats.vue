@@ -1,12 +1,14 @@
 <template>
-  <div id="stats" class="stats">
+  <div class="stats-container">
     <div
-      class="singlePlayerStats"
+      class="single-player-stats"
       v-show="$store.state.playerMode == 'singlePlayer'"
     >
       <h2>SETs found without hint: {{ $store.state.p1UnassistedSetCount }}</h2>
-      <div class="correctIncorrect">
-        <h2 v-if="$store.state.lastHandWasSet == true">{{ $store.state.correctMessage }}</h2>
+      <div class="correct-incorrect">
+        <h2 v-if="$store.state.lastHandWasSet == true">
+          {{ $store.state.correctMessage }}
+        </h2>
         <h2 v-if="$store.state.lastHandWasSet == false">
           {{ $store.state.incorrectMessage }}
         </h2>
@@ -14,19 +16,19 @@
       <h2>Incorrect Guesses: {{ $store.state.p1IncorrectGuesses }}</h2>
     </div>
     <div
-      class="twoPlayerStats"
+      class="two-player-stats"
       v-show="
         $store.state.playerMode == 'twoPlayer' ||
         $store.state.playerMode == 'bot'
       "
     >
       <h2
-        :class="{ activeTurn: $store.state.player1TurnVisible == true }"
-        id="p1score"
+        class="p1-score"
+        :class="{ active: $store.state.player1TurnVisible == true }"
       >
         {{ $store.state.player1Name }}: {{ $store.state.p1UnassistedSetCount }}
       </h2>
-      <div class="middleDisplay">
+      <div class="middle-display">
         <div
           class="timer"
           v-show="
@@ -36,15 +38,15 @@
               $store.state.player1TurnVisible == true)
           "
         >
-          <div class="timerBar">
+          <div class="timer-bar">
             <div
-              id="timeRemaining"
+              id="time-remaining"
               :class="{ paused: $store.state.gamePaused }"
             ></div>
           </div>
         </div>
         <div
-          class="correctIncorrect"
+          class="correct-incorrect"
           v-if="$store.state.lastHandWasSet != null"
         >
           <h2 v-if="$store.state.lastHandWasSet == true">
@@ -56,8 +58,8 @@
         </div>
       </div>
       <h2
-        :class="{ activeTurn: $store.state.player1TurnVisible == false }"
-        id="p2score"
+        class="p2-score"
+        :class="{ active: $store.state.player1TurnVisible == false }"
       >
         {{ $store.state.player2Name }}: {{ $store.state.p2UnassistedSetCount }}
       </h2>
@@ -67,35 +69,35 @@
 
 <script>
 export default {
-  computed: {
-    totalSets() {
-      return this.$store.state.p1FoundSets.length;
-    },
-  },
   data() {
     return {
       animationInSeconds: "",
     };
   },
+  computed: {
+    totalSets() {
+      return this.$store.state.p1FoundSets.length;
+    },
+  },
   mounted() {
     this.animationInSeconds = this.$store.state.turnLength / 1000 + "s";
-    document.getElementById("timeRemaining").style.animationDuration =
+    document.getElementById("time-remaining").style.animationDuration =
       this.animationInSeconds;
   },
 };
 </script>
 
 <style scoped>
-.timer {
-  grid-area: timer;
+.middle-display {
+  grid-area: middle;
 }
-.timerBar {
+.timer-bar {
   width: 100%;
   height: 30px;
   position: relative;
   background-color: white;
 }
-#timeRemaining {
+.time-remaining {
   background-color: rgb(254, 178, 0);
   width: 100%;
   height: 30px;
@@ -106,7 +108,7 @@ export default {
   animation-fill-mode: forwards;
   animation-play-state: running;
 }
-#timeRemaining.paused {
+.time-remaining.paused {
   animation-play-state: paused;
 }
 @keyframes timer {
@@ -117,24 +119,25 @@ export default {
     width: 0%;
   }
 }
-.activeTurn {
+.active {
   border: solid rgb(254, 178, 0) 2px;
   border-radius: 5px;
 }
-.singlePlayerStats {
+.single-player-stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
 }
-.twoPlayerStats {
+.two-player-stats {
   display: grid;
-  grid-template-areas: "p1 timer p2";
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-areas: "p1 middle p2";
   align-items: center;
   gap: 20px;
 }
-#p1Score {
+.p1-score {
   grid-area: p1;
 }
-#p2Score {
+.p2-score {
   grid-area: p2;
 }
 h2 {
@@ -143,7 +146,7 @@ h2 {
   text-transform: uppercase;
   text-align: center;
 }
-#stats {
+.stats-container {
   background: rgba(254, 178, 0, 0.215);
   border: solid rgb(255, 223, 150) 2px;
   border-radius: 10px;

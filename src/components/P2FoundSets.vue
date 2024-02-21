@@ -1,5 +1,5 @@
 <template>
-  <section id="p2FoundSets">
+  <section id="p2FoundSets" class="p2-found-sets-container">
     <h2>{{ $store.state.player2Name }}'s SETs:</h2>
     <div class="foundSets">
       <span
@@ -30,11 +30,10 @@ h2 {
   text-transform: uppercase;
   text-align: center;
   margin-top: 0px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
 }
 #p2FoundSets {
-  overflow-x: scroll;
+  overflow-y: scroll;
+  scrollbar-width: none;
   border: solid rgb(255, 223, 150) 2px;
   border-radius: 10px;
 }

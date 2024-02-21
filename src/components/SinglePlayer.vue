@@ -9,7 +9,6 @@
       <game-over v-if="$store.state.gameOver"></game-over>
       <game-tutorial v-if="$store.state.tutorialVisible"></game-tutorial>
       <about-set v-if="$store.state.aboutVisible"></about-set>
-      <game-paused v-if="$store.state.gamePaused && !$store.state.tutorialVisible && !$store.state.aboutVisible"></game-paused>
     </section>
   </div>
 </template>
@@ -22,7 +21,6 @@ import FoundSets from "./FoundSets.vue";
 import GameOVer from "./GameOver.vue";
 import NavBar from "./NavBar.vue";
 import GameTutorial from "./GameTutorial.vue";
-import GamePaused from "./GamePaused.vue";
 import AboutSet from "./AboutSet.vue";
 
 export default {
@@ -34,7 +32,6 @@ export default {
     "game-over": GameOVer,
     "nav-bar": NavBar,
     "game-tutorial": GameTutorial,
-    "game-paused": GamePaused,
     "about-set": AboutSet,
   },
 };
@@ -43,27 +40,27 @@ export default {
 <style scoped>
 .singlePlayerGame {
   display: grid;
-  grid-template-columns: 0.8r, 1fr, 1fr, 0,8fr;
-  grid-template-rows: min-content min-content 76vh;
+  grid-template-columns: 0.8fr 1fr 1fr 0.8fr;
+  grid-template-rows: auto auto 80vh;
   grid-template-areas:
     "nav nav nav nav"
     "stats stats stats stats"
     "hand table table found-sets";
-  gap: 10px;
+  gap: 7px;
 }
-#nav {
+.nav-container {
   grid-area: nav;
 }
-#stats {
+.stats-container {
   grid-area: stats;
 }
-#hand {
+.hand-container {
   grid-area: hand;
 }
-#table {
+.table-container {
   grid-area: table;
 }
-#found-sets {
+.found-sets-container {
   grid-area: found-sets;
 }
 </style>

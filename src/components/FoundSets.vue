@@ -1,5 +1,5 @@
 <template>
-  <section id="found-sets">
+  <section class="found-sets-container">
     <h2 v-if="$store.state.playerMode == 'singlePlayer'">Found SETs:</h2>
     <h2
       v-if="
@@ -17,7 +17,7 @@
       >
         <span
           class="card"
-          :class="{ cardFoundWithHint: card.foundWithHint }"
+          :class="{ hint: card.foundWithHint }"
           v-for="card in set"
           :key="card.url"
         >
@@ -43,11 +43,10 @@ h2 {
   text-transform: uppercase;
   text-align: center;
   margin-top: 0px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
 }
-#found-sets {
-  overflow-x: scroll;
+.found-sets-container {
+  overflow-y: scroll;
+  scrollbar-width: none;
   border: solid rgb(255, 223, 150) 2px;
   border-radius: 10px;
 }
@@ -70,7 +69,7 @@ h2 {
     rgba(2, 8, 20, 0.1) 0px 0.075rem 0.175rem;
   transform: none;
 }
-.cardFoundWithHint {
+.hint {
   opacity: 0.5;
 }
 </style>

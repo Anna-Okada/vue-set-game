@@ -2,6 +2,10 @@
   <div id="app">
     <head>
       <title>SET Game</title>
+      <link
+        rel="stylesheet"
+        href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+      />
     </head>
     <body>
       <div class="content">
@@ -15,7 +19,9 @@
           <two-player
             v-if="$store.state.playerMode == 'twoPlayer'"
           ></two-player>
-          <human-versus-bot v-if="$store.state.playerMode == 'bot'"></human-versus-bot>
+          <human-versus-bot
+            v-if="$store.state.playerMode == 'bot'"
+          ></human-versus-bot>
         </div>
         <footer></footer>
       </div>

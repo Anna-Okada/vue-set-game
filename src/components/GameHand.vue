@@ -1,5 +1,5 @@
 <template>
-  <section id="hand">
+  <section class="hand-container">
     <h2>Your hand:</h2>
     <ul class="hand-cards">
       <li
@@ -33,8 +33,6 @@ h2 {
   text-transform: uppercase;
   text-align: center;
   margin-top: 0px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
 }
 .hand-cards {
   display: grid;
@@ -45,7 +43,7 @@ h2 {
   padding: 0px;
   margin: 20px;
 }
-#hand {
+.hand-container {
   border: solid rgb(255, 223, 150) 2px;
   border-radius: 10px;
 }
