@@ -1,9 +1,9 @@
 <template>
-  <section id="p2FoundSets" class="p2-found-sets-container">
+  <section class="p2-found-sets-container">
     <h2>{{ $store.state.player2Name }}'s SETs:</h2>
-    <div class="foundSets">
+    <div class="found-sets">
       <span
-        class="foundSet"
+        class="found-set"
         v-for="set in $store.state.p2FoundSets"
         :key="set.index"
       >
@@ -31,17 +31,17 @@ h2 {
   text-align: center;
   margin-top: 0px;
 }
-#p2FoundSets {
+.p2-found-sets-container {
   overflow-y: scroll;
   scrollbar-width: none;
   border: solid rgb(255, 223, 150) 2px;
   border-radius: 10px;
 }
-.foundSets {
+.found-sets {
   display: grid;
   justify-content: center;
 }
-.foundSet {
+.found-set {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   margin: 10px;

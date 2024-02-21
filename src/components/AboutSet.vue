@@ -1,6 +1,6 @@
 <template>
   <div class="about-container">
-    <div class="about">
+    <div class="about" @focusout="resume" tabindex="-1" ref="modal">
       <h2>Set Facts!</h2>
       <p>
         Set was invented in 1974 by Marsha Jean Falco, who was studying genetic
@@ -23,6 +23,9 @@
 
 <script>
 export default {
+  mounted() {
+    this.$refs.modal.focus();
+  },
   methods: {
     resume() {
       this.$store.commit("RESUME_GAME");
@@ -33,15 +36,19 @@ export default {
 
 <style scoped>
 h2 {
+  background: rgba(254, 178, 0, 0.215);
   color: rgb(254, 178, 0);
-  font-size: 24px;
+  padding: 10px;
+  font-size: 2em;
   text-transform: uppercase;
   text-align: center;
+  margin-top: 0px;
 }
 p {
   color: grey;
   font-size: 18px;
   text-align: center;
+  margin: 10px 10px 10px 10px;
 }
 .githubLink {
   font-size: 12px;
@@ -72,18 +79,18 @@ a:active {
 .about {
   background-color: #fefefe;
   margin: auto;
-  padding-top: 10px;
   padding-bottom: 20px;
-  padding-left: 30px;
-  padding-right: 30px;
   border: 1px solid rgb(254, 178, 0);
   border-radius: 10px;
   width: 575px;
   text-align: center;
   gap: 10px;
 }
+.about:focus {
+  outline: none;
+}
 button {
-  font-size: 18px;
+  font-size: 1.5em;
   text-transform: uppercase;
   text-align: center;
   color: rgb(254, 178, 0);

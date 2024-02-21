@@ -78,7 +78,11 @@ export default {
       if (event.key == " ") {
         if (this.$store.state.gamePaused == false) {
           this.$store.commit("PAUSE_GAME");
-        } else if (this.$store.state.gamePaused == true) {
+        } else if (
+          this.$store.state.gamePaused == true &&
+          this.$store.state.tutorialVisible == false &&
+          this.$store.state.aboutVisible == false
+        ) {
           this.$store.commit("RESUME_GAME");
         }
       }

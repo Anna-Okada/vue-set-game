@@ -97,7 +97,7 @@ export default {
   position: relative;
   background-color: white;
 }
-.time-remaining {
+#time-remaining {
   background-color: rgb(254, 178, 0);
   width: 100%;
   height: 30px;

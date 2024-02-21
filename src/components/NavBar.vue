@@ -1,7 +1,7 @@
 <template>
-  <div id="nav" class="nav-container">
+  <div class="nav-container">
     <ul>
-      <li><div id="pauseResume" @click="pauseResume">Pause</div></li>
+      <li><div id="pause-resume" @click="pauseResume">Pause</div></li>
       <li><div @click="quit">Quit</div></li>
       <li><div @click="viewTutorial">Tutorial</div></li>
       <li><div @click="viewAbout">About</div></li>
@@ -30,10 +30,10 @@ export default {
     pauseResume() {
       if (this.$store.state.gamePaused == false) {
         this.$store.commit("PAUSE_GAME");
-        document.getElementById("pauseResume").innerHTML = "Resume";
+        document.getElementById("pause-resume").innerHTML = "Resume";
       } else {
         this.$store.commit("RESUME_GAME");
-        document.getElementById("pauseResume").innerHTML = "Pause";
+        document.getElementById("pause-resume").innerHTML = "Pause";
       }
     },
     muteUnmute() {

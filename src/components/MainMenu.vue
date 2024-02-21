@@ -11,7 +11,7 @@
     <div class="container">
       <div class="modal" v-show="modalVisible == true">
         <div class="gameOptions">
-          <div id="player-mode" class="tabcontent">
+          <div class="player-mode tab-content">
             <div class="option">
               <button @click="selectSinglePlayer">Solo</button>
               <p>Enjoy a game at your leisure without timers or opponents</p>
@@ -25,7 +25,7 @@
               <p>Race against the clock to beat the AI</p>
             </div>
           </div>
-          <div id="difficulty-and-names" class="tabcontent">
+          <div class="difficulty-and-names tab-content">
             <h3 class="current-selection">
               {{ $store.state.playerMode }}
             </h3>
@@ -112,7 +112,7 @@
               </div>
             </div>
           </div>
-          <div id="start-game" class="tabcontent">
+          <div class="start-game tab-content">
             <h3
               class="current-selection"
               v-if="$store.state.playerMode == 'singlePlayer'"
@@ -160,7 +160,7 @@
 <script>
 export default {
   mounted() {
-    let tabs = document.getElementsByClassName("tabcontent");
+    let tabs = document.getElementsByClassName("tab-content");
     tabs[0].style.display = "grid";
     document.getElementById("prevBtn").style.display = "none";
   },
@@ -175,7 +175,7 @@ export default {
   },
   methods: {
     showTab(n) {
-      let tabs = document.getElementsByClassName("tabcontent");
+      let tabs = document.getElementsByClassName("tab-content");
       tabs[n].style.display = "grid";
       if (n == 0) {
         document.getElementById("prevBtn").style.display = "none";
@@ -184,7 +184,7 @@ export default {
       }
     },
     nextPrev(n) {
-      let tabs = document.getElementsByClassName("tabcontent");
+      let tabs = document.getElementsByClassName("tab-content");
       tabs[this.currentTab].style.display = "none";
       if (this.$store.state.playerMode == "singlePlayer") {
         n *= 2;
@@ -207,7 +207,6 @@ export default {
     selectInsane() {
       this.difficulty = "insane";
       this.$store.commit("SELECT_DIFFICULTY", this.difficulty);
-      this.showSelectedButton(4);
     },
     start() {
       this.modalVisible = !this.modalVisible;
@@ -305,7 +304,7 @@ button:focus {
   gap: 20px;
   margin: 10px 0;
 }
-#player-mode {
+.player-mode {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
@@ -324,16 +323,8 @@ h3 {
   text-align: center;
   margin: 0 0 10px 0;
 }
-.tabcontent {
+.tab-content {
   display: none;
-}
-.changePage {
-  background-color: rgba(254, 178, 0, 0.215);
-  color: rgb(254, 178, 0);
-}
-.changePage:hover {
-  background: rgba(0, 97, 254, 0.215);
-  color: rgb(0, 97, 254);
 }
 .backgroundCards {
   display: grid;

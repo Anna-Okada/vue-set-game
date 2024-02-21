@@ -1,6 +1,12 @@
 <template>
   <div class="tutorial-container">
-    <div class="tutorial" id="tutorial-window">
+    <div
+      class="tutorial"
+      id="tutorial-window"
+      @focusout="skipTutorial"
+      tabindex="-1"
+      ref="modal"
+    >
       <div class="mainContent">
         <div class="objective tab-content">
           <h2>Objective</h2>
@@ -316,9 +322,13 @@
         </div>
       </div>
       <div class="buttons">
-        <div id="back-button" class="change-page" @click="nextPrev(-1)">&#8249;</div>
+        <div id="back-button" class="change-page" @click="nextPrev(-1)">
+          &#8249;
+        </div>
         <button id="skip" @click="skipTutorial">Skip Tutorial</button>
-        <div id="next-button" class="change-page" @click="nextPrev(1)">&#8250;</div>
+        <div id="next-button" class="change-page" @click="nextPrev(1)">
+          &#8250;
+        </div>
       </div>
       <div class="steps">
         <span class="step active"></span>
@@ -338,28 +348,12 @@ export default {
     };
   },
   mounted() {
+    this.$refs.modal.focus();
     let tabs = document.getElementsByClassName("tab-content");
     tabs[0].style.display = "block";
     document.getElementById("back-button").style.display = "none";
-    let self = this;
-    document.addEventListener("click", function (event) {
-      self.exitTutorial(event);
-    });
   },
   methods: {
-    exitTutorial(event) {
-      if (
-        event.target.closest("#tutorial-window") == document.getElementById("tutorial-window")
-      ) {
-        console.log("do nothing");
-      }
-      // if you click the Tutorial button in the nav bar to open the tutorial, it shouldn't hide it
-      else {
-        console.log(this.$store.state.tutorialVisible);
-        console.log("hide menu");
-        // this.skipTutorial()
-      }
-    },
     showTab(n) {
       let tabs = document.getElementsByClassName("tab-content");
       tabs[n].style.display = "block";
@@ -549,5 +543,8 @@ h2 {
     "buttons"
     "content";
   gap: 10px;
+}
+.tutorial:focus {
+  outline: none;
 }
 </style>

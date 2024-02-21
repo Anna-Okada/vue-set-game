@@ -731,9 +731,13 @@ export default new Vuex.Store({
     VIEW_ABOUT(state) {
       state.gamePaused = true;
       state.aboutVisible = true;
+      // play shuffle audio when pausing/resuming game
+      state.shuffleSound = new Audio(require('@/assets/audio/shuffle.wav'));
+      state.shuffleSound.volume = state.volume;
+      state.shuffleSound.play();
+      // set remaining time on bot timer and turn timer
       state.remainingBotTime = state.botInterval - (Date.now() - state.botStart);
       state.remainingTurnTime = state.turnLength - (Date.now() - state.turnStart);
-      console.log(state.remainingTurnTime / 1000);
       // if mid-turn, pause the ticking sound
       if (state.remainingTurnTime > 0) {
         state.tickingSound.pause();
@@ -744,6 +748,11 @@ export default new Vuex.Store({
     VIEW_TUTORIAL(state) {
       state.gamePaused = true;
       state.tutorialVisible = true;
+      // play shuffle audio when pausing/resuming game
+      state.shuffleSound = new Audio(require('@/assets/audio/shuffle.wav'));
+      state.shuffleSound.volume = state.volume;
+      state.shuffleSound.play();
+      // set remaining time on bot timer and turn timer
       state.remainingBotTime = state.botInterval - (Date.now() - state.botStart);
       state.remainingTurnTime = state.turnLength - (Date.now() - state.turnStart);
       // if mid-turn, pause the ticking sound
@@ -793,6 +802,11 @@ export default new Vuex.Store({
     },
     PAUSE_GAME(state) {
       state.gamePaused = true;
+      // play shuffle audio when pausing/resuming game
+      state.shuffleSound = new Audio(require('@/assets/audio/shuffle.wav'));
+      state.shuffleSound.volume = state.volume;
+      state.shuffleSound.play();
+      // set remaining times on bot timer and turn timer
       state.remainingBotTime = state.botInterval - (Date.now() - state.botStart);
       state.remainingTurnTime = state.turnLength - (Date.now() - state.turnStart);
       // if mid-turn, pause the ticking sound
@@ -804,6 +818,10 @@ export default new Vuex.Store({
     },
     RESUME_GAME(state) {
       state.gamePaused = false;
+      // play shuffle audio when pausing/resuming game
+      state.shuffleSound = new Audio(require('@/assets/audio/shuffle.wav'));
+      state.shuffleSound.volume = state.volume;
+      state.shuffleSound.play();
       // if mid-turn, resume the ticking sound
       if (state.remainingTurnTime > 0) {
         state.tickingSound.play();
