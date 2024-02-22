@@ -1,21 +1,58 @@
 .card {
-    display: flex;
-    justify-content: center;
-    box-shadow: rgba(3, 8, 20, 0.1) 0px 0.15rem 0.5rem, rgba(2, 8, 20, 0.1) 0px 0.075rem 0.175rem;
-    width: 100px;
-    border-radius: 4px;
-    overflow: hidden;
+  display: flex;
+  justify-content: center;
+  box-shadow: rgba(3, 8, 20, 0.1) 0px 0.15rem 0.5rem, rgba(2, 8, 20, 0.1) 0px 0.075rem 0.175rem;
+  width: 100px;
+  border-radius: 4px;
+  overflow: hidden;
 }
 
 .card:hover {
-    transition: transform 500ms;
-    box-shadow: rgba(2, 8, 20, 0.1) 0px 0.35em 1.175em, rgba(2, 8, 20, 0.08) 0px 0.175em 0.5em;
-    transform: scale(1.1);
+  transition: transform 500ms;
+  box-shadow: rgba(2, 8, 20, 0.1) 0px 0.35em 1.175em, rgba(2, 8, 20, 0.08) 0px 0.175em 0.5em;
+  transform: scale(1.1);
 }
 
 .card img {
-    width: 100%;
+  width: 100%;
 }
+
+button {
+  font-size: 1.5em;
+  text-transform: uppercase;
+  text-align: center;
+  color: rgb(254, 178, 0);
+  background: rgba(254, 178, 0, 0.215);
+  border: none;
+  border-radius: 5px;
+}
+
+button:hover,
+button:focus {
+  background: rgba(0, 97, 254, 0.215);
+  color: rgb(0, 97, 254);
+}
+
+h2 {
+  color: rgb(254, 178, 0);
+  padding: 10px;
+  font-size: 2em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+h2.heading {
+  background: rgba(254, 178, 0, 0.215);
+  margin: 0;
+}
+
+h3 {
+  color: rgb(254, 178, 0);
+  font-size: 1.5em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
 
 
 /* button {

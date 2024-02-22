@@ -310,7 +310,7 @@ input[type="radio"][name="buttonGroup"]:checked + label {
 
 
 
-button {
+/* button {
     font-size: 1.5em;
     text-transform: uppercase;
     text-align: center;
@@ -323,7 +323,7 @@ button {
   button:focus {
     background: rgba(0, 97, 254, 0.215);
     color: rgb(0, 97, 254);
-  }
+  } */
   .current-selections,
   .current-selection {
     display: flex;

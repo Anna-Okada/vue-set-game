@@ -47,7 +47,9 @@
         </div>
         <div
           class="correct-incorrect"
-          v-if="$store.state.lastHandWasSet != null"
+          v-if="
+            $store.state.lastHandWasSet != null
+          "
         >
           <h2 v-if="$store.state.lastHandWasSet == true">
             {{ $store.state.correctMessage }}
@@ -108,7 +110,7 @@ export default {
   animation-fill-mode: forwards;
   animation-play-state: running;
 }
-.time-remaining.paused {
+#time-remaining.paused {
   animation-play-state: paused;
 }
 @keyframes timer {

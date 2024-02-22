@@ -149,7 +149,7 @@ h2 {
   margin-top: 15px;
   justify-content: center;
 }
-button {
+/* button {
   font-size: 1.5em;
   text-transform: uppercase;
   text-align: center;
@@ -161,7 +161,7 @@ button {
 button:hover {
   background: rgba(0, 97, 254, 0.215);
   color: rgb(0, 97, 254);
-}
+} */
 .table-cards {
   grid-area: cards;
   width: auto;

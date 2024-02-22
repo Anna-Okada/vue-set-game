@@ -45,6 +45,7 @@ export default new Vuex.Store({
     turnTimer: null,
     turnStart: null,
     botTimer: null,
+    botTimerActive: false,
     botStart: null,
     gamePaused: false,
     aboutVisible: false,
@@ -318,10 +319,6 @@ export default new Vuex.Store({
       if (state.playerMode != "singlePlayer") {
         this.commit("END_TURN")
       }
-      // if not single player, reset player1Turn to null
-      if (state.playerMode != "singlePlayer") {
-        state.player1Turn = null;
-      }
 
       // *** COULD EVERYTHING BELOW THIS POINT BE MOVED TO REFRESH_TABLE? ***
 
@@ -579,6 +576,7 @@ export default new Vuex.Store({
       state.gameStartTime = Date.now()
     },
     START_TURN(state, event) {
+      state.lastHandWasSet = null;
       // if user hit 'a' and it isn't currently someone's turn, start player 1's turn
       if (event.key == 'a' && state.player1Turn == null) {
         state.player1Turn = true;
@@ -596,7 +594,7 @@ export default new Vuex.Store({
         state.tickingSound.play();
       }
       // start countdown, after which END_TURN mutation is automatically triggered
-      // unless CHECK_IF_SET is run, in which case the turnTimer will be cleared
+      // unless CHECK_IF_SET is run, in which case END_TURN will immediately be triggered
       state.turnTimer = setTimeout(() => {
         this.commit("END_TURN");
       }, state.turnLength);
@@ -608,17 +606,18 @@ export default new Vuex.Store({
       clearTimeout(state.botTimer);
     },
     END_TURN(state) {
-      // if mid-turn, pause ticking sound
+      // if was mid-turn, pause ticking sound
       if (state.player1Turn != null) {
         state.tickingSound.pause();
       }
-      clearTimeout(state.turnTimer)
+      clearTimeout(state.turnTimer);
       state.player1Turn = null;
       state.player1TurnVisible = null;
       this.commit("REFRESH_TABLE")
       if (state.playerMode == 'bot') {
         this.commit("START_BOT_TIMER");
       }
+      state.player1Turn = null;
     },
     START_BOT_TIMER(state) {
       if (!state.gamePaused) {
@@ -628,13 +627,16 @@ export default new Vuex.Store({
           }
         }, state.botInterval)
 
-        if (state.player1Turn == null) {
+        if (state.player1Turn == null && state.botTimerActive == false) {
           state.botTimer;
+          state.botTimerActive = true;
           state.botStart = Date.now();
         }
       }
     },
     BOT_FINDS_SET(state) {
+      // set botTimerActive to false as soon as bot looks for Set
+      state.botTimerActive = false;
       // if it isn't currently player 1's turn
       if (state.player1Turn == null) {
         // set it to bot's turn
@@ -739,7 +741,7 @@ export default new Vuex.Store({
       state.remainingBotTime = state.botInterval - (Date.now() - state.botStart);
       state.remainingTurnTime = state.turnLength - (Date.now() - state.turnStart);
       // if mid-turn, pause the ticking sound
-      if (state.remainingTurnTime > 0) {
+      if (state.playerMode != 'singlePlayer' && state.player1Turn != null) {
         state.tickingSound.pause();
       }
       clearTimeout(state.botTimer)
@@ -756,7 +758,7 @@ export default new Vuex.Store({
       state.remainingBotTime = state.botInterval - (Date.now() - state.botStart);
       state.remainingTurnTime = state.turnLength - (Date.now() - state.turnStart);
       // if mid-turn, pause the ticking sound
-      if (state.remainingTurnTime > 0) {
+      if (state.playerMode != 'singlePlayer' && state.player1Turn != null) {
         state.tickingSound.pause();
       }
       clearTimeout(state.botTimer)
@@ -778,17 +780,14 @@ export default new Vuex.Store({
         state.gameOverSound.volume = state.volume;
         state.gameOverSound.play();
       }
-      // if it's a tie
-      // or if single player mode and score is 0
-      // then play ding
+      // if it's a tie or if single player mode and score is 0, play ding
       if (state.p1UnassistedSetCount == state.p2UnassistedSetCount ||
         (state.playerMode == 'singlePlayer' && state.p1UnassistedSetCount == 0)) {
         state.gameOverSound = new Audio(require('@/assets/audio/ding.wav'));
         state.gameOverSound.volume = state.volume;
         state.gameOverSound.play();
       }
-      // if computer won
-      // play sad sound
+      // if computer won, play sad sound
       if (state.playerMode == 'bot' && state.p1UnassistedSetCount < state.p2UnassistedSetCount) {
         state.gameOverSound = new Audio(require('@/assets/audio/cannotAddCards.wav'));
         state.gameOverSound.volume = state.volume;
@@ -813,7 +812,7 @@ export default new Vuex.Store({
       if (state.playerMode != 'singlePlayer' && state.player1Turn != null) {
         state.tickingSound.pause();
       }
-      clearTimeout(state.botTimer) // *** IS THIS DOING ANYTHING? ***
+      clearTimeout(state.botTimer)
       clearTimeout(state.turnTimer)
     },
     RESUME_GAME(state) {
@@ -823,7 +822,7 @@ export default new Vuex.Store({
       state.shuffleSound.volume = state.volume;
       state.shuffleSound.play();
       // if mid-turn, resume the ticking sound
-      if (state.remainingTurnTime > 0) {
+      if (state.playerMode != 'singlePlayer' && state.player1Turn != null) {
         state.tickingSound.play();
       }
       state.aboutVisible = false;
@@ -848,12 +847,7 @@ export default new Vuex.Store({
         state.turnTimer = setTimeout(() => {
           this.commit("END_TURN");
         }, state.remainingTurnTime);
-        // state.hideShowTurnTimer = setTimeout(() => {
-        //   this.commit("HIDE_TURN");
-        // }, state.remainingTurnTime - 1000);
-        // state.turnTimer;
       }
-      // reset remainingTurnTime to 0
       state.remainingTurnTime = 0;
     },
     MUTE_UNMUTE(state) {

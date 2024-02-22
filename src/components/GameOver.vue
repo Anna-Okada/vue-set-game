@@ -2,14 +2,16 @@
   <div class="game-over-container">
     <div class="game-over">
       <h2 class="heading">Game Over</h2>
-      <h3 v-if="$store.state.playerMode == 'singlePlayer'">
-        {{ p1Message }}
-      </h3>
-      <h3 v-if="$store.state.playerMode != 'singlePlayer'">
-        {{ winTieMessage }}
-      </h3>
-      <h3>Game duration: {{ gameDuration }}</h3>
-      <button @click="playAgain">Play Again</button>
+      <div class="content">
+        <h3 v-if="$store.state.playerMode == 'singlePlayer'">
+          {{ p1Message }}
+        </h3>
+        <h3 v-if="$store.state.playerMode != 'singlePlayer'">
+          {{ winTieMessage }}
+        </h3>
+        <h3>Game duration: {{ gameDuration }}</h3>
+        <button @click="playAgain">Play Again</button>
+      </div>
     </div>
   </div>
 </template>
@@ -84,35 +86,11 @@ export default {
   width: 600px;
   text-align: center;
 }
-h2.heading {
-  background: rgba(254, 178, 0, 0.215);
-  color: rgb(254, 178, 0);
-  padding: 10px;
-  font-size: 2em;
-  text-transform: uppercase;
-  text-align: center;
-  margin: 0;
-}
-h3 {
-  color: rgb(254, 178, 0);
-  font-size: 1.5em;
-  text-transform: uppercase;
-  text-align: center;
-  margin-top: 20px;
-  margin-bottom: 0;
-}
-button {
-  font-size: 1.5em;
-  text-transform: uppercase;
-  text-align: center;
-  color: rgb(254, 178, 0);
-  background: rgba(254, 178, 0, 0.215);
-  border: none;
-  border-radius: 5px;
+.content {
   margin: 20px;
 }
-button:hover {
-  background: rgba(0, 97, 254, 0.215);
-  color: rgb(0, 97, 254);
+h3 {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 </style>
