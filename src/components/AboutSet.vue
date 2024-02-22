@@ -42,13 +42,13 @@ h2 {
   font-size: 2em;
   text-transform: uppercase;
   text-align: center;
-  margin-top: 0px;
+  margin: 0;
 }
 p {
   color: grey;
   font-size: 18px;
   text-align: center;
-  margin: 10px 10px 10px 10px;
+  margin: 20px;
 }
 .githubLink {
   font-size: 12px;
@@ -69,7 +69,6 @@ a:active {
 .about-container {
   position: fixed;
   z-index: 1;
-  padding-top: 150px;
   left: 0;
   top: 0;
   width: 100%;
@@ -77,12 +76,15 @@ a:active {
   background-color: rgba(0, 0, 0, 0.4);
 }
 .about {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) !important;
   background-color: #fefefe;
   margin: auto;
-  padding-bottom: 20px;
   border: 1px solid rgb(254, 178, 0);
   border-radius: 10px;
-  width: 575px;
+  width: 600px;
   text-align: center;
   gap: 10px;
 }
@@ -97,7 +99,7 @@ button {
   background: rgba(254, 178, 0, 0.215);
   border: none;
   border-radius: 5px;
-  margin: 10px;
+  margin-bottom: 20px;
 }
 button:hover {
   background: rgba(0, 97, 254, 0.215);

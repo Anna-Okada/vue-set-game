@@ -17,8 +17,8 @@
               <p>Enjoy a game at your leisure without timers or opponents</p>
             </div>
             <div class="option">
-              <button @click="selectTwoPlayer">Two Player</button>
-              <p>Play with a friend</p>
+              <button @click="selectTwoPlayer">Two-Player</button>
+              <p>Challenge a pal to a little friendly competition</p>
             </div>
             <div class="option">
               <button @click="selectBotMode">Vs. Bot</button>
@@ -26,9 +26,9 @@
             </div>
           </div>
           <div class="difficulty-and-names tab-content">
-            <h3 class="current-selection">
+            <h2 class="current-selection">
               {{ $store.state.playerMode }}
-            </h3>
+            </h2>
             <div class="difficulty-options">
               <div>
                 <input
@@ -106,22 +106,22 @@
                 </button>
               </div>
               <div class="back-button">
-                <button id="prevBtn" class="changePage" @click="nextPrev(-1)">
+                <button id="prevBtn" @click="nextPrev(-1)">
                   Back
                 </button>
               </div>
             </div>
           </div>
           <div class="start-game tab-content">
-            <h3
+            <h2
               class="current-selection"
               v-if="$store.state.playerMode == 'singlePlayer'"
             >
               <div>
                 {{ $store.state.playerMode }}
               </div>
-            </h3>
-            <h3
+            </h2>
+            <h2
               class="current-selections"
               v-if="$store.state.playerMode == 'twoPlayer'"
             >
@@ -129,14 +129,14 @@
                 {{ $store.state.playerMode }}
               </div>
               <div>difficulty: {{ $store.state.difficulty }}</div>
-            </h3>
-            <h3
+            </h2>
+            <h2
               class="current-selections"
               v-if="$store.state.playerMode == 'bot'"
             >
               <div>{{ p1 }} vs. {{ $store.state.playerMode }}</div>
               <div>difficulty: {{ $store.state.difficulty }}</div>
-            </h3>
+            </h2>
             <h2 v-if="$store.state.playerMode == 'twoPlayer'">
               {{ p1 }} and {{ p2 }}, let's play Set!
             </h2>
@@ -145,7 +145,7 @@
                 <button class="start" @click="start">Start Game</button>
               </div>
               <div class="back-button">
-                <button id="prevBtn" class="changePage" @click="nextPrev(-1)">
+                <button id="prevBtn" @click="nextPrev(-1)">
                   Back
                 </button>
               </div>
@@ -264,7 +264,7 @@ label {
   color: rgb(254, 178, 0);
   background-color: rgba(254, 178, 0, 0.215);
   text-transform: uppercase;
-  font-size: 1.5em;
+  font-size: 1.3em;
   border: none;
   width: 6em;
   text-align: center;
@@ -274,20 +274,6 @@ label:hover {
   color: rgb(0, 97, 254);
 }
 input[type="radio"][name="buttonGroup"]:checked + label {
-  background: rgba(0, 97, 254, 0.215);
-  color: rgb(0, 97, 254);
-}
-button {
-  font-size: 1.5em;
-  text-transform: uppercase;
-  text-align: center;
-  color: rgb(254, 178, 0);
-  background: rgba(254, 178, 0, 0.215);
-  border: none;
-  border-radius: 5px;
-}
-button:hover,
-button:focus {
   background: rgba(0, 97, 254, 0.215);
   color: rgb(0, 97, 254);
 }
@@ -310,19 +296,6 @@ button:focus {
   gap: 20px;
   margin: 30px;
 }
-.current-selections {
-  display: flex;
-  justify-content: space-around;
-}
-h3 {
-  background: rgba(0, 97, 254, 0.215);
-  color: rgb(0, 97, 254);
-  padding: 10px;
-  font-size: 24px;
-  text-transform: uppercase;
-  text-align: center;
-  margin: 0 0 10px 0;
-}
 .tab-content {
   display: none;
 }
@@ -333,27 +306,64 @@ h3 {
 .backgroundCard {
   width: 97%;
 }
-h2 {
-  color: rgb(254, 178, 0);
-  font-size: 24px;
-  text-transform: uppercase;
-  text-align: center;
-}
-.modal {
-  position: fixed;
-  z-index: 1;
-  padding-top: 250px;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
-}
-.gameOptions {
-  background-color: #fefefe;
-  margin: auto;
-  border: 1px solid rgb(254, 178, 0);
-  border-radius: 5px;
-  width: 50%;
-}
+
+
+
+
+button {
+    font-size: 1.5em;
+    text-transform: uppercase;
+    text-align: center;
+    color: rgb(254, 178, 0);
+    background: rgba(254, 178, 0, 0.215);
+    border: none;
+    border-radius: 5px;
+  }
+  button:hover,
+  button:focus {
+    background: rgba(0, 97, 254, 0.215);
+    color: rgb(0, 97, 254);
+  }
+  .current-selections,
+  .current-selection {
+    display: flex;
+    justify-content: space-around;
+    background: rgba(0, 97, 254, 0.215);
+    color: rgb(0, 97, 254);
+    padding: 10px;
+    font-size: 1.8em;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0 0 10px 0;
+  }
+  h2 {
+    color: rgb(254, 178, 0);
+    font-size: 24px;
+    text-transform: uppercase;
+    text-align: center;
+  }
+  p {
+    color: rgb(254, 178, 0);
+    font-size: 18px;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 0;
+  }
+  .modal {
+    position: fixed;
+    z-index: 1;
+    padding-top: 250px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  .gameOptions {
+    background-color: #fefefe;
+    margin: auto;
+    border: 1px solid rgb(254, 178, 0);
+    border-radius: 5px;
+    width: 650px;
+  }
 </style>

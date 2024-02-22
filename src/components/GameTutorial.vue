@@ -496,7 +496,6 @@ h2 {
 .tutorial-container {
   position: fixed;
   z-index: 1;
-  padding-top: 5rem;
   left: 0;
   top: 0;
   width: 100%;
@@ -527,6 +526,10 @@ h2 {
   grid-template-columns: 1fr 1fr;
 }
 .tutorial {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) !important;
   background-color: #fefefe;
   margin: auto;
   padding-top: 30px;

@@ -1,14 +1,14 @@
 <template>
   <div class="game-over-container">
     <div class="game-over">
-      <h2>Game Over</h2>
-      <h2 v-if="$store.state.playerMode == 'singlePlayer'">
+      <h2 class="heading">Game Over</h2>
+      <h3 v-if="$store.state.playerMode == 'singlePlayer'">
         {{ p1Message }}
-      </h2>
-      <h2 v-if="$store.state.playerMode != 'singlePlayer'">
+      </h3>
+      <h3 v-if="$store.state.playerMode != 'singlePlayer'">
         {{ winTieMessage }}
-      </h2>
-      <h2>Game duration: {{ gameDuration }}</h2>
+      </h3>
+      <h3>Game duration: {{ gameDuration }}</h3>
       <button @click="playAgain">Play Again</button>
     </div>
   </div>
@@ -66,7 +66,6 @@ export default {
 .game-over-container {
   position: fixed;
   z-index: 1;
-  padding-top: 250px;
   left: 0;
   top: 0;
   width: 100%;
@@ -74,28 +73,43 @@ export default {
   background-color: rgba(0, 0, 0, 0.4);
 }
 .game-over {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) !important;
   background-color: #fefefe;
   margin: auto;
-  padding: 20px;
   border: 1px solid rgb(254, 178, 0);
   border-radius: 10px;
-  width: 50%;
+  width: 600px;
   text-align: center;
 }
-h2 {
+h2.heading {
+  background: rgba(254, 178, 0, 0.215);
   color: rgb(254, 178, 0);
-  font-size: 24px;
+  padding: 10px;
+  font-size: 2em;
   text-transform: uppercase;
   text-align: center;
+  margin: 0;
+}
+h3 {
+  color: rgb(254, 178, 0);
+  font-size: 1.5em;
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 0;
 }
 button {
-  font-size: 18px;
+  font-size: 1.5em;
   text-transform: uppercase;
   text-align: center;
   color: rgb(254, 178, 0);
   background: rgba(254, 178, 0, 0.215);
   border: none;
   border-radius: 5px;
+  margin: 20px;
 }
 button:hover {
   background: rgba(0, 97, 254, 0.215);
