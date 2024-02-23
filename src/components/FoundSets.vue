@@ -1,14 +1,17 @@
 <template>
   <section class="found-sets-container">
-    <h2 v-if="$store.state.playerMode == 'singlePlayer'">Found SETs:</h2>
-    <h2
+    <h3 class="heading" v-if="$store.state.playerMode == 'singlePlayer'">
+      Found SETs:
+    </h3>
+    <h3
+      class="heading"
       v-if="
         $store.state.playerMode == 'twoPlayer' ||
         $store.state.playerMode == 'bot'
       "
     >
       {{ $store.state.player1Name }}'s SETs:
-    </h2>
+    </h3>
     <div class="found-sets">
       <span
         class="found-set"
@@ -35,41 +38,12 @@ export default {
 </script>
 
 <style scoped>
-h2 {
-  background: rgba(254, 178, 0, 0.215);
-  color: rgb(254, 178, 0);
-  padding: 10px;
-  font-size: 24px;
-  text-transform: uppercase;
-  text-align: center;
-  margin-top: 0px;
-}
-.found-sets-container {
-  overflow-y: scroll;
-  scrollbar-width: none;
-  border: solid rgb(255, 223, 150) 2px;
-  border-radius: 10px;
-}
-.found-sets {
-  display: grid;
-  justify-content: center;
-}
-.found-set {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  margin: 10px;
-  gap: 10px;
-}
 .card {
   width: 5rem;
 }
 .card:hover {
-  transition: none;
   box-shadow: rgba(3, 8, 20, 0.1) 0px 0.15rem 0.5rem,
     rgba(2, 8, 20, 0.1) 0px 0.075rem 0.175rem;
   transform: none;
-}
-.hint {
-  opacity: 0.5;
 }
 </style>

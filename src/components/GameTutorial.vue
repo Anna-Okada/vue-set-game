@@ -9,88 +9,90 @@
     >
       <div class="mainContent">
         <div class="objective tab-content">
-          <h2>Objective</h2>
-          <p>
-            Set is a card-matching game. There are 81 unique cards in a deck. An
-            initial 12 cards are drawn from the deck and dealt to the table at
-            the start of the game. Your goal is to look at the cards on the
-            table and identify Sets of three cards based on four attributes:
-            number, color, shape, and shading.
-          </p>
-          <div class="attributes">
-            <div class="attribute-example">
-              <p>Number can be 1, 2, or 3.</p>
-              <div class="cards">
-                <img
-                  class="card"
-                  src="../assets/set-cards/1-blue-diamond-clear.jpeg"
-                />
-                <img
-                  class="card"
-                  src="../assets/set-cards/2-blue-diamond-clear.jpeg"
-                />
-                <img
-                  class="card"
-                  src="../assets/set-cards/3-blue-diamond-clear.jpeg"
-                />
+          <h2 class="heading">Objective</h2>
+          <div class="sub-content">
+            <p>
+              Set is a card-matching game. There are 81 unique cards in a deck.
+              An initial 12 cards are drawn from the deck and dealt to the table
+              at the start of the game. Your goal is to look at the cards on the
+              table and identify Sets of three cards based on four attributes:
+              number, color, shape, and shading.
+            </p>
+            <div class="attributes">
+              <div class="attribute-example">
+                <p>Number can be 1, 2, or 3.</p>
+                <div class="cards">
+                  <img
+                    class="card"
+                    src="../assets/set-cards/1-blue-diamond-clear.jpeg"
+                  />
+                  <img
+                    class="card"
+                    src="../assets/set-cards/2-blue-diamond-clear.jpeg"
+                  />
+                  <img
+                    class="card"
+                    src="../assets/set-cards/3-blue-diamond-clear.jpeg"
+                  />
+                </div>
+              </div>
+              <div class="attribute-example">
+                <p>Color can be blue, green, or pink.</p>
+                <div class="cards">
+                  <img
+                    class="card"
+                    src="../assets/set-cards/1-blue-diamond-solid.jpeg"
+                  />
+                  <img
+                    class="card"
+                    src="../assets/set-cards/1-green-diamond-solid.jpeg"
+                  />
+                  <img
+                    class="card"
+                    src="../assets/set-cards/1-red-diamond-solid.jpeg"
+                  />
+                </div>
+              </div>
+              <div class="attribute-example">
+                <p>Shape can be diamond, oval, or squiggle.</p>
+                <div class="cards">
+                  <img
+                    class="card"
+                    src="../assets/set-cards/1-blue-diamond-clear.jpeg"
+                  />
+                  <img
+                    class="card"
+                    src="../assets/set-cards/1-blue-oval-clear.jpeg"
+                  />
+                  <img
+                    class="card"
+                    src="../assets/set-cards/1-blue-squiggle-clear.jpeg"
+                  />
+                </div>
+              </div>
+              <div class="attribute-example">
+                <p>Shading can be clear, shaded, or solid.</p>
+                <div class="cards">
+                  <img
+                    class="card"
+                    src="../assets/set-cards/1-blue-diamond-clear.jpeg"
+                  />
+                  <img
+                    class="card"
+                    src="../assets/set-cards/1-blue-diamond-shaded.jpeg"
+                  />
+                  <img
+                    class="card"
+                    src="../assets/set-cards/1-blue-diamond-solid.jpeg"
+                  />
+                </div>
               </div>
             </div>
-            <div class="attribute-example">
-              <p>Color can be blue, green, or pink.</p>
-              <div class="cards">
-                <img
-                  class="card"
-                  src="../assets/set-cards/1-blue-diamond-solid.jpeg"
-                />
-                <img
-                  class="card"
-                  src="../assets/set-cards/1-green-diamond-solid.jpeg"
-                />
-                <img
-                  class="card"
-                  src="../assets/set-cards/1-red-diamond-solid.jpeg"
-                />
-              </div>
-            </div>
-            <div class="attribute-example">
-              <p>Shape can be diamond, oval, or squiggle.</p>
-              <div class="cards">
-                <img
-                  class="card"
-                  src="../assets/set-cards/1-blue-diamond-clear.jpeg"
-                />
-                <img
-                  class="card"
-                  src="../assets/set-cards/1-blue-oval-clear.jpeg"
-                />
-                <img
-                  class="card"
-                  src="../assets/set-cards/1-blue-squiggle-clear.jpeg"
-                />
-              </div>
-            </div>
-            <div class="attribute-example">
-              <p>Shading can be clear, shaded, or solid.</p>
-              <div class="cards">
-                <img
-                  class="card"
-                  src="../assets/set-cards/1-blue-diamond-clear.jpeg"
-                />
-                <img
-                  class="card"
-                  src="../assets/set-cards/1-blue-diamond-shaded.jpeg"
-                />
-                <img
-                  class="card"
-                  src="../assets/set-cards/1-blue-diamond-solid.jpeg"
-                />
-              </div>
-            </div>
+            <p>
+              A Set consists of 3 cards where for each attribute all cards have
+              the same value or all cards have different values.
+            </p>
           </div>
-          <p>
-            A Set consists of 3 cards where for each attribute all cards have
-            the same value or all cards have different values.
-          </p>
         </div>
         <div class="examples-of-sets tab-content">
           <h2 class="heading">Examples of SETs</h2>
@@ -287,38 +289,38 @@
           </div>
         </div>
         <div class="player-modes tab-content">
-          <h2>Solo</h2>
-          <p>
-            In Single Player Mode, you may find Sets at your leisure. If you are
-            stumped, click REVEAL A SET to show the Set or Sets in the table.
-            Click on the cards to select them. If they make a Set they will be
-            added to your Found Sets display. Occasionally, there will be no Set
-            in the table, in which case you may ADD 3 CARDS. Hit the space bar
-            or click PAUSE to pause the game. The game is complete when there
-            are no remaining cards in the deck and no remaining Sets in the
-            table.
-          </p>
-          <h2>Two Player</h2>
-          <p>
-            In Two Player Mode, you will compete against your opponent to
-            identify Sets. Player 1 initiates their turn by pressing the 'a'
-            key. Player 2 initiates their turn by pressing the 'l' key. In EASY
-            mode, each player will have 10 seconds to identify a Set. That
-            window narrows to 8 seconds in MODERATE mode, 6 seconds in HARD
-            mode, and only 4 seconds in INSANE mode. The player with the highest
-            Set count wins!
-          </p>
-          <h2>VS. Bot</h2>
-          <p>
-            When playing against the computer, you may choose your level of
-            difficulty from EASY to INSANE! As in Two Player Mode, you will
-            initiate your turn by pressing the 'a' key. In EASY mode, you will
-            have 30 seconds to find a Set before the computer finds one (if one
-            exists in the table). Once your turn has begun, you will have 10
-            seconds to identify a Set. In INSANE mode, you will only have 5
-            seconds to find a Set and 4 seconds to select the cards. The player
-            with the highest Set count wins!
-          </p>
+          <h2 class="heading">Player Modes</h2>
+          <div class="sub-content">
+            <h3>Solo</h3>
+            <p>
+              In Single Player Mode, you may find Sets at your leisure. If you
+              are stumped, click REVEAL A SET to show the Set or Sets in the
+              table. Click on the cards to select them. If they make a Set they
+              will be added to your Found Sets display. Occasionally, there will
+              be no Set in the table, in which case you may ADD 3 CARDS. Hit the
+              space bar or click PAUSE to pause the game. The game is complete
+              when the deck is empty and there are no remaining Sets in the
+              table.
+            </p>
+            <h3>Two Player</h3>
+            <p>
+              In Two Player Mode, you will compete against your opponent to
+              identify Sets. Player 1 initiates their turn by pressing the 'a'
+              key. Player 2 initiates their turn by pressing the 'l' key. You
+              have 10 seconds to identify a Set in EASY mode, 8 seconds in
+              MODERATE mode, 6 seconds in HARD mode, and only 4 seconds in
+              INSANE mode. The player with the highest Set count wins!
+            </p>
+            <h3>VS. Bot</h3>
+            <p>
+              In Vs. Bot mode, you must try and find Sets before the computer
+              does. You will initiate your turn by pressing the 'a' key. In EASY
+              mode, you will have 30 seconds to find a Set before the computer
+              finds one (if one exists in the table). You will have 20 seconds
+              in MODERATE mode, 10 seconds in HARD mode, and only 5 seconds in
+              INSANE mode! The player with the highest Set count wins!
+            </p>
+          </div>
         </div>
       </div>
       <div class="buttons">
@@ -393,6 +395,9 @@ export default {
 </script>
 
 <style scoped>
+.sub-content {
+  margin: 20px;
+}
 .step {
   height: 15px;
   width: 15px;
@@ -406,8 +411,8 @@ export default {
 .step.active {
   background-color: rgb(0, 97, 254);
 }
-p {
-  color: rgb(254, 178, 0);
+.steps {
+  margin: 20px;
 }
 .criteria {
   font-family: Arial, Helvetica, sans-serif;
@@ -429,25 +434,14 @@ p {
   background-color: #04aa6d;
   color: white;
 }
-.card {
-  width: 70px;
-}
-.card:hover {
-  box-shadow: rgba(3, 8, 20, 0.1) 0px 0.15rem 0.5rem,
-    rgba(2, 8, 20, 0.1) 0px 0.075rem 0.175rem;
-  transform: none;
-}
-.cards {
-  display: grid;
-  grid-template-columns: repeat(3, 80px);
-  justify-content: center;
-}
 .buttons {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-areas: "prev skip next";
   justify-content: center;
   grid-area: buttons;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 button {
   font-size: 18px;
@@ -483,29 +477,25 @@ button:focus {
 #skip {
   grid-area: skip;
 }
-h2 {
-  color: rgb(254, 178, 0);
-  font-size: 24px;
-  text-transform: uppercase;
-  text-align: center;
-}
 .tab-content {
   display: none;
   grid-area: content;
 }
-.tutorial-container {
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
-}
 .description {
   grid-area: description;
 }
+.card {
+  width: 70px;
+}
+.card:hover {
+  box-shadow: rgba(3, 8, 20, 0.1) 0px 0.15rem 0.5rem,
+    rgba(2, 8, 20, 0.1) 0px 0.075rem 0.175rem;
+  transform: none;
+}
 .cards {
+  display: grid;
+  grid-template-columns: repeat(3, 80px);
+  justify-content: center;
   grid-area: cards;
   justify-self: center;
 }
@@ -526,28 +516,10 @@ h2 {
   grid-template-columns: 1fr 1fr;
 }
 .tutorial {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) !important;
-  background-color: #fefefe;
-  margin: auto;
-  padding-top: 30px;
-  padding-bottom: 20px;
-  padding-right: 30px;
-  padding-left: 30px;
-  border: 1px solid rgb(254, 178, 0);
-  border-radius: 10px;
-  width: 575px;
-  text-align: center;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-areas:
-    "buttons"
-    "content";
-  gap: 10px;
-}
-.tutorial:focus {
-  outline: none;
+    "content"
+    "buttons";
 }
 </style>

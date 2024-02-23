@@ -801,6 +801,10 @@ export default new Vuex.Store({
     },
     PAUSE_GAME(state) {
       state.gamePaused = true;
+      // reset revealed to false for all cards on table
+      for (let i = 0; i < state.table.length; i++) {
+        state.table[i].revealed = false;
+      }
       // play shuffle audio when pausing/resuming game
       state.shuffleSound = new Audio(require('@/assets/audio/shuffle.wav'));
       state.shuffleSound.volume = state.volume;

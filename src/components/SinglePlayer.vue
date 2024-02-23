@@ -40,12 +40,11 @@ export default {
 <style scoped>
 .singlePlayerGame {
   display: grid;
-  grid-template-columns: 0.8fr 1fr 1fr 0.8fr;
-  grid-template-rows: auto auto 80vh;
+  grid-template-columns: 1fr 2.5fr 1fr;
   grid-template-areas:
-    "nav nav nav nav"
-    "stats stats stats stats"
-    "hand table table found-sets";
+    "nav nav nav"
+    "stats stats stats"
+    "hand table found-sets";
   gap: 7px;
 }
 .nav-container {

@@ -3,12 +3,19 @@
     <div class="game-over">
       <h2 class="heading">Game Over</h2>
       <div class="content">
-        <h3 v-if="$store.state.playerMode == 'singlePlayer'">
-          {{ p1Message }}
-        </h3>
-        <h3 v-if="$store.state.playerMode != 'singlePlayer'">
-          {{ winTieMessage }}
-        </h3>
+        <div class="message">
+          <h3
+            v-if="
+              $store.state.playerMode == 'singlePlayer' &&
+              $store.state.p1UnassistedSetCount != 0
+            "
+          >
+            {{ p1Message }}
+          </h3>
+          <h3 v-if="$store.state.playerMode != 'singlePlayer'">
+            {{ winTieMessage }}
+          </h3>
+        </div>
         <h3>Game duration: {{ gameDuration }}</h3>
         <button @click="playAgain">Play Again</button>
       </div>
@@ -23,9 +30,7 @@ export default {
       return this.$store.state.p1UnassistedSetCount;
     },
     p1Message() {
-      return this.$store.state.p1UnassistedSetCount == 0
-        ? ""
-        : this.$store.state.p1UnassistedSetCount == 1
+      return this.$store.state.p1UnassistedSetCount == 1
         ? "You found 1 Set!"
         : "You found " + this.$store.state.p1UnassistedSetCount + " Sets!";
     },
@@ -65,32 +70,8 @@ export default {
 </script>
 
 <style scoped>
-.game-over-container {
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
-}
-.game-over {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) !important;
-  background-color: #fefefe;
-  margin: auto;
-  border: 1px solid rgb(254, 178, 0);
-  border-radius: 10px;
-  width: 600px;
-  text-align: center;
-}
-.content {
-  margin: 20px;
-}
 h3 {
-  margin-top: 20px;
+  margin-top: 0;
   margin-bottom: 20px;
 }
 </style>

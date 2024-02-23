@@ -101,45 +101,12 @@ export default {
 </script>
 
 <style scoped>
-.add-cards {
-  position: fixed;
-  z-index: 1;
-  padding-top: 250px;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
-}
-.alert {
-  background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid rgb(254, 178, 0);
-  border-radius: 5px;
-  width: 50%;
-  text-align: center;
-}
 .table-container {
-  border: solid rgb(255, 223, 150) 2px;
-  border-radius: 10px;
   display: grid;
   grid-template-areas:
     "buttons"
     "cards";
   align-items: center;
-}
-h1 {
-  color: white;
-  font-size: 36px;
-  text-transform: uppercase;
-  text-align: center;
-}
-h2 {
-  color: rgb(254, 178, 0);
-  font-size: 24px;
-  text-transform: uppercase;
-  text-align: center;
 }
 .table-buttons {
   grid-area: buttons;
@@ -149,19 +116,6 @@ h2 {
   margin-top: 15px;
   justify-content: center;
 }
-/* button {
-  font-size: 1.5em;
-  text-transform: uppercase;
-  text-align: center;
-  color: rgb(254, 178, 0);
-  background: rgba(254, 178, 0, 0.215);
-  border: none;
-  border-radius: 5px;
-}
-button:hover {
-  background: rgba(0, 97, 254, 0.215);
-  color: rgb(0, 97, 254);
-} */
 .table-cards {
   grid-area: cards;
   width: auto;
@@ -209,15 +163,6 @@ button:hover {
   transform: rotateY(180deg);
 }
 .card {
-  display: flex;
-  justify-content: center;
-  box-shadow: rgba(3, 8, 20, 0.1) 0px 0.15rem 0.5rem,
-    rgba(2, 8, 20, 0.1) 0px 0.075rem 0.175rem;
   width: 8em;
-  border-radius: 4px;
-  overflow: hidden;
-}
-img {
-  width: 100%;
 }
 </style>

@@ -8,23 +8,19 @@
       />
     </head>
     <body>
-      <div class="content">
-        <header></header>
-        <game-deck></game-deck>
-        <main-menu v-if="$store.state.gameStarted == false"></main-menu>
-        <div class="game" v-if="$store.state.gameStarted">
-          <single-player
-            v-if="$store.state.playerMode == 'singlePlayer'"
-          ></single-player>
-          <two-player
-            v-if="$store.state.playerMode == 'twoPlayer'"
-          ></two-player>
-          <human-versus-bot
-            v-if="$store.state.playerMode == 'bot'"
-          ></human-versus-bot>
-        </div>
-        <footer></footer>
+      <header></header>
+      <game-deck></game-deck>
+      <main-menu v-if="$store.state.gameStarted == false"></main-menu>
+      <div class="game" v-if="$store.state.gameStarted">
+        <single-player
+          v-if="$store.state.playerMode == 'singlePlayer'"
+        ></single-player>
+        <two-player v-if="$store.state.playerMode == 'twoPlayer'"></two-player>
+        <human-versus-bot
+          v-if="$store.state.playerMode == 'bot'"
+        ></human-versus-bot>
       </div>
+      <footer></footer>
     </body>
   </div>
 </template>

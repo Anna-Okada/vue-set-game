@@ -1,5 +1,5 @@
 <template>
-  <div id="mainMenu">
+  <div id="main-menu">
     <div class="backgroundCards">
       <img
         class="backgroundCard"
@@ -8,147 +8,147 @@
         :src="require(`../assets/set-cards/${card.url}`)"
       />
     </div>
-    <div class="container">
-      <div class="modal" v-show="modalVisible == true">
-        <div class="gameOptions">
-          <div class="player-mode tab-content">
-            <div class="option">
+    <div class="menu-container" v-show="modalVisible == true">
+      <div class="game-options">
+        <div class="player-mode tab-content">
+          <h2 class="heading">Let's play Set!</h2>
+          <div class="player-mode-options">
+            <div class="player-mode-option">
               <button @click="selectSinglePlayer">Solo</button>
               <p>Enjoy a game at your leisure without timers or opponents</p>
             </div>
-            <div class="option">
+            <div class="player-mode-option">
               <button @click="selectTwoPlayer">Two-Player</button>
               <p>Challenge a pal to a little friendly competition</p>
             </div>
-            <div class="option">
+            <div class="player-mode-option">
               <button @click="selectBotMode">Vs. Bot</button>
               <p>Race against the clock to beat the AI</p>
             </div>
           </div>
-          <div class="difficulty-and-names tab-content">
-            <h2 class="current-selection">
-              {{ $store.state.playerMode }}
-            </h2>
-            <div class="difficulty-options">
-              <div>
-                <input
-                  type="radio"
-                  name="buttonGroup"
-                  value="easy"
-                  id="easy"
-                /><label for="easy" @click="selectEasy">Easy</label>
-              </div>
-              <div>
-                <input
-                  type="radio"
-                  name="buttonGroup"
-                  value="moderate"
-                  id="moderate"
-                /><label for="moderate" @click="selectModerate">Moderate</label>
-              </div>
-              <div>
-                <input
-                  type="radio"
-                  name="buttonGroup"
-                  value="hard"
-                  id="hard"
-                /><label for="hard" @click="selectHard">Hard</label>
-              </div>
-              <div>
-                <input
-                  type="radio"
-                  name="buttonGroup"
-                  value="insane"
-                  id="insane"
-                /><label for="insane" @click="selectInsane">Insane</label>
-              </div>
-            </div>
-            <div
-              class="player-names"
-              v-if="$store.state.playerMode == 'twoPlayer'"
-            >
+        </div>
+        <div class="difficulty-and-names tab-content">
+          <h2 class="heading current-selection">
+            {{ $store.state.playerMode }}
+          </h2>
+          <div class="difficulty-options">
+            <div>
               <input
-                type="text"
-                required="true"
-                placeholder="Player 1 name"
-                v-model="p1"
-              />
-              <input
-                type="text"
-                required="true"
-                placeholder="Player 2 name"
-                v-model="p2"
-              />
+                type="radio"
+                name="buttonGroup"
+                value="easy"
+                id="easy"
+              /><label for="easy" @click="selectEasy">Easy</label>
             </div>
-            <div class="player-name" v-if="$store.state.playerMode == 'bot'">
+            <div>
               <input
-                type="text"
-                required="true"
-                placeholder="Player 1 name"
-                v-model="p1"
-              />
+                type="radio"
+                name="buttonGroup"
+                value="moderate"
+                id="moderate"
+              /><label for="moderate" @click="selectModerate">Moderate</label>
             </div>
-            <div class="buttons">
-              <div class="submit-button">
-                <button
-                  v-if="
-                    ($store.state.playerMode == 'twoPlayer' &&
-                      $store.state.difficulty != '' &&
-                      p1 != '' &&
-                      p2 != '') ||
-                    ($store.state.playerMode == 'bot' &&
-                      $store.state.difficulty != '' &&
-                      p1 != '')
-                  "
-                  @click="nextPrev(1)"
-                >
-                  Submit
-                </button>
-              </div>
-              <div class="back-button">
-                <button id="prevBtn" @click="nextPrev(-1)">
-                  Back
-                </button>
-              </div>
+            <div>
+              <input
+                type="radio"
+                name="buttonGroup"
+                value="hard"
+                id="hard"
+              /><label for="hard" @click="selectHard">Hard</label>
+            </div>
+            <div>
+              <input
+                type="radio"
+                name="buttonGroup"
+                value="insane"
+                id="insane"
+              /><label for="insane" @click="selectInsane">Insane</label>
             </div>
           </div>
-          <div class="start-game tab-content">
-            <h2
-              class="current-selection"
-              v-if="$store.state.playerMode == 'singlePlayer'"
-            >
-              <div>
-                {{ $store.state.playerMode }}
-              </div>
-            </h2>
-            <h2
-              class="current-selections"
-              v-if="$store.state.playerMode == 'twoPlayer'"
-            >
-              <div>
-                {{ $store.state.playerMode }}
-              </div>
-              <div>difficulty: {{ $store.state.difficulty }}</div>
-            </h2>
-            <h2
-              class="current-selections"
-              v-if="$store.state.playerMode == 'bot'"
-            >
-              <div>{{ p1 }} vs. {{ $store.state.playerMode }}</div>
-              <div>difficulty: {{ $store.state.difficulty }}</div>
-            </h2>
-            <h2 v-if="$store.state.playerMode == 'twoPlayer'">
-              {{ p1 }} and {{ p2 }}, let's play Set!
-            </h2>
-            <div class="buttons">
-              <div class="start-game-button">
-                <button class="start" @click="start">Start Game</button>
-              </div>
-              <div class="back-button">
-                <button id="prevBtn" @click="nextPrev(-1)">
-                  Back
-                </button>
-              </div>
+          <div
+            class="player-names"
+            v-if="$store.state.playerMode == 'twoPlayer'"
+          >
+            <input
+              type="text"
+              required="true"
+              placeholder="Player 1 name"
+              maxlength="12"
+              v-model="p1"
+            />
+            <input
+              type="text"
+              required="true"
+              placeholder="Player 2 name"
+              maxlength="12"
+              v-model="p2"
+            />
+          </div>
+          <div class="player-name" v-if="$store.state.playerMode == 'bot'">
+            <input
+              type="text"
+              required="true"
+              placeholder="Player 1 name"
+              maxlength="12"
+              v-model="p1"
+            />
+          </div>
+          <div class="buttons">
+            <div class="submit-button">
+              <button
+                v-if="
+                  ($store.state.playerMode == 'twoPlayer' &&
+                    $store.state.difficulty != '' &&
+                    p1 != '' &&
+                    p2 != '') ||
+                  ($store.state.playerMode == 'bot' &&
+                    $store.state.difficulty != '' &&
+                    p1 != '')
+                "
+                @click="nextPrev(1)"
+              >
+                Submit
+              </button>
+            </div>
+            <div class="back-button">
+              <button id="prevBtn" @click="nextPrev(-1)">Back</button>
+            </div>
+          </div>
+        </div>
+        <div class="start-game tab-content">
+          <h2
+            class="heading current-selection"
+            v-if="$store.state.playerMode == 'singlePlayer'"
+          >
+            <div>
+              {{ $store.state.playerMode }}
+            </div>
+          </h2>
+          <h2
+            class="heading current-selections"
+            v-if="$store.state.playerMode == 'twoPlayer'"
+          >
+            <div>
+              {{ $store.state.playerMode }}
+            </div>
+            <div>difficulty: {{ $store.state.difficulty }}</div>
+          </h2>
+          <h2
+            class="heading current-selections"
+            v-if="$store.state.playerMode == 'bot'"
+          >
+            <div>{{ p1 }} vs. {{ $store.state.playerMode }}</div>
+            <div>difficulty: {{ $store.state.difficulty }}</div>
+          </h2>
+          <h2 v-if="$store.state.playerMode == 'twoPlayer'">
+            {{ p1 }} and {{ p2 }}, let's play Set!
+          </h2>
+          <div class="buttons">
+            <div class="start-game-button">
+              <button class="start" @click="start">Start Game</button>
+            </div>
+            <div class="back-button">
+              <button id="prevBtn" @click="nextPrev(-1)">Back</button>
             </div>
           </div>
         </div>
@@ -292,6 +292,9 @@ input[type="radio"][name="buttonGroup"]:checked + label {
 }
 .player-mode {
   display: grid;
+}
+.player-mode-options {
+  display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   margin: 30px;
@@ -306,64 +309,15 @@ input[type="radio"][name="buttonGroup"]:checked + label {
 .backgroundCard {
   width: 97%;
 }
-
-
-
-
-/* button {
-    font-size: 1.5em;
-    text-transform: uppercase;
-    text-align: center;
-    color: rgb(254, 178, 0);
-    background: rgba(254, 178, 0, 0.215);
-    border: none;
-    border-radius: 5px;
-  }
-  button:hover,
-  button:focus {
-    background: rgba(0, 97, 254, 0.215);
-    color: rgb(0, 97, 254);
-  } */
-  .current-selections,
-  .current-selection {
-    display: flex;
-    justify-content: space-around;
-    background: rgba(0, 97, 254, 0.215);
-    color: rgb(0, 97, 254);
-    padding: 10px;
-    font-size: 1.8em;
-    text-transform: uppercase;
-    text-align: center;
-    margin: 0 0 10px 0;
-  }
-  h2 {
-    color: rgb(254, 178, 0);
-    font-size: 24px;
-    text-transform: uppercase;
-    text-align: center;
-  }
-  p {
-    color: rgb(254, 178, 0);
-    font-size: 18px;
-    text-align: center;
-    margin-top: 10px;
-    margin-bottom: 0;
-  }
-  .modal {
-    position: fixed;
-    z-index: 1;
-    padding-top: 250px;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-  }
-  .gameOptions {
-    background-color: #fefefe;
-    margin: auto;
-    border: 1px solid rgb(254, 178, 0);
-    border-radius: 5px;
-    width: 650px;
-  }
+.current-selections,
+.current-selection {
+  display: flex;
+  justify-content: space-around;
+  background: rgba(0, 97, 254, 0.215);
+  color: rgb(0, 97, 254);
+  margin: 0 0 10px 0;
+}
+.game-options {
+  width: 650px;
+}
 </style>

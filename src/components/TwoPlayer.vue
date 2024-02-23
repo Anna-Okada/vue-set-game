@@ -56,12 +56,11 @@ export default {
 <style scoped>
 .twoPlayer {
   display: grid;
-  grid-template-columns: 0.8fr 1fr 1fr 0.8fr;
-  grid-template-rows: auto auto 80vh;
+  grid-template-columns: 1fr 2.5fr 1fr;
   grid-template-areas:
-    "nav nav nav nav"
-    "stats stats stats stats"
-    "p1-found-sets table table p2-found-sets";
+    "nav nav nav"
+    "stats stats stats"
+    "p1-found-sets table p2-found-sets";
   gap: 7px;
 }
 .nav-container {
@@ -79,6 +78,6 @@ export default {
 }
 .p2-found-sets-container {
   grid-area: p2-found-sets;
-  grid-column: 4 / 5;
+  grid-column: 3 / 4;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <section class="p2-found-sets-container">
-    <h2>{{ $store.state.player2Name }}'s SETs:</h2>
+    <h3 class="heading">{{ $store.state.player2Name }}'s SETs:</h3>
     <div class="found-sets">
       <span
         class="found-set"
@@ -22,31 +22,6 @@ export default {
 </script>
 
 <style scoped>
-h2 {
-  background: rgba(254, 178, 0, 0.215);
-  color: rgb(254, 178, 0);
-  padding: 10px;
-  font-size: 24px;
-  text-transform: uppercase;
-  text-align: center;
-  margin-top: 0px;
-}
-.p2-found-sets-container {
-  overflow-y: scroll;
-  scrollbar-width: none;
-  border: solid rgb(255, 223, 150) 2px;
-  border-radius: 10px;
-}
-.found-sets {
-  display: grid;
-  justify-content: center;
-}
-.found-set {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  margin: 10px;
-  gap: 10px;
-}
 .card {
   width: 5rem;
 }

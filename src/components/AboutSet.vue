@@ -1,9 +1,7 @@
 <template>
   <div class="about-container">
     <div class="about" @focusout="resume" tabindex="-1" ref="modal">
-      <div class="heading">
-        <h2>Set Facts!</h2>
-      </div>
+      <h2 class="heading">Set Facts!</h2>
       <div class="content">
         <p>
           Set was invented in 1974 by Marsha Jean Falco, who was studying
@@ -40,16 +38,7 @@ export default {
 </script>
 
 <style scoped>
-h2 {
-  background: rgba(254, 178, 0, 0.215);
-  color: rgb(254, 178, 0);
-  padding: 10px;
-  font-size: 2em;
-  text-transform: uppercase;
-  text-align: center;
-  margin: 0;
-}
-p {
+p .heading {
   color: grey;
   font-size: 18px;
   text-align: center;
@@ -74,32 +63,5 @@ a:hover {
 }
 a:active {
   color: rgb(0, 97, 254);
-}
-.about-container {
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
-}
-.about {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) !important;
-  display: grid;
-  background-color: #fefefe;
-  border: 1px solid rgb(254, 178, 0);
-  border-radius: 10px;
-  width: 600px;
-  text-align: center;
-}
-.about:focus {
-  outline: none;
-}
-.content {
-  margin: 20px;
 }
 </style>

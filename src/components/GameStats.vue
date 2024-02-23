@@ -4,16 +4,16 @@
       class="single-player-stats"
       v-show="$store.state.playerMode == 'singlePlayer'"
     >
-      <h2>SETs found without hint: {{ $store.state.p1UnassistedSetCount }}</h2>
+      <h3>SETs found without hint: {{ $store.state.p1UnassistedSetCount }}</h3>
       <div class="correct-incorrect">
-        <h2 v-if="$store.state.lastHandWasSet == true">
+        <h3 v-if="$store.state.lastHandWasSet == true">
           {{ $store.state.correctMessage }}
-        </h2>
-        <h2 v-if="$store.state.lastHandWasSet == false">
+        </h3>
+        <h3 v-if="$store.state.lastHandWasSet == false">
           {{ $store.state.incorrectMessage }}
-        </h2>
+        </h3>
       </div>
-      <h2>Incorrect Guesses: {{ $store.state.p1IncorrectGuesses }}</h2>
+      <h3>Incorrect Guesses: {{ $store.state.p1IncorrectGuesses }}</h3>
     </div>
     <div
       class="two-player-stats"
@@ -22,12 +22,12 @@
         $store.state.playerMode == 'bot'
       "
     >
-      <h2
+      <h3
         class="p1-score"
         :class="{ active: $store.state.player1TurnVisible == true }"
       >
         {{ $store.state.player1Name }}: {{ $store.state.p1UnassistedSetCount }}
-      </h2>
+      </h3>
       <div class="middle-display">
         <div
           class="timer"
@@ -51,20 +51,20 @@
             $store.state.lastHandWasSet != null
           "
         >
-          <h2 v-if="$store.state.lastHandWasSet == true">
+          <h3 v-if="$store.state.lastHandWasSet == true">
             {{ $store.state.correctMessage }}
-          </h2>
-          <h2 v-if="$store.state.lastHandWasSet == false">
+          </h3>
+          <h3 v-if="$store.state.lastHandWasSet == false">
             {{ $store.state.incorrectMessage }}
-          </h2>
+          </h3>
         </div>
       </div>
-      <h2
+      <h3
         class="p2-score"
         :class="{ active: $store.state.player1TurnVisible == false }"
       >
         {{ $store.state.player2Name }}: {{ $store.state.p2UnassistedSetCount }}
-      </h2>
+      </h3>
     </div>
   </div>
 </template>
@@ -141,16 +141,5 @@ export default {
 }
 .p2-score {
   grid-area: p2;
-}
-h2 {
-  color: rgb(254, 178, 0);
-  font-size: 24px;
-  text-transform: uppercase;
-  text-align: center;
-}
-.stats-container {
-  background: rgba(254, 178, 0, 0.215);
-  border: solid rgb(255, 223, 150) 2px;
-  border-radius: 10px;
 }
 </style>
