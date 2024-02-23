@@ -2,7 +2,7 @@
   <div class="game-over-container">
     <div class="game-over">
       <h2 class="heading">Game Over</h2>
-      <div class="content">
+      <div class="game-over-content">
         <div class="message">
           <h3
             v-if="
@@ -73,5 +73,9 @@ export default {
 h3 {
   margin-top: 0;
   margin-bottom: 20px;
+}
+h2.heading {
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
 }
 </style>

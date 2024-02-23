@@ -2,7 +2,7 @@
   <div class="about-container">
     <div class="about" @focusout="resume" tabindex="-1" ref="modal">
       <h2 class="heading">Set Facts!</h2>
-      <div class="content">
+      <div class="about-content">
         <p>
           Set was invented in 1974 by Marsha Jean Falco, who was studying
           genetic patterns of epilepsy in German Shepherds.
@@ -18,7 +18,7 @@
             >Github</a
           >.
         </p>
-        <button @click="resume">Return to Game</button>
+        <button @click="resume">Resume Game</button>
       </div>
     </div>
   </div>
@@ -63,5 +63,9 @@ a:hover {
 }
 a:active {
   color: rgb(0, 97, 254);
+}
+h2.heading {
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
 }
 </style>

@@ -10,24 +10,24 @@
     </div>
     <div class="menu-container" v-show="modalVisible == true">
       <div class="game-options">
-        <div class="player-mode tab-content">
+        <div class="player-mode menu-tab-content">
           <h2 class="heading">Let's play Set!</h2>
           <div class="player-mode-options">
             <div class="player-mode-option">
-              <button @click="selectSinglePlayer">Solo</button>
+              <button class="menu" @click="selectSinglePlayer">Solo</button>
               <p>Enjoy a game at your leisure without timers or opponents</p>
             </div>
             <div class="player-mode-option">
-              <button @click="selectTwoPlayer">Two-Player</button>
+              <button class="menu" @click="selectTwoPlayer">Two-Player</button>
               <p>Challenge a pal to a little friendly competition</p>
             </div>
             <div class="player-mode-option">
-              <button @click="selectBotMode">Vs. Bot</button>
+              <button class="menu" @click="selectBotMode">Vs. Bot</button>
               <p>Race against the clock to beat the AI</p>
             </div>
           </div>
         </div>
-        <div class="difficulty-and-names tab-content">
+        <div class="difficulty-and-names menu-tab-content">
           <h2 class="heading current-selection">
             {{ $store.state.playerMode }}
           </h2>
@@ -98,12 +98,12 @@
               <button
                 v-if="
                   ($store.state.playerMode == 'twoPlayer' &&
-                    $store.state.difficulty != '' &&
-                    p1 != '' &&
-                    p2 != '') ||
+                    this.difficulty != '' &&
+                    this.p1 != '' &&
+                    this.p2 != '') ||
                   ($store.state.playerMode == 'bot' &&
-                    $store.state.difficulty != '' &&
-                    p1 != '')
+                    this.difficulty != '' &&
+                    this.p1 != '')
                 "
                 @click="nextPrev(1)"
               >
@@ -115,7 +115,7 @@
             </div>
           </div>
         </div>
-        <div class="start-game tab-content">
+        <div class="start-game menu-tab-content">
           <h2
             class="heading current-selection"
             v-if="$store.state.playerMode == 'singlePlayer'"
@@ -131,17 +131,17 @@
             <div>
               {{ $store.state.playerMode }}
             </div>
-            <div>difficulty: {{ $store.state.difficulty }}</div>
+            <div>difficulty: {{ this.difficulty }}</div>
           </h2>
           <h2
             class="heading current-selections"
             v-if="$store.state.playerMode == 'bot'"
           >
-            <div>{{ p1 }} vs. {{ $store.state.playerMode }}</div>
-            <div>difficulty: {{ $store.state.difficulty }}</div>
+            <div>{{ this.p1 }} vs. {{ $store.state.playerMode }}</div>
+            <div>difficulty: {{ this.difficulty }}</div>
           </h2>
           <h2 v-if="$store.state.playerMode == 'twoPlayer'">
-            {{ p1 }} and {{ p2 }}, let's play Set!
+            {{ this.p1 }} and {{ this.p2 }}, let's play Set!
           </h2>
           <div class="buttons">
             <div class="start-game-button">
@@ -160,7 +160,7 @@
 <script>
 export default {
   mounted() {
-    let tabs = document.getElementsByClassName("tab-content");
+    let tabs = document.getElementsByClassName("menu-tab-content");
     tabs[0].style.display = "grid";
     document.getElementById("prevBtn").style.display = "none";
   },
@@ -175,7 +175,7 @@ export default {
   },
   methods: {
     showTab(n) {
-      let tabs = document.getElementsByClassName("tab-content");
+      let tabs = document.getElementsByClassName("menu-tab-content");
       tabs[n].style.display = "grid";
       if (n == 0) {
         document.getElementById("prevBtn").style.display = "none";
@@ -184,29 +184,30 @@ export default {
       }
     },
     nextPrev(n) {
-      let tabs = document.getElementsByClassName("tab-content");
+      let tabs = document.getElementsByClassName("menu-tab-content");
       tabs[this.currentTab].style.display = "none";
       if (this.$store.state.playerMode == "singlePlayer") {
         n *= 2;
       }
       this.currentTab += n;
+      if (this.currentTab == 0) {
+        this.p1 = "";
+        this.p2 = "";
+        this.difficulty = "";
+      }
       this.showTab(this.currentTab);
     },
     selectEasy() {
       this.difficulty = "easy";
-      this.$store.commit("SELECT_DIFFICULTY", this.difficulty);
     },
     selectModerate() {
       this.difficulty = "moderate";
-      this.$store.commit("SELECT_DIFFICULTY", this.difficulty);
     },
     selectHard() {
       this.difficulty = "hard";
-      this.$store.commit("SELECT_DIFFICULTY", this.difficulty);
     },
     selectInsane() {
       this.difficulty = "insane";
-      this.$store.commit("SELECT_DIFFICULTY", this.difficulty);
     },
     start() {
       this.modalVisible = !this.modalVisible;
@@ -214,6 +215,7 @@ export default {
         p1: this.p1,
         p2: this.p2,
       };
+      this.$store.commit("SELECT_DIFFICULTY", this.difficulty);
       this.$store.commit("ENTER_NAMES", names);
       this.$store.commit("START_GAME");
     },
@@ -299,8 +301,10 @@ input[type="radio"][name="buttonGroup"]:checked + label {
   gap: 20px;
   margin: 30px;
 }
-.tab-content {
+.menu-tab-content {
   display: none;
+  top: 40%;
+  width: 650px;
 }
 .backgroundCards {
   display: grid;
@@ -317,7 +321,8 @@ input[type="radio"][name="buttonGroup"]:checked + label {
   color: rgb(0, 97, 254);
   margin: 0 0 10px 0;
 }
-.game-options {
-  width: 650px;
+h2.heading {
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
 }
 </style>

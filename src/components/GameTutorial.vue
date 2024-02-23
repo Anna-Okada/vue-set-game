@@ -522,4 +522,8 @@ button:focus {
     "content"
     "buttons";
 }
+h2.heading {
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+}
 </style>

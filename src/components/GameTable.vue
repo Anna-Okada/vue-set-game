@@ -1,7 +1,10 @@
 <template>
   <section class="table-container">
-    <div class="add-cards" v-if="$store.state.showAddCardsAlert == true">
-      <div class="alert">
+    <div
+      class="add-cards-container"
+      v-if="$store.state.showAddCardsAlert == true"
+    >
+      <div class="add-cards-alert">
         <h2 v-if="$store.state.setsInTable == 1">
           There actually is a Set here! Can you find it?
         </h2>
@@ -11,9 +14,19 @@
         </h2>
       </div>
     </div>
+    <div class="no-set-container" v-if="$store.state.showNoSetsAlert == true">
+      <div class="no-set-alert">
+        <h2>There are no Sets in here!</h2>
+      </div>
+    </div>
     <div class="table-buttons">
       <button @click="shuffleCards">Shuffle</button>
-      <button @click="addThreeCardsToTable">Add 3 cards</button>
+      <button
+        :class="{ 'add-cards-hint': $store.state.highlightAdd3Cards }"
+        @click="addThreeCardsToTable"
+      >
+        Add 3 cards
+      </button>
       <button @click="revealSet">Reveal a SET</button>
     </div>
     <div class="table-cards">
@@ -101,6 +114,55 @@ export default {
 </script>
 
 <style scoped>
+.add-cards-hint {
+  animation: wiggle 5s infinite;
+}
+
+.add-cards-hint:hover {
+  animation: none;
+}
+
+@keyframes wiggle {
+  0% {
+    transform: rotate(0deg);
+  }
+  78% {
+    transform: rotate(0deg);
+  }
+  80% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+  82% {
+    transform: translate(-1px, -2px) rotate(-1deg);
+  }
+  84% {
+    transform: translate(-3px, 0px) rotate(1deg);
+  }
+  86% {
+    transform: translate(3px, 2px) rotate(0deg);
+  }
+  88% {
+    transform: translate(1px, -1px) rotate(1deg);
+  }
+  90% {
+    transform: translate(-1px, 2px) rotate(-1deg);
+  }
+  92% {
+    transform: translate(-3px, 1px) rotate(0deg);
+  }
+  94% {
+    transform: translate(3px, 1px) rotate(-1deg);
+  }
+  96% {
+    transform: translate(-1px, -1px) rotate(1deg);
+  }
+  98% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+  100% {
+    transform: translate(1px, -2px) rotate(-1deg);
+  }
+}
 .table-container {
   display: grid;
   grid-template-areas:

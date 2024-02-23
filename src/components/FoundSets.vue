@@ -12,21 +12,23 @@
     >
       {{ $store.state.player1Name }}'s SETs:
     </h3>
-    <div class="found-sets">
-      <span
-        class="found-set"
-        v-for="set in $store.state.p1FoundSets"
-        :key="set.index"
-      >
+    <div class="found-sets-sub-container">
+      <div class="found-sets">
         <span
-          class="card"
-          :class="{ hint: card.foundWithHint }"
-          v-for="card in set"
-          :key="card.url"
+          class="found-set"
+          v-for="set in $store.state.p1FoundSets"
+          :key="set.index"
         >
-          <img :src="require(`../assets/set-cards/${card.url}`)" />
+          <span
+            class="card"
+            :class="{ hint: card.foundWithHint }"
+            v-for="card in set"
+            :key="card.url"
+          >
+            <img :src="require(`../assets/set-cards/${card.url}`)" />
+          </span>
         </span>
-      </span>
+      </div>
     </div>
   </section>
 </template>

@@ -32,7 +32,7 @@ button {
 }
 
 button:hover,
-button:focus {
+.menu button:focus {
   background: rgba(0, 97, 254, 0.215);
   color: rgb(0, 97, 254);
 }
@@ -84,8 +84,9 @@ p {
 .about,
 .tutorial,
 .game-over,
-.alert,
-.game-options {
+.add-cards-alert,
+.no-set-alert,
+.menu-tab-content {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -103,7 +104,8 @@ p {
   outline: none;
 }
 
-.content {
+.about-content,
+.game-over-content {
   margin: 20px;
 }
 
@@ -112,7 +114,8 @@ p {
 .about-container,
 .tutorial-container,
 .game-over-container,
-.add-cards,
+.add-cards-container,
+.no-set-container,
 .menu-container {
   position: fixed;
   z-index: 1;
@@ -134,8 +137,7 @@ p {
 
 .found-sets-container,
 .p2-found-sets-container {
-  overflow-y: scroll;
-  scrollbar-width: none;
+  height: 650px;
 }
 
 .stats-container {
@@ -143,6 +145,14 @@ p {
 }
 
 /* found-set */
+
+.found-sets-sub-container {
+  overflow-y: scroll;
+  scrollbar-width: none;
+  height: 601px;
+  /* this height is calculated for a certain screen size
+  how can i make it responsive to different sizes? */
+}
 
 .found-sets {
   display: grid;

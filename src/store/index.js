@@ -62,6 +62,8 @@ export default new Vuex.Store({
     timeUpSound: null,
     volume: 1,
     showAddCardsAlert: false,
+    showNoSetsAlert: false,
+    highlightAdd3Cards: false,
     correctMessages: [
       "You found a Set!",
       "Nice Set!",
@@ -377,10 +379,22 @@ export default new Vuex.Store({
       state.hasSet = false;
       // check the table for sets to update the value of hasSet
       this.commit("CHECK_FOR_SETS", state)
+      // trigger timer to set highlightAdd3Cards to true after 30 seconds if there are no Sets in the table
+      if (state.hasSet == false) {
+        setTimeout(() => {
+          this.commit("HINT_TO_ADD_3_CARDS")
+        }, 30000)
+      }
       // if deck is empty and there are no SETs in the table, the game is over
       if (state.deckEmpty == true && state.hasSet == false) {
         state.gameOver = true;
       }
+    },
+    HINT_TO_ADD_3_CARDS(state) {
+      state.highlightAdd3Cards = true;
+    },
+    HIDE_NO_SETS_ALERT(state) {
+      state.showNoSetsAlert = false;
     },
     REVEAL_A_SET(state) {
       // play audio for revealing a Set
@@ -427,7 +441,9 @@ export default new Vuex.Store({
       }
       else if (state.revealedSets.length == 0) {
         state.hasSet = false;
-        alert("There are no SETs in here!")
+        // alert that there are no Sets in the table
+        state.showNoSetsAlert = true;
+        setTimeout(() => this.commit("HIDE_NO_SETS_ALERT"), 2500);
       }
       // clear positionsArray because its contents depend on the length of the table, which varies
       state.positionsArray = [];
@@ -436,6 +452,7 @@ export default new Vuex.Store({
       state.showAddCardsAlert = false;
     },
     ADD_THREE_CARDS_TO_TABLE(state) {
+      state.highlightAdd3Cards = false;
       // *** NOT SURE IF I NEED THIS ***
       state.setsInTable = 0;
       state.revealedSets = [];
@@ -725,7 +742,7 @@ export default new Vuex.Store({
         case "hard": state.botInterval = 10000;
           state.turnLength = 6000;
           break;
-        case "insane": state.botInterval = 5000;
+        case "insane": state.botInterval = 5;
           state.turnLength = 4000;
           break;
       }
