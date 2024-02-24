@@ -169,6 +169,7 @@ export default {
     "buttons"
     "cards";
   align-items: center;
+  justify-content: center;
 }
 .table-buttons {
   grid-area: buttons;
@@ -180,7 +181,7 @@ export default {
 }
 .table-cards {
   grid-area: cards;
-  width: auto;
+  width: 600px;
   height: 37em;
   display: flex;
   flex-flow: column wrap;
@@ -223,8 +224,5 @@ export default {
   background-color: rgba(254, 178, 0);
   color: white;
   transform: rotateY(180deg);
-}
-.card {
-  width: 8em;
 }
 </style>

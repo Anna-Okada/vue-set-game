@@ -1,12 +1,16 @@
 <template>
   <div id="main-menu">
-    <div class="backgroundCards">
-      <img
-        class="backgroundCard"
+    <div class="background">
+      <!-- <img
+        class="background-card"
         v-for="card in $store.state.deck.slice(0, 60)"
         :key="card.url"
         :src="require(`../assets/set-cards/${card.url}`)"
-      />
+      /> -->
+      <img class="background-card" :src="require(`../assets/background-cards.png`)" />
+      <img class="background-card" :src="require(`../assets/background-cards.png`)" />
+      <img class="background-card" :src="require(`../assets/background-cards.png`)" />
+      <img class="background-card" :src="require(`../assets/background-cards.png`)" />
     </div>
     <div class="menu-container" v-show="modalVisible == true">
       <div class="game-options">
@@ -27,7 +31,7 @@
             </div>
           </div>
         </div>
-        <div class="difficulty-and-names menu-tab-content">
+        <div class="difficulty-and-names menu-tab-content" id="input">
           <h2 class="heading current-selection">
             {{ $store.state.playerMode }}
           </h2>
@@ -96,6 +100,7 @@
           <div class="buttons">
             <div class="submit-button">
               <button
+                id="submit"
                 v-if="
                   ($store.state.playerMode == 'twoPlayer' &&
                     this.difficulty != '' &&
@@ -163,6 +168,13 @@ export default {
     let tabs = document.getElementsByClassName("menu-tab-content");
     tabs[0].style.display = "grid";
     document.getElementById("prevBtn").style.display = "none";
+    var input = document.getElementById("input");
+    input.addEventListener("keypress", (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault;
+        document.getElementById("submit").click();
+      }
+    });
   },
   data() {
     return {
@@ -298,20 +310,24 @@ input[type="radio"][name="buttonGroup"]:checked + label {
 .player-mode-options {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  margin: 30px;
+  gap: 10px;
+  margin: 20px;
 }
 .menu-tab-content {
   display: none;
   top: 40%;
   width: 650px;
 }
-.backgroundCards {
+/* .background {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
 }
-.backgroundCard {
-  width: 97%;
+.background-card {
+  width: 160px;
+} */
+.background-card {
+  width: 100%;
+  height: auto;
 }
 .current-selections,
 .current-selection {
@@ -324,5 +340,65 @@ input[type="radio"][name="buttonGroup"]:checked + label {
 h2.heading {
   border-top-right-radius: 8px;
   border-top-left-radius: 8px;
+}
+p {
+  margin-bottom: 0;
+}
+@media screen and (max-width: 700px) {
+  .menu-tab-content {
+    width: 500px;
+  }
+  .player-mode-options {
+    margin: 8px;
+  }
+  h2.heading {
+    font-size: 1.6em;
+    padding: 8px;
+  }
+  button {
+    font-size: 1.2em;
+  }
+  p {
+    font-size: 0.9em;
+    margin-top: 8px;
+  }
+}
+@media screen and (max-width: 550px) {
+  .menu-tab-content {
+    width: 400px;
+  }
+  .player-mode-options {
+    margin: 6px;
+  }
+  h2.heading {
+    font-size: 1.4em;
+    padding: 6px;
+  }
+  button {
+    font-size: 1em;
+  }
+  p {
+    font-size: 0.8em;
+    margin-top: 6px;
+  }
+}
+@media screen and (max-width: 450px) {
+  .menu-tab-content {
+    width: 350px;
+  }
+  .player-mode-options {
+    margin: 4px;
+  }
+  h2.heading {
+    font-size: 1em;
+    padding: 4px;
+  }
+  button {
+    font-size: 0.8em;
+  }
+  p {
+    font-size: 0.8em;
+    margin-top: 4px;
+  }
 }
 </style>

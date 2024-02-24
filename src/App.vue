@@ -48,4 +48,10 @@ export default {
 #app {
   font-family: "Barlow", sans-serif;
 }
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}
 </style>
