@@ -4,7 +4,12 @@
       class="single-player-stats"
       v-show="$store.state.playerMode == 'singlePlayer'"
     >
-      <h3>SETs found without hint: {{ $store.state.p1UnassistedSetCount }}</h3>
+      <h3 class="default-view">
+        SETs found without hint: {{ $store.state.p1UnassistedSetCount }}
+      </h3>
+      <h3 class="compact-view">
+        Score: {{ $store.state.p1UnassistedSetCount }}
+      </h3>
       <div class="correct-incorrect">
         <h3 v-if="$store.state.lastHandWasSet == true">
           {{ $store.state.correctMessage }}
@@ -13,7 +18,9 @@
           {{ $store.state.incorrectMessage }}
         </h3>
       </div>
-      <h3>Incorrect Guesses: {{ $store.state.p1IncorrectGuesses }}</h3>
+      <h3 class="default-view">
+        Incorrect Guesses: {{ $store.state.p1IncorrectGuesses }}
+      </h3>
     </div>
     <div
       class="two-player-stats"
@@ -25,6 +32,7 @@
       <h3
         class="p1-score"
         :class="{ active: $store.state.player1TurnVisible == true }"
+        @click="startP1Turn"
       >
         {{ $store.state.player1Name }}: {{ $store.state.p1UnassistedSetCount }}
       </h3>
@@ -60,6 +68,7 @@
       <h3
         class="p2-score"
         :class="{ active: $store.state.player1TurnVisible == false }"
+        @click="startP2Turn"
       >
         {{ $store.state.player2Name }}: {{ $store.state.p2UnassistedSetCount }}
       </h3>
@@ -84,10 +93,21 @@ export default {
     document.getElementById("time-remaining").style.animationDuration =
       this.animationInSeconds;
   },
+  methods: {
+    startP1Turn() {
+      this.$store.commit("START_P1_TURN");
+    },
+    startP2Turn() {
+      this.$store.commit("START_P2_TURN");
+    },
+  },
 };
 </script>
 
 <style scoped>
+h3.compact-view {
+  display: none;
+}
 .stats-container {
   height: min-content;
 }
@@ -142,5 +162,13 @@ export default {
 }
 .p2-score {
   grid-area: p2;
+}
+@media screen and (max-width: 770px) {
+  h3.default-view {
+    display: none;
+  }
+  h3.compact-view {
+    display: block;
+  }
 }
 </style>

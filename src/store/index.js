@@ -146,7 +146,7 @@ export default new Vuex.Store({
     },
     DEAL_TO_TABLE(state) {
       // remove a card from the deck, add it to the table, and assign its position
-      for (let i = 0; i < 15; i++) {
+      for (let i = 0; i < 12; i++) {
         state.table.push(state.deck[state.deck.length - 1]);
         state.deck.pop();
         state.table[i].position = i + 1;
@@ -592,6 +592,50 @@ export default new Vuex.Store({
       state.gameStarted = true;
       state.gameStartTime = Date.now()
     },
+    START_P1_TURN(state) {
+      state.lastHandWasSet = null;
+      // if it isn't currently someone's turn, start player 1's turn
+      if (state.player1Turn == null) {
+        state.player1Turn = true;
+        state.player1TurnVisible = true;
+        state.tickingSound = new Audio(require("@/assets/audio/ticking.wav"));
+        state.tickingSound.volume = state.volume;
+        state.tickingSound.play();
+      }
+      // start countdown, after which END_TURN mutation is automatically triggered
+      // unless CHECK_IF_SET is run, in which case END_TURN will immediately be triggered
+      state.turnTimer = setTimeout(() => {
+        this.commit("END_TURN");
+      }, state.turnLength);
+      if (state.player1Turn != null) {
+        state.turnTimer;
+        state.turnStart = Date.now();
+      }
+      // clear botTimer
+      clearTimeout(state.botTimer);
+    },
+    START_P2_TURN(state) {
+      state.lastHandWasSet = null;
+      // if it isn't currently someone's turn, and it's not botMode, start player 2's turn
+      if (state.player1Turn == null && state.playerMode != 'bot') {
+        state.player1Turn = false;
+        state.player1TurnVisible = false;
+        state.tickingSound = new Audio(require("@/assets/audio/ticking.wav"));
+        state.tickingSound.volume = state.volume;
+        state.tickingSound.play();
+      }
+      // start countdown, after which END_TURN mutation is automatically triggered
+      // unless CHECK_IF_SET is run, in which case END_TURN will immediately be triggered
+      state.turnTimer = setTimeout(() => {
+        this.commit("END_TURN");
+      }, state.turnLength);
+      if (state.player1Turn != null) {
+        state.turnTimer;
+        state.turnStart = Date.now();
+      }
+      // clear botTimer
+      clearTimeout(state.botTimer);
+    },
     START_TURN(state, event) {
       state.lastHandWasSet = null;
       // if user hit 'a' and it isn't currently someone's turn, start player 1's turn
@@ -742,7 +786,7 @@ export default new Vuex.Store({
         case "hard": state.botInterval = 10000;
           state.turnLength = 6000;
           break;
-        case "insane": state.botInterval = 5;
+        case "insane": state.botInterval = 5000;
           state.turnLength = 4000;
           break;
       }

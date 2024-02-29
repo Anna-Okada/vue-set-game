@@ -284,16 +284,19 @@ export default {
     height: 107x;
   }
   .table-cards {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
   .table-cards.added-cards {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 @media screen and (max-width: 550px) {
   .flip-card {
     width: 70px;
     height: 93px;
+  }
+  .table-cards {
+    grid-template-columns: repeat(3, 1fr);
   }
   .table-cards.added-cards {
     grid-template-columns: repeat(3, 1fr);
@@ -303,6 +306,9 @@ export default {
   .flip-card {
     width: 60px;
     height: 80px;
+  }
+  .table-cards {
+    grid-template-columns: repeat(3, 1fr);
   }
   .table-cards.added-cards {
     grid-template-columns: repeat(3, 1fr);
