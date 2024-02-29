@@ -69,7 +69,8 @@ export default {
     grid-template-areas:
       "nav"
       "stats"
-      "table";
+      "table"
+      ".";
     gap: 2px;
     width: 100%;
     height: 100vh;
