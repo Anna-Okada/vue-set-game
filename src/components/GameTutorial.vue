@@ -439,6 +439,7 @@ export default {
   grid-template-columns: repeat(3, 1fr);
   grid-template-areas: "prev skip next";
   justify-content: center;
+  align-items: center;
   grid-area: buttons;
   margin-left: 20px;
   margin-right: 20px;
@@ -525,5 +526,42 @@ button:focus {
 h2.heading {
   border-top-right-radius: 8px;
   border-top-left-radius: 8px;
+}
+
+@media screen and (max-width: 770px) {
+  .attributes {
+    grid-template-columns: 1fr 1fr;
+    align-items: end;
+  }
+  .sub-content {
+    margin: 10px;
+  }
+  .cards {
+    justify-items: center;
+    grid-template-columns: repeat(3, 40px);
+  }
+  .card {
+    width: 35px;
+  }
+  .steps {
+    margin: 10px;
+  }
+  .step {
+    height: 8px;
+    width: 8px;
+  }
+  button {
+    font-size: 0.8em;
+  }
+  .example {
+    margin: 10px;
+    height: auto;
+  }
+  .criteria td,
+  .criteria th {
+    border: 1px solid #ddd;
+    padding: 1px;
+    font-size: 0.7em;
+  }
 }
 </style>

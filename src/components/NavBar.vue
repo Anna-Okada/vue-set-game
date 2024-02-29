@@ -47,6 +47,9 @@ export default {
 </script>
 
 <style scoped>
+.nav-container {
+  height: min-content;
+}
 ul {
   display: grid;
   justify-content: end;
@@ -72,6 +75,5 @@ li div {
 }
 li div:hover {
   color: rgb(0, 97, 254);
-  transform: scale(1.2);
 }
 </style>

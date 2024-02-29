@@ -146,7 +146,7 @@ export default new Vuex.Store({
     },
     DEAL_TO_TABLE(state) {
       // remove a card from the deck, add it to the table, and assign its position
-      for (let i = 0; i < 12; i++) {
+      for (let i = 0; i < 15; i++) {
         state.table.push(state.deck[state.deck.length - 1]);
         state.deck.pop();
         state.table[i].position = i + 1;

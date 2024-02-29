@@ -1,5 +1,5 @@
 <template>
-  <div id="twoPlayerGame" class="twoPlayer">
+  <div class="two-player">
     <nav-bar></nav-bar>
     <game-stats></game-stats>
     <game-table></game-table>
@@ -54,14 +54,14 @@ export default {
 </script>
 
 <style scoped>
-.twoPlayer {
+.two-player {
   display: grid;
   grid-template-columns: 1fr 2.5fr 1fr;
   grid-template-areas:
     "nav nav nav"
     "stats stats stats"
     "p1-found-sets table p2-found-sets";
-  gap: 7px;
+  gap: 2px;
 }
 .nav-container {
   grid-area: nav;
@@ -79,5 +79,25 @@ export default {
 .p2-found-sets-container {
   grid-area: p2-found-sets;
   grid-column: 3 / 4;
+}
+
+@media screen and (max-width: 770px) {
+  .two-player {
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content min-content auto;
+    grid-template-areas:
+      "nav"
+      "stats"
+      "table";
+    gap: 2px;
+    width: 100%;
+    height: 100vh;
+  }
+  .found-sets-container {
+    display: none;
+  }
+  .p2-found-sets-container {
+    display: none;
+  }
 }
 </style>

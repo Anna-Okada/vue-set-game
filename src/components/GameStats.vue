@@ -47,9 +47,7 @@
         </div>
         <div
           class="correct-incorrect"
-          v-if="
-            $store.state.lastHandWasSet != null
-          "
+          v-if="$store.state.lastHandWasSet != null"
         >
           <h3 v-if="$store.state.lastHandWasSet == true">
             {{ $store.state.correctMessage }}
@@ -90,6 +88,9 @@ export default {
 </script>
 
 <style scoped>
+.stats-container {
+  height: min-content;
+}
 .middle-display {
   grid-area: middle;
 }

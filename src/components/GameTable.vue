@@ -29,7 +29,10 @@
       </button>
       <button @click="revealSet">Reveal a SET</button>
     </div>
-    <div class="table-cards">
+    <div
+      class="table-cards"
+      :class="{ 'added-cards': $store.state.table.length == 15 }"
+    >
       <div
         class="card flip-card"
         v-for="card in $store.state.table"
@@ -117,11 +120,9 @@ export default {
 .add-cards-hint {
   animation: wiggle 5s infinite;
 }
-
 .add-cards-hint:hover {
   animation: none;
 }
-
 @keyframes wiggle {
   0% {
     transform: rotate(0deg);
@@ -169,7 +170,6 @@ export default {
     "buttons"
     "cards";
   align-items: center;
-  justify-content: center;
 }
 .table-buttons {
   grid-area: buttons;
@@ -181,12 +181,20 @@ export default {
 }
 .table-cards {
   grid-area: cards;
-  width: 600px;
-  height: 37em;
-  display: flex;
+  width: 100%;
+  height: 100%;
+
+  /* display: flex;
   flex-flow: column wrap;
   justify-content: space-evenly;
-  align-content: space-around;
+  align-content: space-around; */
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-items: center;
+  align-items: center;
+}
+.table-cards.added-cards {
+  grid-template-columns: repeat(5, 1fr);
 }
 .selected {
   border: solid rgba(254, 178, 0) 5px;
@@ -196,14 +204,29 @@ export default {
 }
 .flip-card {
   background-color: transparent;
-  width: 8em;
-  height: 10.5em;
+  /* width: 8em; */
+  /* height: 10.5em; */
+  /* width: 100%;
+  height: 100%; */
+
+  width: 120px;
+  height: 160px;
   perspective: 1000px;
+}
+.card {
+  /* display: flex; */
+  /* justify-content: center; */
+  box-shadow: rgba(3, 8, 20, 0.1) 0px 0.15rem 0.5rem,
+    rgba(2, 8, 20, 0.1) 0px 0.075rem 0.175rem;
+  /* width: 100px; */
+  /* height: 130px; */
+  border-radius: 4px;
+  overflow: hidden;
 }
 .flip-card-inner {
   position: relative;
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   /* text-align: center; */
   transition: transform 0.6s;
   transform-style: preserve-3d;
@@ -224,5 +247,65 @@ export default {
   background-color: rgba(254, 178, 0);
   color: white;
   transform: rotateY(180deg);
+}
+@media screen and (max-width: 1400px) {
+  .flip-card {
+    width: 120px;
+    height: 160px;
+  }
+}
+@media screen and (max-width: 1200px) {
+  .flip-card {
+    width: 100px;
+    height: 134px;
+  }
+}
+@media screen and (max-width: 1000px) {
+  .flip-card {
+    width: 80px;
+    height: 107px;
+  }
+}
+@media screen and (max-width: 850px) {
+  .flip-card {
+    width: 70px;
+    height: 93x;
+  }
+  .table-cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .table-cards.added-cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media screen and (max-width: 770px) {
+  .flip-card {
+    width: 80px;
+    height: 107x;
+  }
+  .table-cards {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .table-cards.added-cards {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+@media screen and (max-width: 550px) {
+  .flip-card {
+    width: 70px;
+    height: 93px;
+  }
+  .table-cards.added-cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media screen and (max-width: 450px) {
+  .flip-card {
+    width: 60px;
+    height: 80px;
+  }
+  .table-cards.added-cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 </style>

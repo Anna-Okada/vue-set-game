@@ -7,16 +7,28 @@
         :key="card.url"
         :src="require(`../assets/set-cards/${card.url}`)"
       /> -->
-      <img class="background-card" :src="require(`../assets/background-cards.png`)" />
-      <img class="background-card" :src="require(`../assets/background-cards.png`)" />
-      <img class="background-card" :src="require(`../assets/background-cards.png`)" />
-      <img class="background-card" :src="require(`../assets/background-cards.png`)" />
+      <img
+        class="background-card"
+        :src="require(`../assets/background-cards.png`)"
+      />
+      <img
+        class="background-card"
+        :src="require(`../assets/background-cards.png`)"
+      />
+      <img
+        class="background-card"
+        :src="require(`../assets/background-cards.png`)"
+      />
+      <img
+        class="background-card"
+        :src="require(`../assets/background-cards.png`)"
+      />
     </div>
     <div class="menu-container" v-show="modalVisible == true">
       <div class="game-options">
         <div class="player-mode menu-tab-content">
           <h2 class="heading">Let's play Set!</h2>
-          <div class="player-mode-options">
+          <div class="player-mode-options tab-sub-content">
             <div class="player-mode-option">
               <button class="menu" @click="selectSinglePlayer">Solo</button>
               <p>Enjoy a game at your leisure without timers or opponents</p>
@@ -35,88 +47,90 @@
           <h2 class="heading current-selection">
             {{ $store.state.playerMode }}
           </h2>
-          <div class="difficulty-options">
-            <div>
+          <div class="tab-sub-content">
+            <div class="difficulty-options">
+              <div>
+                <input
+                  type="radio"
+                  name="buttonGroup"
+                  value="easy"
+                  id="easy"
+                /><label for="easy" @click="selectEasy">Easy</label>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  name="buttonGroup"
+                  value="moderate"
+                  id="moderate"
+                /><label for="moderate" @click="selectModerate">Moderate</label>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  name="buttonGroup"
+                  value="hard"
+                  id="hard"
+                /><label for="hard" @click="selectHard">Hard</label>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  name="buttonGroup"
+                  value="insane"
+                  id="insane"
+                /><label for="insane" @click="selectInsane">Insane</label>
+              </div>
+            </div>
+            <div
+              class="player-names"
+              v-if="$store.state.playerMode == 'twoPlayer'"
+            >
               <input
-                type="radio"
-                name="buttonGroup"
-                value="easy"
-                id="easy"
-              /><label for="easy" @click="selectEasy">Easy</label>
-            </div>
-            <div>
+                type="text"
+                required="true"
+                placeholder="Player 1 name"
+                maxlength="12"
+                v-model="p1"
+              />
               <input
-                type="radio"
-                name="buttonGroup"
-                value="moderate"
-                id="moderate"
-              /><label for="moderate" @click="selectModerate">Moderate</label>
+                type="text"
+                required="true"
+                placeholder="Player 2 name"
+                maxlength="12"
+                v-model="p2"
+              />
             </div>
-            <div>
+            <div class="player-name" v-if="$store.state.playerMode == 'bot'">
               <input
-                type="radio"
-                name="buttonGroup"
-                value="hard"
-                id="hard"
-              /><label for="hard" @click="selectHard">Hard</label>
+                type="text"
+                required="true"
+                placeholder="Player 1 name"
+                maxlength="12"
+                v-model="p1"
+              />
             </div>
-            <div>
-              <input
-                type="radio"
-                name="buttonGroup"
-                value="insane"
-                id="insane"
-              /><label for="insane" @click="selectInsane">Insane</label>
-            </div>
-          </div>
-          <div
-            class="player-names"
-            v-if="$store.state.playerMode == 'twoPlayer'"
-          >
-            <input
-              type="text"
-              required="true"
-              placeholder="Player 1 name"
-              maxlength="12"
-              v-model="p1"
-            />
-            <input
-              type="text"
-              required="true"
-              placeholder="Player 2 name"
-              maxlength="12"
-              v-model="p2"
-            />
-          </div>
-          <div class="player-name" v-if="$store.state.playerMode == 'bot'">
-            <input
-              type="text"
-              required="true"
-              placeholder="Player 1 name"
-              maxlength="12"
-              v-model="p1"
-            />
-          </div>
-          <div class="buttons">
-            <div class="submit-button">
-              <button
-                id="submit"
-                v-if="
-                  ($store.state.playerMode == 'twoPlayer' &&
-                    this.difficulty != '' &&
-                    this.p1 != '' &&
-                    this.p2 != '') ||
-                  ($store.state.playerMode == 'bot' &&
-                    this.difficulty != '' &&
-                    this.p1 != '')
-                "
-                @click="nextPrev(1)"
-              >
-                Submit
-              </button>
-            </div>
-            <div class="back-button">
-              <button id="prevBtn" @click="nextPrev(-1)">Back</button>
+            <div class="buttons">
+              <div class="submit-button">
+                <button
+                  id="submit"
+                  v-if="
+                    ($store.state.playerMode == 'twoPlayer' &&
+                      this.difficulty != '' &&
+                      this.p1 != '' &&
+                      this.p2 != '') ||
+                    ($store.state.playerMode == 'bot' &&
+                      this.difficulty != '' &&
+                      this.p1 != '')
+                  "
+                  @click="nextPrev(1)"
+                >
+                  Submit
+                </button>
+              </div>
+              <div class="back-button">
+                <button id="prevBtn" @click="nextPrev(-1)">Back</button>
+              </div>
             </div>
           </div>
         </div>
@@ -145,15 +159,17 @@
             <div>{{ this.p1 }} vs. {{ $store.state.playerMode }}</div>
             <div>difficulty: {{ this.difficulty }}</div>
           </h2>
-          <h2 v-if="$store.state.playerMode == 'twoPlayer'">
-            {{ this.p1 }} and {{ this.p2 }}, let's play Set!
-          </h2>
-          <div class="buttons">
-            <div class="start-game-button">
-              <button class="start" @click="start">Start Game</button>
-            </div>
-            <div class="back-button">
-              <button id="prevBtn" @click="nextPrev(-1)">Back</button>
+          <div class="tab-sub-content">
+            <h2 v-if="$store.state.playerMode == 'twoPlayer'">
+              {{ this.p1 }} and {{ this.p2 }}, let's play Set!
+            </h2>
+            <div class="buttons">
+              <div class="start-game-button">
+                <button class="start" @click="start">Start Game</button>
+              </div>
+              <div class="back-button">
+                <button id="prevBtn" @click="nextPrev(-1)">Back</button>
+              </div>
             </div>
           </div>
         </div>
@@ -248,6 +264,9 @@ export default {
 </script>
 
 <style scoped>
+.tab-sub-content {
+  margin: 20px;
+}
 .submit-button,
 .start-game-button {
   flex: 0 1 auto;
@@ -258,12 +277,10 @@ export default {
 .buttons {
   display: flex;
   flex-direction: row-reverse;
-  margin: 10px 0 20px 0;
 }
 .back-button {
   flex: 0 1 auto;
   margin-right: auto;
-  margin-left: 20px;
 }
 .option {
   text-align: center;
@@ -295,14 +312,13 @@ input[type="radio"][name="buttonGroup"]:checked + label {
   display: flex;
   justify-content: center;
   gap: 20px;
-  margin: 10px 0;
 }
 .player-names,
 .player-name {
   display: flex;
   justify-content: center;
   gap: 20px;
-  margin: 10px 0;
+  margin: 20px 0;
 }
 .player-mode {
   display: grid;
@@ -311,7 +327,6 @@ input[type="radio"][name="buttonGroup"]:checked + label {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
-  margin: 20px;
 }
 .menu-tab-content {
   display: none;
@@ -335,11 +350,16 @@ input[type="radio"][name="buttonGroup"]:checked + label {
   justify-content: space-around;
   background: rgba(0, 97, 254, 0.215);
   color: rgb(0, 97, 254);
-  margin: 0 0 10px 0;
 }
 h2.heading {
   border-top-right-radius: 8px;
   border-top-left-radius: 8px;
+  padding: 10px;
+}
+h2 {
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: 20px;
 }
 p {
   margin-bottom: 0;
@@ -348,12 +368,30 @@ p {
   .menu-tab-content {
     width: 500px;
   }
-  .player-mode-options {
-    margin: 8px;
+  .tab-sub-content {
+    margin: 15px;
+  }
+  .difficulty-options {
+    gap: 15px;
+    margin: 8px 0;
+  }
+  label {
+    padding: 2px;
+    font-size: 1.2em;
+    width: 5em;
+  }
+  .player-names,
+  .player-name {
+    gap: 15px;
+    margin: 15px 0;
   }
   h2.heading {
     font-size: 1.6em;
     padding: 8px;
+  }
+  h2 {
+    font-size: 1.6em;
+    margin-bottom: 15px;
   }
   button {
     font-size: 1.2em;
@@ -367,12 +405,30 @@ p {
   .menu-tab-content {
     width: 400px;
   }
-  .player-mode-options {
-    margin: 6px;
+  .tab-sub-content {
+    margin: 10px;
+  }
+  .difficulty-options {
+    gap: 15px;
+    margin: 8px 0;
+  }
+  label {
+    padding: 2px;
+    font-size: 0.9em;
+    width: 5em;
+  }
+  .player-names,
+  .player-name {
+    gap: 10px;
+    margin: 10px 0;
   }
   h2.heading {
     font-size: 1.4em;
     padding: 6px;
+  }
+  h2 {
+    font-size: 1.4em;
+    margin-bottom: 10px;
   }
   button {
     font-size: 1em;
@@ -386,12 +442,30 @@ p {
   .menu-tab-content {
     width: 350px;
   }
-  .player-mode-options {
-    margin: 4px;
+  .tab-sub-content {
+    margin: 5px;
+  }
+  .difficulty-options {
+    gap: 12px;
+    margin: 6px 0;
+  }
+  label {
+    padding: 2px;
+    font-size: 0.9em;
+    width: 5em;
+  }
+  .player-names,
+  .player-name {
+    gap: 5px;
+    margin: 5px 0;
   }
   h2.heading {
     font-size: 1em;
     padding: 4px;
+  }
+  h2 {
+    font-size: 1em;
+    margin-bottom: 5px;
   }
   button {
     font-size: 0.8em;

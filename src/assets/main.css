@@ -5,6 +5,9 @@
   justify-content: center;
   box-shadow: rgba(3, 8, 20, 0.1) 0px 0.15rem 0.5rem, rgba(2, 8, 20, 0.1) 0px 0.075rem 0.175rem;
   width: 100px;
+
+  /* width: 90%; */
+
   border-radius: 4px;
   overflow: hidden;
 }
@@ -22,7 +25,7 @@
 /* button */
 
 button {
-  font-size: 1.5em;
+  font-size: 1.7em;
   text-transform: uppercase;
   text-align: center;
   color: rgb(254, 178, 0);
@@ -37,11 +40,29 @@ button:hover,
   color: rgb(0, 97, 254);
 }
 
+@media screen and (max-width: 1050px) {
+  button {
+    font-size: 1.2em;
+  }
+}
+
+@media screen and (max-width: 860px) {
+  button {
+    font-size: 1em;
+  }
+}
+
+@media screen and (max-width: 770px) {
+  button {
+    font-size: .8em;
+  }
+}
+
 /* text */
 
 h1 {
   color: white;
-  font-size: 36px;
+  font-size: 2.5em;
   text-transform: uppercase;
   text-align: center;
 }
@@ -79,6 +100,62 @@ p {
   text-align: center;
 }
 
+@media screen and (max-width: 1050px) {
+  h1 {
+    font-size: 2em;
+  }
+
+  h2,
+  h2.heading {
+    font-size: 1.8em;
+  }
+
+  h3,
+  h3.heading {
+    font-size: 1.5em;
+  }
+}
+
+@media screen and (max-width: 860px) {
+
+  h1 {
+    font-size: 1.5em;
+  }
+
+  h2,
+  h2.heading {
+    font-size: 1.5em;
+  }
+
+  h3,
+  h3.heading {
+    font-size: 1.2em;
+  }
+  p {
+    font-size: .9em;
+  }
+}
+
+@media screen and (max-width: 770px) {
+
+  h1 {
+    font-size: 1.2em;
+  }
+
+  h2,
+  h2.heading {
+    font-size: 1.1em;
+  }
+
+  h3,
+  h3.heading {
+    font-size: 1em;
+  }
+  p {
+    font-size: .8em;
+  }
+}
+
 /* modals */
 
 .about,
@@ -99,7 +176,8 @@ p {
   text-align: center;
 }
 
-@media screen and (max-width: 1100px) {
+@media screen and (max-width: 770px) {
+
   .about,
   .tutorial,
   .game-over,
@@ -146,9 +224,13 @@ p {
   border-radius: 10px;
 }
 
+.table-container {
+  grid-template-rows: min-content auto;
+}
+
 .found-sets-container,
 .p2-found-sets-container {
-  height: 650px;
+  height: auto;
 }
 
 .stats-container {
@@ -163,6 +245,14 @@ p {
   height: 601px;
   /* this height is calculated for a certain screen size
   how can i make it responsive to different sizes? */
+}
+
+@media screen and (max-width: 770px) {
+  .found-sets-sub-container {
+    height: 200px;
+    /* this height is calculated for a certain screen size
+    how can i make it responsive to different sizes? */
+  }
 }
 
 .found-sets {

@@ -13,10 +13,15 @@
       <main-menu v-if="$store.state.gameStarted == false"></main-menu>
       <div class="game" v-if="$store.state.gameStarted">
         <single-player
+          class="single"
           v-if="$store.state.playerMode == 'singlePlayer'"
         ></single-player>
-        <two-player v-if="$store.state.playerMode == 'twoPlayer'"></two-player>
+        <two-player
+          class="two"
+          v-if="$store.state.playerMode == 'twoPlayer'"
+        ></two-player>
         <human-versus-bot
+          class="bot"
           v-if="$store.state.playerMode == 'bot'"
         ></human-versus-bot>
       </div>
@@ -45,13 +50,21 @@ export default {
 </script>
 
 <style>
-#app {
+#app,
+.game,
+.single,
+.two,
+.bot {
   font-family: "Barlow", sans-serif;
+  height: 100%;
 }
-html,
-body {
-  margin: 0;
+html {
   height: 100%;
   overflow: hidden;
+}
+body {
+  width: 100%;
+  height: 100vh;
+  margin: 0;
 }
 </style>
