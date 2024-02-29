@@ -79,11 +79,12 @@ export default {
 @media screen and (max-width: 770px) {
   .bot {
     grid-template-columns: 1fr;
-    grid-template-rows: min-content min-content auto;
+    grid-template-rows: min-content min-content auto 15vh;
     grid-template-areas:
       "nav"
       "stats"
-      "table";
+      "table"
+      ".";
     gap: 2px;
     width: 100%;
     height: 100vh;
