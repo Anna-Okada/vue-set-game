@@ -76,4 +76,9 @@ li div {
 li div:hover {
   color: rgb(0, 97, 254);
 }
+@media screen and (max-width: 770px) {
+  ul {
+    justify-content: center;
+  }
+}
 </style>

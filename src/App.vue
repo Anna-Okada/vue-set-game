@@ -59,8 +59,8 @@ export default {
   height: 100%;
 }
 html {
-  height: 100%;
-  overflow: hidden;
+  height: 100vh;
+  /* overflow: hidden; */
 }
 body {
   width: 100%;
