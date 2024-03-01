@@ -57,6 +57,7 @@ export default {
 .two-player {
   display: grid;
   grid-template-columns: 1fr 2.5fr 1fr;
+  grid-template-rows: min-content min-content auto;
   grid-template-areas:
     "nav nav nav"
     "stats stats stats"
@@ -84,7 +85,7 @@ export default {
 @media screen and (max-width: 770px) {
   .two-player {
     grid-template-columns: 1fr;
-    grid-template-rows: min-content min-content auto 10vh;
+    grid-template-rows: min-content min-content auto 12vh;
     grid-template-areas:
       "nav"
       "stats"

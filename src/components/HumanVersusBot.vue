@@ -52,6 +52,7 @@ export default {
 .bot {
   display: grid;
   grid-template-columns: 1fr 2.5fr 1fr;
+  grid-template-rows: min-content min-content auto;
   grid-template-areas:
     "nav nav nav"
     "stats stats stats"
@@ -75,14 +76,11 @@ export default {
   grid-area: p2-found-sets;
   grid-column: 3 / 4;
 }
-.test-deck {
-  grid-area: test-deck;
-}
 
 @media screen and (max-width: 770px) {
   .bot {
     grid-template-columns: 1fr;
-    grid-template-rows: min-content min-content auto 10vh;
+    grid-template-rows: min-content min-content auto 12vh;
     grid-template-areas:
       "nav"
       "stats"

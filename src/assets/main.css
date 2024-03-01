@@ -128,6 +128,7 @@ p {
   h3.heading {
     font-size: 1.1em;
   }
+
   p {
     font-size: .9em;
   }
@@ -141,13 +142,14 @@ p {
 
   h2,
   h2.heading {
-    font-size: 1.1em;
+    font-size: 1em;
   }
 
   h3,
   h3.heading {
-    font-size: 1em;
+    font-size: .8em;
   }
+
   p {
     font-size: .8em;
   }

@@ -307,18 +307,20 @@
               In Two Player Mode, you will compete against your opponent to
               identify Sets. Player 1 initiates their turn by pressing the 'a'
               key. Player 2 initiates their turn by pressing the 'l' key. You
-              have 10 seconds to identify a Set in EASY mode, 8 seconds in
-              MODERATE mode, 6 seconds in HARD mode, and only 4 seconds in
+              can also initiate your turn by clicking your name in the stats
+              bar. You have 10 seconds to identify a Set in EASY mode, 8 seconds
+              in MODERATE mode, 6 seconds in HARD mode, and only 4 seconds in
               INSANE mode. The player with the highest Set count wins!
             </p>
             <h3>VS. Bot</h3>
             <p>
               In Vs. Bot mode, you must try and find Sets before the computer
-              does. You will initiate your turn by pressing the 'a' key. In EASY
-              mode, you will have 30 seconds to find a Set before the computer
-              finds one (if one exists in the table). You will have 20 seconds
-              in MODERATE mode, 10 seconds in HARD mode, and only 5 seconds in
-              INSANE mode! The player with the highest Set count wins!
+              does. You will initiate your turn by pressing the 'a' key or
+              clicking your name in the stats bar. In EASY mode, you will have
+              30 seconds to find a Set before the computer finds one (if one
+              exists in the table). You will have 20 seconds in MODERATE mode,
+              10 seconds in HARD mode, and only 5 seconds in INSANE mode! The
+              player with the highest Set count wins!
             </p>
           </div>
         </div>
