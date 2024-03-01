@@ -789,7 +789,7 @@ export default new Vuex.Store({
         case "hard": state.botInterval = 10000;
           state.turnLength = 6000;
           break;
-        case "insane": state.botInterval = 5;
+        case "insane": state.botInterval = 5000;
           state.turnLength = 4000;
           break;
       }
