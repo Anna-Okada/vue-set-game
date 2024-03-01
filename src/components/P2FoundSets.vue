@@ -27,4 +27,19 @@ export default {
 .card {
   width: 5rem;
 }
+@media screen and (max-width: 1400px) {
+  .card {
+    width: 4em;
+  }
+}
+@media screen and (max-width: 1050px) {
+  .card {
+    width: 3em;
+  }
+}
+@media screen and (max-width: 800px) {
+  .card {
+    width: 2em;
+  }
+}
 </style>

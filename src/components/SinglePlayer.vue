@@ -65,7 +65,7 @@ export default {
 @media screen and (max-width: 800px) {
   .single-player {
     grid-template-columns: 1fr;
-    grid-template-rows: min-content min-content auto 15vh;
+    grid-template-rows: min-content min-content auto 10vh;
     grid-template-areas:
       "nav"
       "stats"
