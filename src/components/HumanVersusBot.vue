@@ -75,6 +75,9 @@ export default {
   grid-area: p2-found-sets;
   grid-column: 3 / 4;
 }
+.test-deck {
+  grid-area: test-deck;
+}
 
 @media screen and (max-width: 770px) {
   .bot {

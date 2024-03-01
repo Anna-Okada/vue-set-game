@@ -48,4 +48,19 @@ export default {
     rgba(2, 8, 20, 0.1) 0px 0.075rem 0.175rem;
   transform: none;
 }
+@media screen and (max-width: 1400px) {
+  .card {
+    width: 4em;
+  }
+}
+@media screen and (max-width: 1050px) {
+  .card {
+    width: 3em;
+  }
+}
+@media screen and (max-width: 800px) {
+  .card {
+    width: 2em;
+  }
+}
 </style>

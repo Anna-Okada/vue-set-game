@@ -82,6 +82,575 @@ export default new Vuex.Store({
     incorrectMessage: '',
   },
   mutations: {
+    // CREATE_DECK(state) {
+    //   state.deck.push({
+    //     url: "1-blue-diamond-clear.jpeg", number: 1, color: "blue", shape: "diamond", shading: "clear", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "1-blue-diamond-shaded.jpeg", number: 1, color: "blue", shape: "diamond", shading: "shaded", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "1-blue-diamond-solid.jpeg", number: 1, color: "blue", shape: "diamond", shading: "solid", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "1-blue-oval-clear.jpeg", number: 1, color: "blue", shape: "oval", shading: "clear", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "1-blue-oval-shaded.jpeg", number: 1, color: "blue", shape: "oval", shading: "shaded", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "1-blue-oval-solid.jpeg", number: 1, color: "blue", shape: "oval", shading: "solid", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "1-blue-squiggle-clear.jpeg", number: 1, color: "blue", shape: "squiggle", shading: "clear", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "1-blue-squiggle-shaded.jpeg", number: 1, color: "blue", shape: "squiggle", shading: "shaded", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "1-blue-squiggle-solid.jpeg", number: 1, color: "blue", shape: "squiggle", shading: "solid", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "1-green-diamond-clear.jpeg", number: 1, color: "green", shape: "squiggle", shading: "clear", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "1-green-diamond-shaded.jpeg", number: 1, color: "green", shape: "squiggle", shading: "shaded", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "1-green-diamond-solid.jpeg", number: 1, color: "green", shape: "squiggle", shading: "solid", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "1-green-oval-clear.jpeg", number: 1, color: "green", shape: "oval", shading: "clear", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "1-green-oval-shaded.jpeg", number: 1, color: "green", shape: "oval", shading: "shaded", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "1-green-oval-solid.jpeg", number: 1, color: "green", shape: "oval", shading: "solid", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "1-green-squiggle-clear.jpeg", number: 1, color: "green", shape: "squiggle", shading: "clear", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "1-green-squiggle-shaded.jpeg", number: 1, color: "green", shape: "squiggle", shading: "shaded", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "1-green-squiggle-solid.jpeg", number: 1, color: "green", shape: "squiggle", shading: "solid", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "1-red-diamond-clear.jpeg", number: 1, color: "red", shape: "diamond", shading: "clear", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "1-red-diamond-shaded.jpeg", number: 1, color: "red", shape: "diamond", shading: "shaded", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "1-red-diamond-solid.jpeg", number: 1, color: "red", shape: "diamond", shading: "solid", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "1-red-oval-clear.jpeg", number: 1, color: "red", shape: "oval", shading: "clear", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "1-red-oval-shaded.jpeg", number: 1, color: "red", shape: "oval", shading: "shaded", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "1-red-oval-solid.jpeg", number: 1, color: "red", shape: "oval", shading: "solid", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "1-red-squiggle-clear.jpeg", number: 1, color: "red", shape: "squiggle", shading: "clear", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "1-red-squiggle-shaded.jpeg", number: 1, color: "red", shape: "squiggle", shading: "shaded", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "1-red-squiggle-solid.jpeg", number: 1, color: "red", shape: "squiggle", shading: "solid", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "2-blue-diamond-clear.jpeg", number: 2, color: "blue", shape: "diamond", shading: "clear", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "2-blue-diamond-shaded.jpeg", number: 2, color: "blue", shape: "diamond", shading: "shaded", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "2-blue-diamond-solid.jpeg", number: 2, color: "blue", shape: "diamond", shading: "solid", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "2-blue-oval-clear.jpeg", number: 2, color: "blue", shape: "oval", shading: "clear", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "2-blue-oval-shaded.jpeg", number: 2, color: "blue", shape: "oval", shading: "shaded", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "2-blue-oval-solid.jpeg", number: 2, color: "blue", shape: "oval", shading: "solid", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "2-blue-squiggle-clear.jpeg", number: 2, color: "blue", shape: "squiggle", shading: "clear", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "2-blue-squiggle-shaded.jpeg", number: 2, color: "blue", shape: "squiggle", shading: "shaded", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "2-blue-squiggle-solid.jpeg", number: 2, color: "blue", shape: "squiggle", shading: "solid", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "2-green-diamond-clear.jpeg", number: 2, color: "green", shape: "diamond", shading: "clear", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "2-green-diamond-shaded.jpeg", number: 2, color: "green", shape: "diamond", shading: "shaded", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "2-green-diamond-solid.jpeg", number: 2, color: "green", shape: "diamond", shading: "solid", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "2-green-oval-clear.jpeg", number: 2, color: "green", shape: "oval", shading: "clear", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "2-green-oval-shaded.jpeg", number: 2, color: "green", shape: "oval", shading: "shaded", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "2-green-oval-solid.jpeg", number: 2, color: "green", shape: "oval", shading: "solid", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "2-green-squiggle-clear.jpeg", number: 2, color: "green", shape: "squiggle", shading: "clear", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "2-green-squiggle-shaded.jpeg", number: 2, color: "green", shape: "squiggle", shading: "shaded", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "2-green-squiggle-solid.jpeg", number: 2, color: "green", shape: "squiggle", shading: "solid", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "2-red-diamond-clear.jpeg", number: 2, color: "red", shape: "diamond", shading: "clear", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "2-red-diamond-shaded.jpeg", number: 2, color: "red", shape: "diamond", shading: "shaded", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "2-red-diamond-solid.jpeg", number: 2, color: "red", shape: "diamond", shading: "solid", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "2-red-oval-clear.jpeg", number: 2, color: "red", shape: "oval", shading: "clear", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "2-red-oval-shaded.jpeg", number: 2, color: "red", shape: "oval", shading: "shaded", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "2-red-oval-solid.jpeg", number: 2, color: "red", shape: "oval", shading: "solid", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "2-red-squiggle-clear.jpeg", number: 2, color: "red", shape: "oval", shading: "clear", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "2-red-squiggle-shaded.jpeg", number: 2, color: "red", shape: "oval", shading: "shaded", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "2-red-squiggle-solid.jpeg", number: 2, color: "red", shape: "oval", shading: "solid", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "3-blue-diamond-clear.jpeg", number: 3, color: "blue", shape: "diamond", shading: "clear", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "3-blue-diamond-shaded.jpeg", number: 3, color: "blue", shape: "diamond", shading: "shaded", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "3-blue-diamond-solid.jpeg", number: 3, color: "blue", shape: "diamond", shading: "solid", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "3-blue-oval-clear.jpeg", number: 3, color: "blue", shape: "oval", shading: "clear", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "3-blue-oval-shaded.jpeg", number: 3, color: "blue", shape: "oval", shading: "shaded", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "3-blue-oval-solid.jpeg", number: 3, color: "blue", shape: "oval", shading: "solid", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "3-blue-squiggle-clear.jpeg", number: 3, color: "blue", shape: "squiggle", shading: "clear", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "3-blue-squiggle-shaded.jpeg", number: 3, color: "blue", shape: "squiggle", shading: "shaded", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "3-blue-squiggle-solid.jpeg", number: 3, color: "blue", shape: "squiggle", shading: "solid", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "3-green-diamond-clear.jpeg", number: 3, color: "green", shape: "diamond", shading: "clear", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "3-green-diamond-shaded.jpeg", number: 3, color: "green", shape: "diamond", shading: "shaded", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "3-green-diamond-solid.jpeg", number: 3, color: "green", shape: "diamond", shading: "solid", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "3-green-oval-clear.jpeg", number: 3, color: "green", shape: "oval", shading: "clear", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "3-green-oval-shaded.jpeg", number: 3, color: "green", shape: "oval", shading: "shaded", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "3-green-oval-solid.jpeg", number: 3, color: "green", shape: "oval", shading: "solid", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "3-green-squiggle-clear.jpeg", number: 3, color: "green", shape: "squiggle", shading: "clear", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "3-green-squiggle-shaded.jpeg", number: 3, color: "green", shape: "squiggle", shading: "shaded", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "3-green-squiggle-solid.jpeg", number: 3, color: "green", shape: "squiggle", shading: "solid", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "3-red-diamond-clear.jpeg", number: 3, color: "red", shape: "diamond", shading: "clear", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "3-red-diamond-shaded.jpeg", number: 3, color: "red", shape: "diamond", shading: "shaded", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "3-red-diamond-solid.jpeg", number: 3, color: "red", shape: "diamond", shading: "solid", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "3-red-oval-clear.jpeg", number: 3, color: "red", shape: "oval", shading: "clear", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "3-red-oval-shaded.jpeg", number: 3, color: "red", shape: "oval", shading: "shaded", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "3-red-oval-solid.jpeg", number: 3, color: "red", shape: "oval", shading: "solid", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "3-red-squiggle-clear.jpeg", number: 3, color: "red", shape: "squiggle", shading: "clear", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "3-red-squiggle-shaded.jpeg", number: 3, color: "red", shape: "squiggle", shading: "shaded", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    //   state.deck.push({
+    //     url: "3-red-squiggle-solid.jpeg", number: 3, color: "red", shape: "squiggle", shading: "solid", position: -1,
+    //     selected: false,
+    //     matched: false,
+    //     revealed: false,
+    //     foundWithHint: false,
+    //   })
+    // },
     CREATE_DECK(state) {
       var card = {};
       for (let i = 1; i < 4; i++) {
@@ -137,7 +706,7 @@ export default new Vuex.Store({
                 selected: false,
                 matched: false,
                 revealed: false,
-                foundWithHint: false, // testing
+                foundWithHint: false,
               });
             }
           }
@@ -332,6 +901,9 @@ export default new Vuex.Store({
       state.isSet = false;
     },
     REFRESH_TABLE(state) {
+      // set highlightAdd3Cards to false every time table is refreshed
+      state.highlightAdd3Cards = false;
+
       // all possible scenarios:
       // deck empty and table <= 12: remove without replacing
       // deck empty and table > 12: remove without replacing
@@ -475,10 +1047,9 @@ export default new Vuex.Store({
         state.addCardsSound = new Audio(require("@/assets/audio/shuffle.wav"));
         state.addCardsSound.volume = state.volume;
         state.addCardsSound.play();
+        // add three cards to the table and remove them from the deck
         for (let i = 0; i < 3; i++) {
-          // add three cards to the table
-          state.table.push(state.deck[state.deck.length - (i + 1)])
-          // remove them from the deck
+          state.table.push(state.deck[state.deck.length - 1])
           state.deck.pop();
         }
         // reassign all the table positions (really only need to update the last 3 but it's okay)
@@ -786,7 +1357,7 @@ export default new Vuex.Store({
         case "hard": state.botInterval = 10000;
           state.turnLength = 6000;
           break;
-        case "insane": state.botInterval = 5000;
+        case "insane": state.botInterval = 5;
           state.turnLength = 4000;
           break;
       }

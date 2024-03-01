@@ -62,7 +62,7 @@ export default {
 .found-sets-container {
   grid-area: found-sets;
 }
-@media screen and (max-width: 770px) {
+@media screen and (max-width: 800px) {
   .single-player {
     grid-template-columns: 1fr;
     grid-template-rows: min-content min-content auto 15vh;

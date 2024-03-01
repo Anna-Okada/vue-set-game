@@ -269,7 +269,7 @@ export default {
 @media screen and (max-width: 850px) {
   .flip-card {
     width: 70px;
-    height: 93x;
+    height: 93px;
   }
   .table-cards {
     grid-template-columns: repeat(3, 1fr);

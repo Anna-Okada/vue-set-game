@@ -535,6 +535,8 @@ h2.heading {
   }
   .sub-content {
     margin: 10px;
+    height: 40vh;
+    overflow: scroll;
   }
   .cards {
     justify-items: center;
