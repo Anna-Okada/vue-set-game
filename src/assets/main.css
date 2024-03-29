@@ -242,15 +242,11 @@ p {
   overflow-y: scroll;
   scrollbar-width: none;
   height: 601px;
-  /* this height is calculated for a certain screen size
-  how can i make it responsive to different sizes? */
 }
 
 @media screen and (max-width: 770px) {
   .found-sets-sub-container {
     height: 200px;
-    /* this height is calculated for a certain screen size
-    how can i make it responsive to different sizes? */
   }
 }
 

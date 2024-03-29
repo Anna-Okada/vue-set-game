@@ -1,4 +1,6 @@
-# vue-set2
+# Set
+
+Set is a card game designed by Marsha Falco in 1974 and published by Set Enterprises in 1991. I take no credit for the conception of the game itself. However, I thought it would be a fun challenge to create a coded version of it in multiple languages, so I made one in Vue and [another version](https://github.com/Anna-Okada/set) using pure Java. Check out my [front end version](https://jocular-praline-bd2d89.netlify.app) on Netlify!
 
 ## Project setup
 ```
