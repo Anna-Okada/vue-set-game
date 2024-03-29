@@ -39,7 +39,6 @@ export default {
   },
   mounted() {
     this.$store.commit("START_BOT_TIMER");
-    // *** WHY DOES THIS WORK? ***
     let self = this;
     window.addEventListener("keyup", function (event) {
       self.keyUpToStartTurn(event);
